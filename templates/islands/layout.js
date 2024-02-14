@@ -45,7 +45,7 @@ const Layout = () => {
                                 src={imageUrl}
                                 alt=''
                                 className='island'
-                                // onClick={() => setCurrentIsland(islandsData[index])}
+                                onClick={() => setCurrentIsland(islandsData[index])}
                             />
                             <p className='title'>{name}</p>
                         </div>
