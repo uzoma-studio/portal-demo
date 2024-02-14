@@ -3,6 +3,7 @@
 import React, { useState } from 'react'
 import './style.scss'
 import Page from './page'
+import Draggable from 'react-draggable'
 
 import islandsData from '../../data/data.json'
 
@@ -31,22 +32,24 @@ const Layout = () => {
             {
                 islandsData.map(({ name, imageUrl }, index) => {
                     const islandCoords = getIslandPosition(index)
-                    return <div
-                        className='island-container'
-                        style={{
-                            left: `${islandCoords.x}%`,
-                            top: `${islandCoords.y}%`
-                        }}
-                    >
-                        <img
-                            key={name}
-                            src={imageUrl}
-                            alt=''
-                            className='island'
-                            onClick={() => setCurrentIsland(islandsData[index])}
-                        />
-                        <p className='title'>{name}</p>
-                    </div>
+                    return <Draggable>
+                        <div
+                            className='island-container'
+                            style={{
+                                left: `${islandCoords.x}%`,
+                                top: `${islandCoords.y}%`
+                            }}
+                        >
+                            <img
+                                key={name}
+                                src={imageUrl}
+                                alt=''
+                                className='island'
+                                // onClick={() => setCurrentIsland(islandsData[index])}
+                            />
+                            <p className='title'>{name}</p>
+                        </div>
+                    </Draggable>
                 })
             }
 
