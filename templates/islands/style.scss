@@ -1,37 +1,43 @@
+:root {
+    --background: #2980b9;
+    --text-color: #222;
+    --header-font-family: Helvetica, Arial, sans-serif;
+    --body-font-family: 'Courier New', Courier, monospace;
+}
+
 h1, h2, h3, h4, h5, h6 {
-    font-family: Helvetica, Arial, sans-serif;
-    color: #222;
+    font-family: var(--header-font-family);
+    color: (var(--text-color));
 }
 
 p {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: var(--body-font-family)
 }
 
 body {
-    background: #2980b9;
-}
-
-.island {
-    min-width: 100px;
-    min-height: 100px;
-    background-repeat: no-repeat;
-    position: absolute;
-    cursor: pointer;
+    background: var(--background)
 }
 
 .island-container {
     position: absolute;
     width: 50%; //is this necessary?
-}
 
-.island-container .title {
-    position: relative;
-    z-index: 99;
-    transform: translate(25%);
-}
+    .island {
+        min-width: 100px;
+        min-height: 100px;
+        background-repeat: no-repeat;
+        position: absolute;
+        cursor: pointer;
+    }
 
-.island:hover {
-    filter: brightness(0.9);
+    &:hover {
+        filter: brightness(0.9);
+    }
+
+    .title {
+        position: relative;
+        z-index: 99;
+    }
 }
 
 .single-island-overlay {
@@ -49,19 +55,29 @@ body {
     z-index: 999;
     overflow-y: scroll;
     overflow-x: hidden;
-}
 
-.single-island-overlay img {
-    width: 15%;
-}
+    img {
+        width: 15%
+    }
 
-.single-island-overlay h1 {
-    margin: 30px 0;
-}
+    h1 {
+        margin: 30px 0;
+    }
 
-.single-island-overlay iframe {
-    margin-top: 50px;
-    border: 0;
-    width: 60%;
-    height: 1000px;
+    iframe {
+        margin-top: 50px;
+        border: 0;
+        width: 60%;
+        height: 1000px;
+    }
+
+    .close-btn {
+        font-size: 32px;
+        cursor: pointer;
+        color: red;
+        position: absolute;
+        right: 50px;
+        margin: 0;
+        font-weight: bold;
+    }
 }

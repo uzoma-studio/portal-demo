@@ -4,18 +4,11 @@ import './style.scss'
 const Page = ({ currentIsland, setCurrentIsland }) => {
 
     console.log(currentIsland)
-    
+
     return (
         <div className='single-island-overlay'>
             <h6
-                style={{
-                    fontSize: '32px',
-                    cursor: 'pointer',
-                    color: 'red',
-                    position: 'absolute',
-                    right: '50px',
-                    margin: '0'
-                }}
+                className='close-btn'
                 onClick={() => setCurrentIsland(null)}
             >x</h6>
             <img
