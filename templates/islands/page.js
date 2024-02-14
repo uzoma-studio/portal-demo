@@ -3,8 +3,6 @@ import './style.scss'
 
 const Page = ({ currentIsland, setCurrentIsland }) => {
 
-    console.log(currentIsland)
-
     return (
         <div className='single-island-overlay'>
             <h6
