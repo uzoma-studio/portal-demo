@@ -28,13 +28,13 @@ const Layout = () => {
     return (
         <div className='container'>
             {
-                data.map(({ name, contentUrl }, index) => {
+                data.map(({ name, participant, contentUrl }, index) => {
                     const coords = getPosition(index)
                     return <Draggable>
                         <Page 
                             coords={coords} 
                             content={contentUrl}
-                            title={name} 
+                            metadata={{name, participant}}
                         />
                     </Draggable>
                 })

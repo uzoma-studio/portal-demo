@@ -4,7 +4,7 @@ import React, { useRef }  from 'react'
 import './style.scss'
 import Draggable from 'react-draggable'
 
-const Page = ({ coords, content, title }) => {
+const Page = ({ coords, content, metadata }) => {
 
     const windowRef = useRef(null)
 
@@ -33,12 +33,13 @@ const Page = ({ coords, content, title }) => {
             >
                 <div className='status-bar'>
                     <h6>{` `}</h6>
-                    <h6 className='title'>{title}</h6>
+                    <h6 className='title'>{metadata.participant}</h6>
                     <h6
                         className='close-btn'
                     >x</h6>
                 </div>
                 <div className='content'>
+                    <h5>{metadata.name}</h5>
                     <iframe
                         src={`${content}/pub?embedded=true`}
                     />
