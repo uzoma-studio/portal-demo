@@ -5,13 +5,15 @@ import React, { useEffect, useState } from 'react'
 // Import various templates
 import Islands from '../../templates/islands/layout'
 import Windows from '../../templates/windows/layout'
+import Planets from '../../templates/planets/layout'
 
 const Home = () => {
 
   // Index templates
   const templates = {
     islands: <Islands />,
-    windows: <Windows />
+    windows: <Windows />,
+    planets: <Planets />
   }
 
   const defaultTemplate = templates.islands

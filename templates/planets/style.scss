@@ -1,0 +1,47 @@
+$base-dimension: 15em;
+
+.galaxy {
+    background: url('../../public/assets/planets/universe.jpeg');
+    height: 100vh;
+    width: 100vw;
+
+    .planets {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        height: 100vh;
+        transform-style: preserve-3d;
+
+        .orbit {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: rotateX(60deg);
+            animation-name: orbit;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+            transform-style: preserve-3d;
+
+            .planet {
+                width: 5rem;
+                height: 5rem;
+                border-radius: 50%;
+                background-color: white;
+                margin-top: 2.5rem;
+            }
+        }
+
+        // TODO: resolve hard-coded value
+        @for $i from 1 through 7 {
+            $dimensions: $base-dimension + ($i - 1) * $base-dimension;
+            #orbit-#{$i} {
+              width: $dimensions;
+              height: $dimensions;
+              margin-top: -$dimensions/2;
+              margin-left: -$dimensions/2;
+            }
+        }
+    }
+}
