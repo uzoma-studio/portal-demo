@@ -1,28 +1,23 @@
-:root {
-    --background: #0018f9;
-    --text-color: #222;
-    --header-font-family: Helvetica, Arial, sans-serif;
-    --body-font-family: 'Courier New', Courier, monospace;
-    --default-border-color: grey;
-    --border-size: 4px;
-}
-
-body {
-    background: var(--background);
-}
+$background: #0018f9;
+$text-color: #222;
+$header-font-family: Helvetica, Arial, sans-serif;
+$body-font-family: 'Courier New', Courier, monospace;
+$default-border-color: grey;
+$border-size: 4px;
 
 h1, h2, h3, h4, h5, h6, p, a {
-    font-family: var(--body-font-family);
+    font-family: $body-font-family;
 }
 
-.container {
+.windows-container {
     height: 100vh;
+    background: $background;
 }
 
 .window {
-    border-color: var(--default-border-color);
+    border-color: $default-border-color;
     border-style: ridge;
-    border-width: var(--border-size);
+    border-width: $border-size;
     box-shadow: 4px 4px 10px 0 rgba(0,0,0,.5);
 
     position: absolute;
@@ -48,7 +43,7 @@ h1, h2, h3, h4, h5, h6, p, a {
 
         .close-btn {
             color: red;
-            font-family: var(--header-font-family);
+            font-family: $header-font-family;
             font-weight: bold;
         }
     }

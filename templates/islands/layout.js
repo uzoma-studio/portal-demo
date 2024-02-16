@@ -28,7 +28,7 @@ const Layout = () => {
     }
 
     return (
-        <div className='container'>
+        <div className='islands-container'>
             {
                 islandsData.map(({ name, imageUrl }, index) => {
                     const islandCoords = getIslandPosition(index)

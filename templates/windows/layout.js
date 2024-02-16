@@ -26,7 +26,7 @@ const Layout = () => {
     }
 
     return (
-        <div className='container'>
+        <div className='windows-container'>
             {
                 data.map(({ name, participant, contentUrl }, index) => {
                     const coords = getPosition(index)

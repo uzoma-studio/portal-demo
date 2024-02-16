@@ -1,8 +1,12 @@
+'use client'
+
+import React, { useEffect, useState } from 'react'
+
 // Import various templates
 import Islands from '../../templates/islands/layout'
 import Windows from '../../templates/windows/layout'
 
-export default function Home() {
+const Home = () => {
 
   // Index templates
   const templates = {
@@ -10,7 +14,24 @@ export default function Home() {
     windows: <Windows />
   }
 
-  const activeTemplate = templates.windows
+  const defaultTemplate = templates.islands
+  const [ activeTemplate, setActiveTemplate ] = useState(defaultTemplate)
+
+  useEffect(() => {
+    if(window && window.location.search !== '') {
+      const url = new URL(window.location.href)
+      const templateParam = url.searchParams.get('template');
+
+      if(templates[templateParam]){
+        setActiveTemplate(templates[templateParam])
+      } else {
+        setActiveTemplate(defaultTemplate)
+      }
+    }
+
+    return () => {}
+  }, [])
+  
 
   return (
     <div>
@@ -18,3 +39,5 @@ export default function Home() {
     </div>
   );
 }
+
+export default Home

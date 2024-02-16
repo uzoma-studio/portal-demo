@@ -2,7 +2,7 @@ import "./globals.css";
 
 export const metadata = {
   title: "Portal",
-  description: "Windows into projects/practices",
+  description: "Windows into practices & projects",
 };
 
 export default function RootLayout({ children }) {
