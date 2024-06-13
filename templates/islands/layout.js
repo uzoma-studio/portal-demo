@@ -1,67 +1,18 @@
-'use client'
-
-import React, { useState } from 'react'
+import React from 'react'
 import './style.scss'
-import Page from './page'
-import Draggable from 'react-draggable'
 
-import islandsData from '../../data/data.json'
+// this can actually be safely turned into a client component bc the data fetching has already been done?
 
-const Layout = () => {
+const Layout = ({ pages }) => {
 
-    const [currentIsland, setCurrentIsland] = useState(null)
-
-    // TODO: Implement non-hardcoded solution
-    const coords = [
-        { x: 5, y: 10 },
-        { x: 90, y: 15 },
-        { x: 30, y: 75 },
-        { x: 60, y: 150 },
-        { x: 120, y: 85 },
-        { x: 150, y: 225 },
-        { x: 20, y: 225 },
-    ]
-
-    // return an x and y coordinate for islands
-    const getIslandPosition = (id) => {
-        return coords[id]
-    }
+    const islands = pages.data
 
     return (
         <div className='islands-container'>
-            {
-                islandsData.map(({ name, imageUrl }, index) => {
-                    const islandCoords = getIslandPosition(index)
-                    return <Draggable>
-                        <div
-                            className='island-container'
-                            style={{
-                                left: `${islandCoords.x}%`,
-                                top: `${islandCoords.y}%`
-                            }}
-                        >
-                            <img
-                                key={name}
-                                src={imageUrl}
-                                alt=''
-                                className='island'
-                                onClick={() => setCurrentIsland(islandsData[index])}
-                            />
-                            <p className='title'>{name}</p>
-                        </div>
-                    </Draggable>
-                })
-            }
-
-            {
-                currentIsland &&
-                    <Page 
-                        currentIsland={currentIsland} 
-                        setCurrentIsland={setCurrentIsland}
-                    />
-            }
+            {islands.map((island) => <p>{island.attributes.Title}</p>)}
         </div>
     )
 }
 
 export default Layout
+

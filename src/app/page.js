@@ -1,43 +1,17 @@
-'use client'
+import React from 'react'
 
-import React, { useEffect, useState } from 'react'
+import { getData } from '../../data/fetchContent'
+import ActiveTemplate from './components/activeTemplate'
 
-// Import various templates
-import Islands from '../../templates/islands/layout'
-import Windows from '../../templates/windows/layout'
-import Planets from '../../templates/planets/layout'
+const Home = async () => {
 
-const Home = () => {
-
-  // Index templates
-  const templates = {
-    islands: <Islands />,
-    windows: <Windows />,
-    planets: <Planets />
-  }
-
-  const defaultTemplate = templates.islands
-  const [ activeTemplate, setActiveTemplate ] = useState(defaultTemplate)
-
-  useEffect(() => {
-    if(window && window.location.search !== '') {
-      const url = new URL(window.location.href)
-      const templateParam = url.searchParams.get('template');
-
-      if(templates[templateParam]){
-        setActiveTemplate(templates[templateParam])
-      } else {
-        setActiveTemplate(defaultTemplate)
-      }
-    }
-
-    return () => {}
-  }, [])
+  // Retrieve data from the server at build time
+  const pages = await getData('pages')
   
-
+  // This is a server component which uses a client comp for state mgt and interactivity:
   return (
     <div>
-      {activeTemplate}
+      <ActiveTemplate pages={pages} />
     </div>
   );
 }
