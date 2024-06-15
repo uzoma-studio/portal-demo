@@ -1,4 +1,3 @@
-$background: #2980b9;
 $text-color: #222;
 $header-font-family: Helvetica, Arial, sans-serif;
 $body-font-family: 'Courier New', Courier, monospace;
@@ -12,29 +11,34 @@ p {
     font-family: $body-font-family;
 }
 
-body {
-    background: $background;
-}
-
-.island-container {
+.islands-container {
     position: absolute;
-    width: 50%; //is this necessary?
+    min-width: 100vw;
+    min-height: 100vh;
+    overflow: auto;
 
-    .island {
-        min-width: 100px;
-        min-height: 100px;
-        background-repeat: no-repeat;
+    .single-island-container {
+
         position: absolute;
-        cursor: pointer;
-    }
+        width: 50%;
 
-    &:hover {
-        filter: brightness(0.9);
-    }
+        .island {
+            min-width: 100px;
+            min-height: 100px;
+            background-repeat: no-repeat;
+            position: absolute;
+            cursor: pointer;
+        }
+    
+        &:hover {
+            filter: brightness(0.9);
+        }
+    
+        .title {
+            position: relative;
+            z-index: 99;
+        }
 
-    .title {
-        position: relative;
-        z-index: 99;
     }
 }
 

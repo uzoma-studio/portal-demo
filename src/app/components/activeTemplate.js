@@ -37,9 +37,9 @@ const ActiveTemplate = ({ pages }) => {
   
 
   return (
-    <div>
+    <>
       {activeTemplate}
-    </div>
+    </>
   );
 }
 
