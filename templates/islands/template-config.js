@@ -1,8 +1,18 @@
+/**
+ * Template config file. Use to set styling and details for site templates
+ * 
+ * @type {Object} style - for setting style attributes for template files
+ * @type {Array} pageConfig - for mapping template designs to site pages
+ */
+
 const config = {
-    backgroundColor: '#2980b9',
-    bodyTextColor: '#222',
-    headerFont: 'Helvetica',
-    bodyFont: 'Courier New',
+    style: {
+        backgroundColor: '#2980b9',
+        bodyTextColor: '#fff',
+        headerFont: 'Helvetica',
+        headerFontColor: '#222',
+        bodyFont: 'Courier New',
+    },
     pageConfig: [
         {
             id: 1, 

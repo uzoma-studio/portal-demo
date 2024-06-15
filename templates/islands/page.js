@@ -1,7 +1,7 @@
 import React from 'react'
 import './style.scss'
 
-const Page = ({ currentIsland, setCurrentIsland }) => {
+const Page = ({ currentIsland, setCurrentIsland, style }) => {
 
     return (
         <div className='single-island-overlay'>
@@ -9,15 +9,15 @@ const Page = ({ currentIsland, setCurrentIsland }) => {
                 className='close-btn'
                 onClick={() => setCurrentIsland(null)}
             >x</h6>
-            <img
+            {/* <img
                 src={currentIsland.imageUrl}
                 alt=''
-            />
-            <h1>{currentIsland.name}</h1>
-            <p>By {currentIsland.participant}</p>
-            <iframe
-                src={`${currentIsland.contentUrl}/pub?embedded=true`}
-            />
+            /> */}
+            <h1 style={
+                {color: style.headerFontColor, fontFamily: style.headerFont}
+            }>
+                {currentIsland.attributes.Title}
+            </h1>
         </div>
     )
 }

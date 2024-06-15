@@ -1,6 +1,10 @@
-import React from 'react'
+'use client'
+
+import React, { useState } from 'react'
 import './style.scss'
 import { config } from './template-config'
+
+import Page from './page'
 
 // this can actually be safely turned into a client component bc the data fetching has already been done?
 
@@ -8,6 +12,17 @@ const Layout = ({ pages }) => {
 
     const islands = pages.data
 
+    const [currentIsland, setCurrentIsland] = useState(null)
+    
+    // General theme styling, gotten from template config file
+    const { style } = config
+    const themeStyles = {
+        background: style.backgroundColor,
+        color: style.bodyTextColor,
+    }
+
+    // TODO: Write a javascript function that maps style attributes in template config file to css class names
+    
     /**
      * Get the correct island image for the page from pageConfig in the template config file
      * @param {String} pageId  - the id of the page
@@ -19,10 +34,10 @@ const Layout = ({ pages }) => {
 
     return (
         <div className='islands-container'
-            style={{ background: config.backgroundColor }}
+            style={themeStyles}
         >
             {
-                islands.map((island) => {
+                islands.map((island, index) => {
 
                     const pageImage = findImageByPage(island.id)
 
@@ -38,11 +53,19 @@ const Layout = ({ pages }) => {
                             src={pageImage.url}
                             alt=''
                             className='island'
-                        // onClick={() => setCurrentIsland(islandsData[index])}
+                        onClick={() => setCurrentIsland(islands[index])}
                         />
                         <p className='title'>{island.attributes.Title}</p>
                     </div>
                 })
+            }
+            {
+                currentIsland &&
+                    <Page 
+                        currentIsland={currentIsland} 
+                        setCurrentIsland={setCurrentIsland}
+                        style={style}
+                    />
             }
         </div>
     )
