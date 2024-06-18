@@ -1,25 +1,15 @@
 'use client'
 
 import React, { useState } from 'react'
-import './style.scss'
-import { config } from './template-config'
-
 import Page from './page'
-
-// this can actually be safely turned into a client component bc the data fetching has already been done?
+import { StyledContainer, StyledSingleIslandContainer } from './styles';
+import { config } from './template-config';
 
 const Layout = ({ pages }) => {
 
     const islands = pages.data
 
     const [currentIsland, setCurrentIsland] = useState(null)
-    
-    // General theme styling, gotten from template config file
-    const { style } = config
-    const themeStyles = {
-        background: style.backgroundColor,
-        color: style.bodyTextColor,
-    }
 
     // TODO: Write a javascript function that maps style attributes in template config file to css class names
     
@@ -33,30 +23,25 @@ const Layout = ({ pages }) => {
     }
 
     return (
-        <div className='islands-container'
-            style={themeStyles}
-        >
+        <StyledContainer>
             {
                 islands.map((island, index) => {
 
                     const pageImage = findImageByPage(island.id)
 
-                    return <div
-                        className='single-island-container'
-                        style={{
-                            left: `${pageImage.position.x}%`,
-                            top: `${pageImage.position.y}%`
-                        }}
-                    >
-                        <img
-                            key={island.id}
-                            src={pageImage.url}
-                            alt=''
-                            className='island'
-                        onClick={() => setCurrentIsland(islands[index])}
-                        />
-                        <p className='title'>{island.attributes.Title}</p>
-                    </div>
+                    // TODO: Make each Island a re-usable component that can be used across templates if so desired
+                    return <StyledSingleIslandContainer
+                                $image={pageImage}
+                                key={island.id}
+                            >
+                                <img
+                                    key={island.id}
+                                    src={pageImage.url}
+                                    alt=''
+                                    onClick={() => setCurrentIsland(islands[index])}
+                                />
+                                <p>{island.attributes.Title}</p>
+                            </StyledSingleIslandContainer>
                 })
             }
             {
@@ -64,10 +49,9 @@ const Layout = ({ pages }) => {
                     <Page 
                         currentIsland={currentIsland} 
                         setCurrentIsland={setCurrentIsland}
-                        style={style}
                     />
             }
-        </div>
+        </StyledContainer>
     )
 }
 

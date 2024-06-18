@@ -1,24 +1,24 @@
 import React from 'react'
-import './style.scss'
+import { BlocksRenderer } from '@strapi/blocks-react-renderer'
+import { StyledPageOverlay } from './styles';
 
-const Page = ({ currentIsland, setCurrentIsland, style }) => {
+
+
+const Page = ({ currentIsland, setCurrentIsland }) => {
 
     return (
-        <div className='single-island-overlay'>
+        <StyledPageOverlay>
             <h6
                 className='close-btn'
                 onClick={() => setCurrentIsland(null)}
             >x</h6>
-            {/* <img
-                src={currentIsland.imageUrl}
-                alt=''
-            /> */}
-            <h1 style={
-                {color: style.headerFontColor, fontFamily: style.headerFont}
-            }>
+            <h1>
                 {currentIsland.attributes.Title}
             </h1>
-        </div>
+            <div className='content'>
+                <BlocksRenderer content={currentIsland.attributes.Body} />
+            </div>
+        </StyledPageOverlay>
     )
 }
 
