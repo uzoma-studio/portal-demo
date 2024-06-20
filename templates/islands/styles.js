@@ -12,30 +12,6 @@ export const StyledContainer = styled.div`
     overflow: auto;
 `
 
-export const StyledSingleIslandContainer = styled.div`
-    position: absolute;
-    width: 50%;
-    left: ${props => `${props.$image.position.x}%`};
-    top: ${props => `${props.$image.position.y}%`};
-
-    &:hover {
-        filter: brightness(0.9);
-    };
-
-    img {
-        min-width: 100px;
-        min-height: 100px;
-        background-repeat: no-repeat;
-        position: absolute;
-        cursor: pointer;
-    }
-
-    p {
-        position: relative;
-        z-index: 99;
-    }
-`
-
 export const StyledPageOverlay = styled.div`
     position: fixed;
     top: 0;

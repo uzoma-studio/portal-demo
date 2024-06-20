@@ -2,16 +2,15 @@
 
 import React, { useState } from 'react'
 import Page from './page'
-import { StyledContainer, StyledSingleIslandContainer } from './styles';
+import { StyledContainer } from './styles';
 import { config } from './template-config';
+import Island from './components/island';
 
 const Layout = ({ pages }) => {
 
-    const islands = pages.data
+    const data = pages.data
 
     const [currentIsland, setCurrentIsland] = useState(null)
-
-    // TODO: Write a javascript function that maps style attributes in template config file to css class names
     
     /**
      * Get the correct island image for the page from pageConfig in the template config file
@@ -25,23 +24,17 @@ const Layout = ({ pages }) => {
     return (
         <StyledContainer>
             {
-                islands.map((island, index) => {
+                data.map((islandData, index) => {
 
-                    const pageImage = findImageByPage(island.id)
+                    const pageImage = findImageByPage(islandData.id)
 
                     // TODO: Make each Island a re-usable component that can be used across templates if so desired
-                    return <StyledSingleIslandContainer
-                                $image={pageImage}
-                                key={island.id}
-                            >
-                                <img
-                                    key={island.id}
-                                    src={pageImage.url}
-                                    alt=''
-                                    onClick={() => setCurrentIsland(islands[index])}
-                                />
-                                <p>{island.attributes.Title}</p>
-                            </StyledSingleIslandContainer>
+                    return <Island 
+                                key={islandData.id}
+                                data={islandData} 
+                                image={pageImage}
+                                setCurrentIsland={setCurrentIsland}
+                            />
                 })
             }
             {
