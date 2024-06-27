@@ -2,8 +2,6 @@ import React from 'react'
 import { BlocksRenderer } from '@strapi/blocks-react-renderer'
 import { StyledPageOverlay } from './styles';
 
-
-
 const Page = ({ currentIsland, setCurrentIsland }) => {
 
     return (

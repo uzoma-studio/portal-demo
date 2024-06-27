@@ -4,37 +4,25 @@ import React from 'react'
 import './style.scss'
 import Page from './page'
 import Draggable from 'react-draggable'
+import { config } from './template-config';
 
-import data from '../../data/data.json'
+const Layout = ({ pages }) => {
 
-const Layout = () => {
-
-    // TODO: Implement non-hardcoded solution
-    const coords = [
-        { x: 5, y: 10 },
-        { x: 70, y: 5 },
-        { x: 30, y: 55 },
-        { x: 60, y: 30 },
-        { x: 40, y: 45 },
-        { x: 35, y: 25 },
-        { x: 20, y: 15 },
-    ]
-
-    // return an x and y coordinate for islands
-    const getPosition = (id) => {
-        return coords[id]
+    const data = pages.data
+    console.log(data);
+    
+    const getPageConfig = (pageId) => {
+        return config.pageConfig.find(({ id }) => id === pageId)
     }
 
     return (
         <div className='windows-container'>
             {
-                data.map(({ name, participant, contentUrl }, index) => {
-                    const coords = getPosition(index)
+                data.map((page) => {
                     return <Draggable>
                         <Page 
-                            coords={coords} 
-                            content={contentUrl}
-                            metadata={{name, participant}}
+                            pagePosition={getPageConfig(page.id).position}
+                            pageData={page.attributes} 
                         />
                     </Draggable>
                 })

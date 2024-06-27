@@ -28,7 +28,6 @@ const Layout = ({ pages }) => {
 
                     const pageImage = findImageByPage(islandData.id)
 
-                    // TODO: Make each Island a re-usable component that can be used across templates if so desired
                     return <Island 
                                 key={islandData.id}
                                 data={islandData} 

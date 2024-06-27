@@ -3,8 +3,9 @@
 import React, { useRef }  from 'react'
 import './style.scss'
 import Draggable from 'react-draggable'
+import { BlocksRenderer } from '@strapi/blocks-react-renderer'
 
-const Page = ({ coords, content, metadata }) => {
+const Page = ({ pagePosition, pageData }) => {
 
     const windowRef = useRef(null)
 
@@ -22,27 +23,26 @@ const Page = ({ coords, content, metadata }) => {
             window.style.zIndex = '998';
         }
     }
+
+    const { Title, Body } = pageData
     
     return (
         <Draggable handle='.status-bar' onStart={bringWindowToFront} bounds='.container'>
             <div className='window' style={{
-                left: `${coords.x}%`,
-                top: `${coords.y}%`
+                left: `${pagePosition.x}%`,
+                top: `${pagePosition.y}%`
                 }}
                 ref={windowRef}
             >
                 <div className='status-bar'>
                     <h6>{` `}</h6>
-                    <h6 className='title'>{metadata.participant}</h6>
+                    <h6 className='title'>{Title}</h6>
                     <h6
                         className='close-btn'
                     >x</h6>
                 </div>
                 <div className='content'>
-                    <h5>{metadata.name}</h5>
-                    <iframe
-                        src={`${content}/pub?embedded=true`}
-                    />
+                    <BlocksRenderer content={Body} />            
                 </div>
             </div>
         </Draggable>
