@@ -1,9 +1,9 @@
-// Re-usable component (or element) that can be used across templates
+// Re-usable component that can be used across templates
 
 import React from 'react'
 import styled from 'styled-components'
 
-const StyledSingleIslandContainer = styled.div`
+const StyledIslandContainer = styled.div`
     position: absolute;
     width: 50%;
     left: ${props => `${props.$image.position.x}%`};
@@ -29,7 +29,7 @@ const StyledSingleIslandContainer = styled.div`
 
 const Island = ({ data, image, setCurrentIsland }) => {
     return (
-        <StyledSingleIslandContainer
+        <StyledIslandContainer
             $image={image}
             key={data.id}
         >
@@ -39,7 +39,7 @@ const Island = ({ data, image, setCurrentIsland }) => {
                 onClick={() => setCurrentIsland(data)}
             />
             <p>{data.attributes.Title}</p>
-        </StyledSingleIslandContainer>
+        </StyledIslandContainer>
     )
 }
 
