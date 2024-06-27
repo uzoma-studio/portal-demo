@@ -2,32 +2,31 @@
 
 import React from 'react'
 import './style.scss'
+import { StyledContainer } from './styles';
 import Page from './page'
-import Draggable from 'react-draggable'
 import { config } from './template-config';
 
 const Layout = ({ pages }) => {
 
     const data = pages.data
-    console.log(data);
     
     const getPageConfig = (pageId) => {
         return config.pageConfig.find(({ id }) => id === pageId)
     }
 
     return (
-        <div className='windows-container'>
+        <StyledContainer className='container'>
             {
                 data.map((page) => {
-                    return <Draggable>
-                        <Page 
-                            pagePosition={getPageConfig(page.id).position}
-                            pageData={page.attributes} 
-                        />
-                    </Draggable>
+                    return <Page 
+                                key={page.id}
+                                pagePosition={getPageConfig(page.id).position}
+                                pageData={page.attributes} 
+                            />
+                    
                 })
             }
-        </div>
+        </StyledContainer>
     )
 }
 

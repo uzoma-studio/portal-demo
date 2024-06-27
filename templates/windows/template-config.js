@@ -13,6 +13,14 @@ const config = {
         bodyFont: 'Courier New',
         borderSize: '4px',
         borderColor: 'grey',
+        statusBar: {
+            backgroundColor: '#919295',
+            borderLeftColor: '#d3d3d3',
+            borderBottom: '4px ridge #ececec',
+            borderRightColor: '#d3d3d3',
+            borderTopColor: '#ececec',
+            letterSpacing: '3px',
+        }
     },
     pageConfig: [
         {
