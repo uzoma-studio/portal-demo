@@ -25,7 +25,7 @@ const config = {
         },
         {
             id: 2, 
-            pageSlug: 'sodales-neque-sodales', 
+            pageSlug: 'id-diam-maecenas', 
             coverImage: {
                 url: "/assets/islands/island-2.png", 
                 position: {x: 90, y: 15}
@@ -33,7 +33,7 @@ const config = {
         },
         {
             id: 3, 
-            pageSlug: 'purus-in-massa', 
+            pageSlug: 'urna-condimentum', 
             coverImage: {
                 url: "/assets/islands/island-3.png", 
                 position: {x: 20, y: 75}
@@ -41,7 +41,7 @@ const config = {
         },
         {
             id: 4, 
-            pageSlug: 'mattis-rhoncus-urna', 
+            pageSlug: 'vulputate-sapien', 
             coverImage: {
                 url: "/assets/islands/island-4.png", 
                 position: {x: 100, y: 80}

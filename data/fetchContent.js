@@ -10,3 +10,6 @@ const getData = async (endpoint) => {
 }
 
 export { getData }
+
+const pages = await getData('pages')
+console.log('PAGES: ', pages)

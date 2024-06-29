@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react'
 import Islands from '../../../templates/islands/layout'
 import Windows from '../../../templates/windows/layout'
 import Planets from '../../../templates/planets/layout'
+import Notion from '../../../templates/notion/layout'
 
 const ActiveTemplate = ({ pages }) => {
 
@@ -14,7 +15,8 @@ const ActiveTemplate = ({ pages }) => {
   const templates = {
     islands: <Islands pages={pages} />,
     windows: <Windows pages={pages} />,
-    planets: <Planets pages={pages} />
+    planets: <Planets pages={pages} />,
+    notion: <Notion pages={pages} />,
   }
 
   const defaultTemplate = templates.islands

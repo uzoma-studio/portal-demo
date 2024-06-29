@@ -1,7 +1,6 @@
 // Re-usable Window component that can be used across templates
 
 import React, { useRef }  from 'react'
-import '../style.scss'
 import Draggable from 'react-draggable'
 
 import { config } from '../template-config'
@@ -52,6 +51,7 @@ const StyledWindow = styled.div`
         overflow-x: hidden;
         background: #fff;
         padding: 20px;
+        font-family: ${style.bodyFont}
     }
     
     .content * {

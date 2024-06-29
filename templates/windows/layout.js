@@ -1,7 +1,6 @@
 'use client'
 
 import React from 'react'
-import './style.scss'
 import { StyledContainer } from './styles';
 import Page from './page'
 import { config } from './template-config';
