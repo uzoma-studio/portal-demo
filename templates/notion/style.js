@@ -13,5 +13,14 @@ export const StyledContainer = styled.div`
 
     .content {
         padding: 5rem 15rem;
+
+        .pages-container {
+            margin-top: 2rem;
+            display: flex;
+
+            div {
+                width: 50%
+            }
+        }
     }
 `
