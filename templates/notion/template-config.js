@@ -12,16 +12,16 @@ const config = {
         headerFont: 'Helvetica',
         headerFontColor: '#222',
         bodyFont: 'Courier New',
-        headerImage: 'url(/assets/planets/universe.jpeg)'
     },
     pageConfig: [
         {
             id: 1, 
-            pageSlug: 'lorem-ipsum', 
+            pageSlug: 'lorem-ipsum',
+            headerImage: "/assets/islands/island-4.png"
         },
         {
             id: 2, 
-            pageSlug: 'id-diam-maecenas', 
+            pageSlug: 'id-diam-maecenas',
         },
         {
             id: 3, 
@@ -30,6 +30,7 @@ const config = {
         {
             id: 4, 
             pageSlug: 'vulputate-sapien',
+            headerImage: "/assets/islands/island-2.png"
         }
     ]
 }

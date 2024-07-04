@@ -6,21 +6,25 @@ const { style } = config
 export const StyledContainer = styled.div`
     background: ${style.backgroundColor};
 
-    .header {
-        background: ${style.headerImage};
-        height: 15rem;
-    }
-
     .content {
         padding: 5rem 15rem;
 
         .pages-container {
             margin-top: 2rem;
             display: flex;
-
-            div {
-                width: 50%
-            }
+            justify-content: space-between;
         }
     }
+`
+
+export const StyledPage = styled.div`
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+    box-shadow: 2px 3px 4px rgba(0,0,0,0.25);
+    cursor: pointer;
+    color: ${style.bodyTextColor};
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 `
