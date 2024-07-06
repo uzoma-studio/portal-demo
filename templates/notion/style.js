@@ -17,7 +17,7 @@ export const StyledContainer = styled.div`
     }
 `
 
-export const StyledPage = styled.div`
+export const StyledPageIcon = styled.div`
     width: 150px;
     height: 150px;
     border-radius: 10px;
@@ -27,4 +27,9 @@ export const StyledPage = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
+    .img-container {
+        height: 75%;
+        border-bottom: 1px solid #ccc;
+    }
 `

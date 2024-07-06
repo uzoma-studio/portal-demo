@@ -43,14 +43,11 @@ const Layout = ({ pages }) => {
                                         const page = findPage(pageConfig, id)
                                         const pageHeaderImage = page.headerImage
 
-                                        return <StyledPage
-                                            key={id}
-                                            onClick={() => setCurrentPage({id, attributes})}
-                                        >
+                                        return <StyledPage key={id} onClick={() => setCurrentPage({id, attributes})}>
                                             <div className='img-container'>
                                                 { pageHeaderImage && <img src={pageHeaderImage} alt='header image' /> }
                                             </div>
-                                            { attributes.Title }
+                                            <h6>{ attributes.Title }</h6>
                                         </StyledPage>
                                     })
                                 }

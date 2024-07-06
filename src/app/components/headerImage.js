@@ -10,14 +10,15 @@ import styled from 'styled-components'
 
 const StyledHeader = styled.div`
     background: ${props => props.$image ? props.$image : ( props.$color ? props.$color : '#000' )};
-    height: 15rem;
+    height: ${props => props.$height ? props.$height : '15rem'}
 `
 
-const Header = ({ image, color }) => {
+const Header = ({ image, color, height }) => {
     return (
         <StyledHeader
             $image={image}
             $color={color}
+            $height={height}
         >
         </StyledHeader>
     )
