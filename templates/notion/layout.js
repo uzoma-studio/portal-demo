@@ -13,8 +13,6 @@ import Header from '@/app/components/headerImage'
 
 const Layout = ({ pages }) => {
 
-    const data = pages.data
-
     const [currentPage, setCurrentPage] = useState(null)
 
     // Get site metadata from React Context
@@ -39,15 +37,14 @@ const Layout = ({ pages }) => {
                             <h4>{SiteDescription}</h4>
                             <div className='pages-container'>
                                 {
-                                    data.map(({ id, attributes }) => {
-                                        const page = findPage(pageConfig, id)
-                                        const pageHeaderImage = page.headerImage
+                                    pages.map(({ id, title, body }) => {
+                                        const pageHeaderImage = findPage(pageConfig, id).headerImage
 
-                                        return <StyledPageIcon key={id} onClick={() => setCurrentPage({id, attributes})}>
+                                        return <StyledPageIcon key={id} onClick={() => setCurrentPage({ id, title, body })}>
                                             <div className='img-container'>
                                                 { pageHeaderImage && <img src={pageHeaderImage} alt='header image' /> }
                                             </div>
-                                            <h6>{ attributes.Title }</h6>
+                                            <h6>{ title }</h6>
                                         </StyledPageIcon>
                                     })
                                 }

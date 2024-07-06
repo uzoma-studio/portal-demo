@@ -8,16 +8,14 @@ import { findPage } from '../../utils/utils';
 
 const Layout = ({ pages }) => {
 
-    const data = pages.data
-
     return (
         <StyledContainer className='container'>
             {
-                data.map((page) => {
+                pages.map((pageData) => {
                     return <Page 
-                                key={page.id}
-                                pagePosition={findPage(config.pageConfig, page.id).position}
-                                pageData={page.attributes} 
+                                key={pageData.id}
+                                pagePosition={findPage(config.pageConfig, pageData.id).position}
+                                pageData={pageData} 
                             />
                     
                 })

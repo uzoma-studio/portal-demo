@@ -5,11 +5,11 @@ import Window from './components/window'
 
 const Page = ({ pagePosition, pageData }) => {
 
-    const { Title, Body } = pageData
+    const { title, body } = pageData
     
     return (
-        <Window position={pagePosition} title={Title}>
-            <BlocksRenderer content={Body} />            
+        <Window position={pagePosition} title={title}>
+            <BlocksRenderer content={body} />            
         </Window>
   )
 }

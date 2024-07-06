@@ -1,7 +1,7 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "Atom",
+  title: "Portal",
   description: "Creative site templates for artists",
 };
 

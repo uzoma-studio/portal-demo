@@ -9,21 +9,18 @@ import { findPage } from '../../utils/utils';
 
 const Layout = ({ pages }) => {
 
-    const data = pages.data
-
     const [currentIsland, setCurrentIsland] = useState(null)
 
     return (
         <StyledContainer>
             {
-                data.map((islandData, index) => {
+                pages.map((pageData) => {
 
-                    const pageImage = findPage(config.pageConfig, islandData.id).coverImage
+                    const pageImage = findPage(config.pageConfig, pageData.id).coverImage
 
                     return <Island 
-                                key={islandData.id}
-                                data={islandData} 
-                                image={pageImage}
+                                key={pageData.id}
+                                pageData={{...pageData, pageImage}} 
                                 setCurrentIsland={setCurrentIsland}
                             />
                 })

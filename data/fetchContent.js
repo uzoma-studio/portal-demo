@@ -11,8 +11,26 @@ const getData = async (endpoint) => {
         cache: 'no-store'
     })
     const data = await response.json()
-    
+
     return data
 }
 
-export { getData }
+// Abstract data from the CMS into a middle layer object that template files can use
+// This is necessary because template files should not be interacting with CMS directly
+// If the CMS schema changes for any reason, this one method can be edited instead of having to edit various template files
+const dataMapper = (data) => {
+    const dataMap = []
+
+    data.forEach(({id, attributes: { Title, Body, Slug }}) => 
+        dataMap.push({
+            id,
+            title: Title,
+            body: Body,
+            slug: Slug
+        })
+    );
+    
+    return dataMap
+}
+
+export { getData, dataMapper }

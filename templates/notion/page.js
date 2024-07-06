@@ -3,11 +3,11 @@ import { BlocksRenderer } from '@strapi/blocks-react-renderer'
 
 const Page = ({ currentPage, setCurrentPage }) => {
 
-    const { attributes } = currentPage
+    const { title, body } = currentPage
 
     return (
         <div>
-            <h1 style={{fontSize: '4rem'}}>{attributes.Title}</h1>
+            <h1 style={{fontSize: '4rem'}}>{title}</h1>
             <button 
                 onClick={() => setCurrentPage(null)} 
                 style={{
@@ -16,7 +16,7 @@ const Page = ({ currentPage, setCurrentPage }) => {
                 }}>
                 ⬅️
             </button>
-            <BlocksRenderer content={attributes.Body} />
+            <BlocksRenderer content={body} />
         </div>
     )
 }

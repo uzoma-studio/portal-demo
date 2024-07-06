@@ -11,10 +11,10 @@ const Page = ({ currentIsland, setCurrentIsland }) => {
                 onClick={() => setCurrentIsland(null)}
             >x</h6>
             <h1>
-                {currentIsland.attributes.Title}
+                {currentIsland.title}
             </h1>
             <div className='content'>
-                <BlocksRenderer content={currentIsland.attributes.Body} />
+                <BlocksRenderer content={currentIsland.body} />
             </div>
         </StyledPageOverlay>
     )
