@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useContext, useState } from 'react'
-import { StyledContainer, StyledPage } from './style'
+import { StyledContainer, StyledPageIcon } from './style'
 import { AppContext } from '../../context'
 import Page from './page'
 import { findPage } from '../../utils/utils'
@@ -43,12 +43,12 @@ const Layout = ({ pages }) => {
                                         const page = findPage(pageConfig, id)
                                         const pageHeaderImage = page.headerImage
 
-                                        return <StyledPage key={id} onClick={() => setCurrentPage({id, attributes})}>
+                                        return <StyledPageIcon key={id} onClick={() => setCurrentPage({id, attributes})}>
                                             <div className='img-container'>
                                                 { pageHeaderImage && <img src={pageHeaderImage} alt='header image' /> }
                                             </div>
                                             <h6>{ attributes.Title }</h6>
-                                        </StyledPage>
+                                        </StyledPageIcon>
                                     })
                                 }
                             </div>
