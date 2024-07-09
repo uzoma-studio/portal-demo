@@ -1,26 +1,30 @@
 'use client'
 
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { StyledContainer, StyledPageIcon } from './style'
 import { AppContext } from '../../context'
 import Page from './page'
-import { findPage } from '../../utils/utils'
+import { findPage, renderCurrentPage } from '../../utils/utils'
+
 import { config } from './template-config'
 const { pageConfig } = config
 
 // Import page components
 import BannerImage from '@/app/components/bannerImage'
-import Header from '@/app/components/header'
+import Header from '@/app/components/Header'
 import Footer from '@/app/components/Footer'
+
+// Import Util RenderPages component
+import RenderPages from '@/app/utils/RenderPages'
 
 const Layout = ({ pages }) => {
 
-    const [currentPage, setCurrentPage] = useState(null)
+    const [currentPage, setCurrentPage] = useState(renderCurrentPage(pages))
 
     // Get site metadata from React Context
     const context = useContext(AppContext)
     const { SiteTitle, SiteDescription } = context
-
+    
     return (
         <StyledContainer>
             <Header 
@@ -43,22 +47,28 @@ const Layout = ({ pages }) => {
                             <h4>{SiteDescription}</h4>
                             <div className='pages-container'>
                                 {
-                                    pages.map(({ id, title, body }) => {
-                                        const pageHeaderImage = findPage(pageConfig, id).headerImage
-
-                                        return <StyledPageIcon key={id} onClick={() => setCurrentPage({ id, title, body })}>
-                                            <div className='img-container'>
-                                                { pageHeaderImage && <img src={pageHeaderImage} alt='header image' /> }
-                                            </div>
-                                            <h6>{ title }</h6>
-                                        </StyledPageIcon>
+                                    pages.map((pageData) => {
+                                        const pageHeaderImage = findPage(pageConfig, pageData.id).headerImage
+                                        return <RenderPages 
+                                                    openPageViaLink={true} 
+                                                    pageSlug={pageData.slug} 
+                                                    setCurrentPage={setCurrentPage} 
+                                                    currentPage={pageData}
+                                                >
+                                                <StyledPageIcon>
+                                                    <div className='img-container'>
+                                                        {pageHeaderImage && <img src={pageHeaderImage} alt='header image' />}
+                                                    </div>
+                                                    <h6>{pageData.title}</h6>
+                                                </StyledPageIcon>
+                                        </RenderPages>
                                     })
                                 }
                             </div>
                         </>
                 }
             </div>
-            <Footer />
+            <Footer showPagesNav={true} pages={pages} />
         </StyledContainer>
     )
 }

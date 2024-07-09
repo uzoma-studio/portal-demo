@@ -21,15 +21,15 @@ const config = {
         },
         {
             id: 2, 
-            pageSlug: 'id-diam-maecenas',
+            pageSlug: 'matnuis-calendrum',
         },
         {
             id: 3, 
-            pageSlug: 'urna-condimentum',
+            pageSlug: 'maecenas',
         },
         {
             id: 4, 
-            pageSlug: 'vulputate-sapien',
+            pageSlug: 'nulla-facilisi',
             headerImage: "/assets/islands/island-2.png"
         }
     ]
