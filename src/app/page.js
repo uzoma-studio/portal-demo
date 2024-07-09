@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { getData, dataMapper } from '../../data/fetchContent'
-import ActiveTemplate from './components/activeTemplate'
+import ActiveTemplate from './activeTemplate'
 import { AppProvider } from '../../context'
 
 const Home = async () => {

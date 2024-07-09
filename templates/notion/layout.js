@@ -9,7 +9,9 @@ import { config } from './template-config'
 const { pageConfig } = config
 
 // Import page components
-import Header from '@/app/components/headerImage'
+import BannerImage from '@/app/components/bannerImage'
+import Header from '@/app/components/header'
+import Footer from '@/app/components/Footer'
 
 const Layout = ({ pages }) => {
 
@@ -21,7 +23,11 @@ const Layout = ({ pages }) => {
 
     return (
         <StyledContainer>
-            <Header
+            <Header 
+                showPagesNav={true}
+                pages={pages}
+            />
+            <BannerImage
                 image={'url(/assets/planets/universe.jpeg)'}
             />
             <div className='content'>
@@ -52,6 +58,7 @@ const Layout = ({ pages }) => {
                         </>
                 }
             </div>
+            <Footer />
         </StyledContainer>
     )
 }

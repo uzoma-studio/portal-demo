@@ -3,10 +3,10 @@
 import React, { useEffect, useState } from 'react'
 
 // Import various templates
-import Islands from '../../../templates/islands/layout'
-import Windows from '../../../templates/windows/layout'
-import Planets from '../../../templates/planets/layout'
-import Notion from '../../../templates/notion/layout'
+import Islands from '../../templates/islands/layout'
+import Windows from '../../templates/windows/layout'
+import Planets from '../../templates/planets/layout'
+import Notion from '../../templates/notion/layout'
 
 const ActiveTemplate = ({ pages }) => {
 
