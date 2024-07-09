@@ -3,23 +3,19 @@
 import React from 'react'
 import { StyledContainer } from './styles';
 import Page from './page'
-import { config } from './template-config';
 import { findPage } from '../../utils/utils';
+
+import RenderPages from '@/app/utils/RenderPages';
 
 const Layout = ({ pages }) => {
 
     return (
         <StyledContainer className='container'>
-            {
-                pages.map((pageData) => {
-                    return <Page 
-                                key={pageData.id}
-                                pagePosition={findPage(config.pageConfig, pageData.id).position}
-                                pageData={pageData} 
-                            />
-                    
-                })
-            }
+            <RenderPages 
+                pages={pages} 
+                PagesComponent={Page} 
+                getPagePosition={(pageConfig, pageDataId) => findPage(pageConfig, pageDataId).position} 
+            />
         </StyledContainer>
     )
 }
