@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 // Import various templates
 import Islands from '../../templates/islands/layout'
@@ -19,8 +20,14 @@ const ActiveTemplate = ({ pages }) => {
     notion: <Notion pages={pages} />,
   }
 
-  const defaultTemplate = templates.islands
-  const [ activeTemplate, setActiveTemplate ] = useState(defaultTemplate)
+  const defaultTemplateName = 'islands'
+  const [activeTemplate, setActiveTemplate] = useState(() => {
+    // Retrieve the stored template from localStorage or fall back to the default template
+    const storedTemplateName = localStorage.getItem('activeTemplate');
+    return storedTemplateName ? templates[storedTemplateName] : templates[defaultTemplateName];
+  });
+
+  const router = useRouter()
 
   useEffect(() => {
     if(window && window.location.search !== '') {
@@ -29,8 +36,11 @@ const ActiveTemplate = ({ pages }) => {
 
       if(templates[templateParam]){
         setActiveTemplate(templates[templateParam])
+        localStorage.setItem('activeTemplate', templateParam);
+        router.push('/')
       } else {
-        setActiveTemplate(defaultTemplate)
+        setActiveTemplate(templates[defaultTemplateName])
+        localStorage.setItem('activeTemplate', defaultTemplateName);
       }
     }
 
