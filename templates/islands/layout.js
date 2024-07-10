@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Page from './page'
 import { StyledContainer } from './styles';
 import { config } from './template-config';
@@ -10,7 +10,13 @@ import RenderPage from '@/app/utils/RenderPage';
 
 const Layout = ({ pages }) => {
 
-    const [currentIsland, setCurrentIsland] = useState(renderCurrentPage(pages))
+    const [currentIsland, setCurrentIsland] = useState(null)
+
+    useEffect(() => {
+      setCurrentIsland(renderCurrentPage(pages))
+    
+      return () => {}
+    }, [])
 
     return (
         <StyledContainer>

@@ -21,11 +21,14 @@ const ActiveTemplate = ({ pages }) => {
   }
 
   const defaultTemplateName = 'islands'
-  const [activeTemplate, setActiveTemplate] = useState(() => {
-    // Retrieve the stored template from localStorage or fall back to the default template
-    const storedTemplateName = localStorage.getItem('activeTemplate');
-    return storedTemplateName ? templates[storedTemplateName] : templates[defaultTemplateName];
-  });
+  const [activeTemplate, setActiveTemplate] = useState(templates[defaultTemplateName]);
+
+  useEffect(() => {
+      const storedTemplateName = localStorage.getItem('activeTemplate');
+      if (storedTemplateName && templates[storedTemplateName]) {
+          setActiveTemplate(templates[storedTemplateName]);
+      }
+  }, []);
 
   const router = useRouter()
 
@@ -33,7 +36,7 @@ const ActiveTemplate = ({ pages }) => {
     if(window && window.location.search !== '') {
       const url = new URL(window.location.href)
       const templateParam = url.searchParams.get('template');
-
+      
       if(templates[templateParam]){
         setActiveTemplate(templates[templateParam])
         localStorage.setItem('activeTemplate', templateParam);

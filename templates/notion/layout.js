@@ -19,7 +19,13 @@ import RenderPage from '@/app/utils/RenderPage'
 
 const Layout = ({ pages }) => {
 
-    const [currentPage, setCurrentPage] = useState(renderCurrentPage(pages))
+    const [currentPage, setCurrentPage] = useState(null)
+
+    useEffect(() => {
+        setCurrentPage(renderCurrentPage(pages))
+      
+        return () => {}
+      }, [])
 
     // Get site metadata from React Context
     const context = useContext(AppContext)
