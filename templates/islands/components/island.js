@@ -27,16 +27,14 @@ const StyledIslandContainer = styled.div`
     }
 `
 
-const Island = ({ pageData, setCurrentIsland }) => {
+const Island = ({ pageData }) => {
     return (
         <StyledIslandContainer
             $image={pageData.pageImage}
-            key={pageData.id}
         >
             <img
                 src={pageData.pageImage.url}
                 alt=''
-                onClick={() => setCurrentIsland(pageData)}
             />
             <p>{pageData.title}</p>
         </StyledIslandContainer>

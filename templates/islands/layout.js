@@ -5,11 +5,12 @@ import Page from './page'
 import { StyledContainer } from './styles';
 import { config } from './template-config';
 import Island from './components/island';
-import { findPage } from '../../utils/utils';
+import { findPage, renderCurrentPage } from '../../utils/utils';
+import RenderPage from '@/app/utils/RenderPage';
 
 const Layout = ({ pages }) => {
 
-    const [currentIsland, setCurrentIsland] = useState(null)
+    const [currentIsland, setCurrentIsland] = useState(renderCurrentPage(pages))
 
     return (
         <StyledContainer>
@@ -18,11 +19,18 @@ const Layout = ({ pages }) => {
 
                     const pageImage = findPage(config.pageConfig, pageData.id).coverImage
 
-                    return <Island 
+                    return <RenderPage
                                 key={pageData.id}
-                                pageData={{...pageData, pageImage}} 
-                                setCurrentIsland={setCurrentIsland}
-                            />
+                                openPageViaLink={true}
+                                pageSlug={pageData.slug}
+                                setCurrentPage={setCurrentIsland}
+                                currentPage={pageData}
+                            >
+                                <Island 
+                                    pageData={{...pageData, pageImage}} 
+                                    setCurrentIsland={setCurrentIsland}
+                                />
+                            </RenderPage>
                 })
             }
             {
