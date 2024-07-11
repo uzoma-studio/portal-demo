@@ -20,8 +20,8 @@ export const findPage = (pageConfig, pageId) => {
  * @returns {Object|null} - The matched page object or null if no match is found or pathname is '/'.
  */
 export const renderCurrentPage = (pages) => {
-    // Split the URL hash by '#' and take the second part to get the pathname
-    const pathname = window.location.hash.split('#')[1]
+    // Split the URL path by '/' and take the second part to get the pathname
+    const pathname = window.location.pathname.split('/')[1]
     // Find the page object that matches the pathname in the pages array
     const page = pages.find(({ slug }) => slug === pathname)
 

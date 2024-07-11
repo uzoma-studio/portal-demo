@@ -23,9 +23,7 @@ const Layout = ({ pages }) => {
 
     useEffect(() => {
         setCurrentPage(renderCurrentPage(pages))
-      
-        return () => {}
-      }, [])
+    }, [])
 
     // Get site metadata from React Context
     const context = useContext(AppContext)
@@ -60,6 +58,7 @@ const Layout = ({ pages }) => {
                                                     pageSlug={pageData.slug} 
                                                     setCurrentPage={setCurrentPage} 
                                                     currentPage={pageData}
+                                                    key={pageData.id}
                                                 >
                                                 <StyledPageIcon>
                                                     <div className='img-container'>

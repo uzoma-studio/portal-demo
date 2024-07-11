@@ -2,9 +2,9 @@ import React from 'react'
 import { BlocksRenderer } from '@strapi/blocks-react-renderer'
 import BackButton from '@/app/components/BackButton'
 
-const Page = ({ currentPage, setCurrentPage }) => {
+const Page = ({ data }) => {
 
-    const { title, body } = currentPage
+    const { title, body } = data
     
     return (
         <div>

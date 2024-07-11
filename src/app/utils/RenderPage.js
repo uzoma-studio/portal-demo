@@ -1,5 +1,6 @@
 import React from 'react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 /**
  * RenderPages component to conditionally render its children as a link or plain content.
@@ -24,7 +25,7 @@ const RenderPage = ({ children, openPageViaLink, pageSlug, setCurrentPage, curre
         router.push(`/#${pageSlug}`)
     }
 
-  return <>
+    return <>
         {
             openPageViaLink ?
                 <span onClick={() => setAsCurrentPage()}>
@@ -33,6 +34,17 @@ const RenderPage = ({ children, openPageViaLink, pageSlug, setCurrentPage, curre
                 :
                 <>{children}</>
         }
+        {/* {
+            openPageViaLink ?
+                <Link href={{
+                    pathname: `/${pageSlug}`,
+                    query: { pageData: JSON.stringify(currentPage) }
+                }}>
+                    {children}
+                </Link>
+                :
+                <>{children}</>
+        } */}
     </>
 }
 
