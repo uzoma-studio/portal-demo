@@ -12,6 +12,9 @@ const Single = ({ currentPage, setCurrentPage }) => {
         </button>
         <br />
         <BlocksRenderer content={currentPage.attributes.Body} />
+        <button onClick={() => setCurrentPage(null)} style={{fontSize: '1.5rem', marginBottom: '1rem'}}>
+            ⬅️
+        </button>
     </div>
   )
 }
