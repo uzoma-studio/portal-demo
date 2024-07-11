@@ -60,6 +60,7 @@ const Layout = ({ pages }) => {
                                                     pageSlug={pageData.slug} 
                                                     setCurrentPage={setCurrentPage} 
                                                     currentPage={pageData}
+                                                    key={pageData.id}
                                                 >
                                                 <StyledPageIcon>
                                                     <div className='img-container'>

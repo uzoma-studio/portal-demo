@@ -1,8 +1,5 @@
 const headers = {
     "Authorization": `bearer ${process.env.STRAPI_ACCESS_TOKEN}`,
-    "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0",
-    "Pragma": "no-cache",
-    "Expires": "0"
 }
 
 const getData = async (endpoint) => {
@@ -11,7 +8,6 @@ const getData = async (endpoint) => {
         cache: 'no-store'
     })
     const data = await response.json()
-
     return data
 }
 
@@ -21,12 +17,13 @@ const getData = async (endpoint) => {
 const dataMapper = (data) => {
     const dataMap = []
 
-    data.forEach(({id, attributes: { Title, Body, Slug }}) => 
+    data.forEach(({id, attributes: { Title, Body, Slug, Content }}) => 
         dataMap.push({
             id,
             title: Title,
             body: Body,
-            slug: Slug
+            slug: Slug,
+            contentType: Content
         })
     );
     
