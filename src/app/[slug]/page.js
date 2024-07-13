@@ -17,6 +17,7 @@ const Home = () => {
   return (
     <>
       { pages && <ActiveTemplate pages={pages} /> }
+      {/* We can do more stuff here like rendering the correct contentType, etc */}
     </>
   );
 }
