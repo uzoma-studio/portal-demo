@@ -6,7 +6,7 @@ import Page from './page'
 import { findPage } from '../../utils/utils';
 import { config } from './template-config';
 
-import RenderPage from '@/app/utils/RenderPage';
+import RenderPages from '@/app/utils/renderPages';
 
 const Layout = ({ pages }) => {
 
@@ -14,13 +14,13 @@ const Layout = ({ pages }) => {
         <StyledContainer className='container'>
             {
                 pages.map((pageData) => 
-                    <RenderPage>
+                    <RenderPages>
                         <Page
                             key={pageData.id}
                             pageData={pageData}
                             pagePosition={findPage(config.pageConfig, pageData.id).position}
                         />
-                    </RenderPage>
+                    </RenderPages>
                 )
             }
         </StyledContainer>

@@ -6,7 +6,7 @@ import { StyledContainer } from './styles';
 import { config } from './template-config';
 import Island from './components/island';
 import { findPage, renderCurrentPage } from '../../utils/utils';
-import RenderPage from '@/app/utils/RenderPage';
+import RenderPages from '@/app/utils/renderPages';
 
 const Layout = ({ pages }) => {
 
@@ -25,7 +25,7 @@ const Layout = ({ pages }) => {
 
                     const pageImage = findPage(config.pageConfig, pageData.id).coverImage
 
-                    return <RenderPage
+                    return <RenderPages
                                 key={pageData.id}
                                 openPageViaLink={true}
                                 pageSlug={pageData.slug}
@@ -36,7 +36,7 @@ const Layout = ({ pages }) => {
                                     pageData={{...pageData, pageImage}} 
                                     setCurrentIsland={setCurrentIsland}
                                 />
-                            </RenderPage>
+                            </RenderPages>
                 })
             }
             {

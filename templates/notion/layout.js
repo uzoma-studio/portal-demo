@@ -15,7 +15,7 @@ import Header from '@/app/components/Header'
 import Footer from '@/app/components/Footer'
 
 // Import Util RenderPages component
-import RenderPage from '@/app/utils/RenderPage'
+import RenderPages from '@/app/utils/renderPages'
 
 const Layout = ({ pages }) => {
 
@@ -55,7 +55,7 @@ const Layout = ({ pages }) => {
                                 {
                                     pages.map((pageData) => {
                                         const pageHeaderImage = findPage(pageConfig, pageData.id).headerImage
-                                        return <RenderPage 
+                                        return <RenderPages
                                                     openPageViaLink={true} 
                                                     pageSlug={pageData.slug} 
                                                     setCurrentPage={setCurrentPage} 
@@ -68,7 +68,7 @@ const Layout = ({ pages }) => {
                                                     </div>
                                                     <h6>{pageData.title}</h6>
                                                 </StyledPageIcon>
-                                        </RenderPage>
+                                        </RenderPages>
                                     })
                                 }
                             </div>

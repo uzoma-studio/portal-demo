@@ -15,7 +15,7 @@ import { useRouter } from 'next/navigation'
  * @param {Object} props.currentPage - The current page object to set.
  * @returns {JSX.Element} - The rendered content, either as a link or plain content.
  */
-const RenderPage = ({ children, openPageViaLink, pageSlug, setCurrentPage, currentPage }) => {
+const RenderPages = ({ children, openPageViaLink, pageSlug, setCurrentPage, currentPage }) => {
 
     const router = useRouter()
 
@@ -36,4 +36,4 @@ const RenderPage = ({ children, openPageViaLink, pageSlug, setCurrentPage, curre
     </>
 }
 
-export default RenderPage
+export default RenderPages
