@@ -16,15 +16,6 @@ const ContentType = ({ type }) => {
 
     const [activeContentTypeComponent, setActiveContentTypeComponent] = useState(null)
 
-    // const setActiveContentTypeComponent = (data) => {
-    //     switch (type) {
-    //         case 'Blog':
-    //           return <Blog data={data} />
-    //         default:
-    //             return null
-    //     }
-    // }
-
     useEffect(() => {
         const fetchData = async () => {
             try {

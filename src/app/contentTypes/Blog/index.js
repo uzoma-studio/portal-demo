@@ -18,26 +18,27 @@ const StyledBlogPostsList = styled.ul`
 
 const Blog = ({ data }) => {
   
-  const [currentPage, setCurrentPage] = useState(null)
+  const [currentPost, setCurrentPost] = useState(null)
 
   return (
     <div>
       {
-        !currentPage ?
+        !currentPost ?
           data && 
             <StyledBlogPostsList>
                 {
-                    data.map((blogPost) => 
-                        <li key={blogPost.id} onClick={() => setCurrentPage(blogPost)}>
-                            <h4>{blogPost.attributes.Title}</h4>
-                            <p>{blogPost.attributes.Date}</p>
-                            <h6>{blogPost.attributes.Author}</h6>
-                        </li>
-                    )
+                    data.map((blogPost) => {
+                      const { id, attributes: { Title, Date, Author }} = blogPost
+                      return <li key={id} onClick={() => setCurrentPost(blogPost)}>
+                          <h4>{Title}</h4>
+                          <p>{Date}</p>
+                          <h6>{Author}</h6>
+                      </li>
+                    })
                 }
             </StyledBlogPostsList>
           :
-          <Single currentPage={currentPage} setCurrentPage={setCurrentPage} />
+          <Single currentPost={currentPost} setCurrentPost={setCurrentPost} />
       }
   </div>
   )
