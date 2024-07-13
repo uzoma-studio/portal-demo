@@ -3,7 +3,7 @@ import { BlocksRenderer } from '@strapi/blocks-react-renderer'
 import BackButton from '@/app/components/BackButton'
 import ContentType from '@/app/contentTypes/contentType'
 
-const Page = ({ currentPage }) => {
+const Page = ({ currentPage, setCurrentPage }) => {
 
     const { title, body, contentType } = currentPage
 

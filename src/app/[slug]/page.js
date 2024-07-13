@@ -1,31 +1,24 @@
-'use client'
+// Basically a clone of app/page.js
+// For most/all themes, there is/should be conditional logic to determine whether to render the template layout or a specific page
+// By replicating app/page.js, we allow the possibility of using more conventional Next routing while also solving for the problem
+// of the single page template overriding the layout template (see comment in Notion board)
 
-import React, { useState, useEffect, useContext } from 'react'
+import React from 'react'
 
 import ActiveTemplate from '../activeTemplate'
-import { AppContext } from '../../../context'
-import { renderCurrentPage } from '../../../utils/utils'
 
-// trying a new idea of replicating the content of page.js
+import { appState } from '../layout'
 
-const Page = () => {
+const Home = () => {
 
-    const context = useContext(AppContext)
+  const { pages } = appState
 
-    const [pageData, setPageData] = useState(null)
-
-    useEffect(() => {
-        setPageData(renderCurrentPage(context.pages))
-    }, []);
-
-    console.log(pages);
-  
   // This is a server component which uses a client component for state mgt and interactivity:
   return (
     <>
-      { pageData && <ActiveTemplate pages={pageData} /> }
+      { pages && <ActiveTemplate pages={pages} /> }
     </>
   );
 }
 
-export default Page
+export default Home

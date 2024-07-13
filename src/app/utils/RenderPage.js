@@ -22,7 +22,7 @@ const RenderPage = ({ children, openPageViaLink, pageSlug, setCurrentPage, curre
 
     const setAsCurrentPage = () => {
         setCurrentPage(currentPage)
-        router.push(`/#${pageSlug}`)
+        router.push(`/${pageSlug}`)
     }
 
     return <>
