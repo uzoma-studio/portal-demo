@@ -29,7 +29,7 @@ export const StyledPageOverlay = styled.div`
     overflow-x: hidden;
 
     .content {
-        color: ${style.contentTextColor}
+        color: ${style.contentTextColor};
     }
 
     h1 {
