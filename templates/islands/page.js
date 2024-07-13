@@ -2,19 +2,18 @@ import React from 'react'
 import { BlocksRenderer } from '@strapi/blocks-react-renderer'
 import { StyledPageOverlay } from './styles';
 
-const Page = ({ currentIsland, setCurrentIsland }) => {
+const Page = ({ data }) => {
 
+    console.log(data);
+    
     return (
         <StyledPageOverlay>
-            <h6
-                className='close-btn'
-                onClick={() => setCurrentIsland(null)}
-            >x</h6>
+            <h6 className='close-btn'>x</h6>
             <h1>
-                {currentIsland.title}
+                {data.title}
             </h1>
             <div className='content'>
-                <BlocksRenderer content={currentIsland.body} />
+                <BlocksRenderer content={data.body} />
             </div>
         </StyledPageOverlay>
     )
