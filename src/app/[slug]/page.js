@@ -6,6 +6,8 @@ import ActiveTemplate from '../activeTemplate'
 import { AppContext } from '../../../context'
 import { renderCurrentPage } from '../../../utils/utils'
 
+// trying a new idea of replicating the content of page.js
+
 const Page = () => {
 
     const context = useContext(AppContext)
