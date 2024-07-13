@@ -29,6 +29,15 @@ const ContentType = ({ type }) => {
         const fetchData = async () => {
             try {
                 const res = await getData(contentTypeEndPoint());
+                // const passDataToTheRightComponent = () => {
+                //     switch (type) {
+                //         case 'Blog':
+                //           return <Blog data={data} />
+                //         default:
+                //             return null
+                //     }
+                // }
+                // setActiveContentTypeComponent(passDataToTheRightComponent)
                 setActiveContentTypeComponent(<Blog data={res.data} />)
             } catch (error) {
                 console.error('Error fetching data:', error);
