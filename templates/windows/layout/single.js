@@ -6,11 +6,11 @@ import RenderSinglePageContent from '@/app/utils/renderSinglePageContent'
 
 const Page = ({ pagePosition, pageData }) => {
 
-    const { title, body, contentType } = pageData
+    const { title, body } = pageData
     
     return (
         <Window position={pagePosition} title={title}>
-            <RenderSinglePageContent contentType={contentType}>
+            <RenderSinglePageContent pageData={pageData}>
                 <BlocksRenderer content={body} />            
             </RenderSinglePageContent>
         </Window>
