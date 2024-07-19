@@ -1,49 +1,30 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import Page from './page'
 import { StyledContainer } from './styles';
-import { config } from './template-config';
-import Island from './components/island';
-import { findPage, renderCurrentPage } from '../../utils/utils';
-import RenderPages from '@/app/utils/renderPages';
+import { renderCurrentPage } from '../../utils/utils';
+
+import Index from './pages/index'
+import SinglePage from './pages/single'
 
 const Layout = ({ pages }) => {
 
-    const [currentIsland, setCurrentIsland] = useState(null)
+    const [currentPage, setCurrentPage] = useState(null)
 
     useEffect(() => {
-      setCurrentIsland(renderCurrentPage(pages))
+      setCurrentPage(renderCurrentPage(pages))
     
       return () => {}
     }, [])
 
     return (
         <StyledContainer>
+            <Index pages={pages} setCurrentPage={setCurrentPage} />
             {
-                pages.map((pageData) => {
-
-                    const pageImage = findPage(config.pageConfig, pageData.id).coverImage
-
-                    return <RenderPages
-                                key={pageData.id}
-                                openPageViaLink={true}
-                                pageSlug={pageData.slug}
-                                setCurrentPage={setCurrentIsland}
-                                currentPage={pageData}
-                            >
-                                <Island 
-                                    pageData={{...pageData, pageImage}} 
-                                    setCurrentIsland={setCurrentIsland}
-                                />
-                            </RenderPages>
-                })
-            }
-            {
-                currentIsland &&
-                    <Page 
-                        currentIsland={currentIsland} 
-                        setCurrentIsland={setCurrentIsland}
+                currentPage &&
+                    <SinglePage
+                        currentPage={currentPage} 
+                        setCurrentPage={setCurrentPage}
                     />
             }
         </StyledContainer>

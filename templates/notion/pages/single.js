@@ -1,18 +1,18 @@
 import React from 'react'
 import { BlocksRenderer } from '@strapi/blocks-react-renderer'
 import BackButton from '@/app/components/BackButton'
-import RenderSinglePage from '@/app/utils/RenderSinglePage'
+import RenderSinglePageContent from '@/app/utils/renderSinglePageContent'
 
 const Page = ({ currentPage, setCurrentPage }) => {
 
     const { title, body, contentType } = currentPage
 
     return (
-        <RenderSinglePage contentType={contentType}>
+        <RenderSinglePageContent contentType={contentType}>
             <h1 style={{fontSize: '4rem'}}>{title}</h1>
             <BackButton onClickFn={setCurrentPage} prevPage={null} />
             <BlocksRenderer content={body} />
-        </RenderSinglePage>
+        </RenderSinglePageContent>
     )
 }
 
