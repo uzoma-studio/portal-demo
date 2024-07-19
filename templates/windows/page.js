@@ -3,7 +3,7 @@
 import React from 'react'
 import { StyledContainer } from './styles';
 
-import Index from './pages';
+import Index from './layout/index';
 
 const Layout = ({ pages }) => {
 

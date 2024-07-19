@@ -4,10 +4,9 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 // Import various templates
-import Islands from '../../templates/islands/layout'
-import Windows from '../../templates/windows/layout'
-import Planets from '../../templates/planets/layout'
-import Notion from '../../templates/notion/layout'
+import Islands from '../../templates/islands/page'
+import Windows from '../../templates/windows/page'
+import Notion from '../../templates/notion/page'
 
 const ActiveTemplate = ({ pages }) => {
 
@@ -16,7 +15,6 @@ const ActiveTemplate = ({ pages }) => {
   const templates = {
     islands: <Islands pages={pages} />,
     windows: <Windows pages={pages} />,
-    planets: <Planets pages={pages} />,
     notion: <Notion pages={pages} />,
   }
 

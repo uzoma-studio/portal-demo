@@ -9,8 +9,8 @@ import BannerImage from '@/app/components/bannerImage'
 import Header from '@/app/components/Header'
 import Footer from '@/app/components/Footer'
 
-import Index from './pages'
-import SinglePage from './pages/single'
+import Index from './layout/index'
+import SinglePage from './layout/single'
 
 const Layout = ({ pages }) => {
 
