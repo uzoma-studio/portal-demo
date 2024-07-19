@@ -27,7 +27,7 @@ const Navbar = ({ pages, direction }) => {
         {
             pages.map(({ id, title, slug }) => 
                 <li key={id}>
-                    <Link href={slug}>
+                    <Link href={`/#${slug}`}>
                         {title}
                     </Link>
                 </li>
