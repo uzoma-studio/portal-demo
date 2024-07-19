@@ -32,9 +32,9 @@ const StyledWindow = styled.div`
         border-right-color: ${statusBar.borderRightColor};
         border-top-color: ${statusBar.borderTopColor};
         letter-spacing: ${statusBar.letterSpacing};
+        font-family: ${style.bodyFont};
 
         display: flex;
-        align-items: center;
         justify-content: space-between;
         cursor: grab;
 

@@ -32,4 +32,8 @@ export const StyledPageIcon = styled.div`
         height: 75%;
         border-bottom: 1px solid #ccc;
     }
+
+    h6 {
+        font-family: ${style.bodyFont};
+    }
 `
