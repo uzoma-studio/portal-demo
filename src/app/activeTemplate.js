@@ -8,16 +8,19 @@ import Islands from '../../templates/islands/layout'
 import Windows from '../../templates/windows/layout'
 import Planets from '../../templates/planets/layout'
 import Notion from '../../templates/notion/layout'
+import ImageMap from '../../templates/image-map/layout'
 
 const ActiveTemplate = ({ pages }) => {
 
   // Index templates
   // The same `pages` data is used across all templates in the project
+  // TODO: use Context or sth instead of having to pass this prop over and over again
   const templates = {
     islands: <Islands pages={pages} />,
     windows: <Windows pages={pages} />,
     planets: <Planets pages={pages} />,
     notion: <Notion pages={pages} />,
+    imagemap: <ImageMap pages={pages} />
   }
 
   const defaultTemplateName = 'islands'
