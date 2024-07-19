@@ -1,20 +1,17 @@
-// Single Page for Windows template
+'use client'
+
 import React from 'react'
-import { BlocksRenderer } from '@strapi/blocks-react-renderer'
-import Window from './components/window'
-import RenderSinglePage from '@/app/utils/RenderSinglePage'
+import { StyledContainer } from './styles';
 
-const Page = ({ pagePosition, pageData }) => {
+import Index from './layout/index';
 
-    const { title, body, contentType } = pageData
-    
+const Layout = ({ pages }) => {
+
     return (
-        <Window position={pagePosition} title={title}>
-            <RenderSinglePage contentType={contentType}>
-                <BlocksRenderer content={body} />            
-            </RenderSinglePage>
-        </Window>
-  )
+        <StyledContainer className='container'>
+            <Index pages={pages} />
+        </StyledContainer>
+    )
 }
 
-export default Page
+export default Layout

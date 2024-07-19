@@ -5,14 +5,11 @@
  * @type {Array} pageConfig - for mapping template designs to site pages
  */
 
+import { globalConfig } from "@/app/template-config"
+
 const config = {
     style: {
-        backgroundColor: '#2980b9',
-        bodyTextColor: '#fff',
-        headerFont: 'Helvetica',
-        headerFontColor: '#222',
-        bodyFont: 'Arial',
-        contentTextColor: '#222',
+        ...globalConfig.style
     },
     pageConfig: [
         {

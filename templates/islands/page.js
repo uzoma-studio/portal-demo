@@ -1,28 +1,35 @@
-import React from 'react'
-import { BlocksRenderer } from '@strapi/blocks-react-renderer'
-import { StyledPageOverlay } from './styles';
-import RenderSinglePage from '@/app/utils/RenderSinglePage';
+'use client'
 
-const Page = ({ currentIsland, setCurrentIsland }) => {
+import React, { useState, useEffect } from 'react'
+import { StyledContainer } from './styles';
+import { renderCurrentPage } from '../../utils/utils';
 
-    const { contentType } = currentIsland
+import Index from './layout/index'
+import SinglePage from './layout/single'
+
+const Layout = ({ pages }) => {
+
+    const [currentPage, setCurrentPage] = useState(null)
+
+    useEffect(() => {
+      setCurrentPage(renderCurrentPage(pages))
+    
+      return () => {}
+    }, [])
 
     return (
-        <StyledPageOverlay>
-            <RenderSinglePage contentType={contentType}>
-                <h6
-                    className='close-btn'
-                    onClick={() => setCurrentIsland(null)}
-                >x</h6>
-                <h1>
-                    {currentIsland.title}
-                </h1>
-                <div className='content'>
-                    <BlocksRenderer content={currentIsland.body} />
-                </div>
-            </RenderSinglePage>
-        </StyledPageOverlay>
+        <StyledContainer>
+            <Index pages={pages} setCurrentPage={setCurrentPage} />
+            {
+                currentPage &&
+                    <SinglePage
+                        currentPage={currentPage} 
+                        setCurrentPage={setCurrentPage}
+                    />
+            }
+        </StyledContainer>
     )
 }
 
-export default Page
+export default Layout
+

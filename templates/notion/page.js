@@ -1,19 +1,50 @@
-import React from 'react'
-import { BlocksRenderer } from '@strapi/blocks-react-renderer'
-import BackButton from '@/app/components/BackButton'
-import RenderSinglePage from '@/app/utils/RenderSinglePage'
+'use client'
 
-const Page = ({ currentPage, setCurrentPage }) => {
+import React, { useState, useEffect } from 'react'
+import { StyledContainer } from './style'
+import { renderCurrentPage } from '../../utils/utils'
 
-    const { title, body, contentType } = currentPage
+// Import root components
+import BannerImage from '@/app/components/bannerImage'
+import Header from '@/app/components/Header'
+import Footer from '@/app/components/Footer'
 
+import Index from './layout/index'
+import SinglePage from './layout/single'
+
+const Layout = ({ pages }) => {
+
+    const [currentPage, setCurrentPage] = useState(null)
+
+    useEffect(() => {
+        setCurrentPage(renderCurrentPage(pages))
+      
+        return () => {}
+      }, [])
+    
     return (
-        <RenderSinglePage contentType={contentType}>
-            <h1 style={{fontSize: '4rem'}}>{title}</h1>
-            <BackButton onClickFn={setCurrentPage} prevPage={null} />
-            <BlocksRenderer content={body} />
-        </RenderSinglePage>
+        <StyledContainer>
+            <Header 
+                showPagesNav={true}
+                pages={pages}
+            />
+            <BannerImage
+                image={'url(/assets/planets/universe.jpeg)'}
+            />
+            <div className='content'>
+                {
+                    currentPage ?
+                        <SinglePage
+                            currentPage={currentPage}
+                            setCurrentPage={setCurrentPage}
+                        />
+                        :
+                        <Index pages={pages} setCurrentPage={setCurrentPage} />
+                }
+            </div>
+            <Footer showPagesNav={true} pages={pages} />
+        </StyledContainer>
     )
 }
 
-export default Page
+export default Layout
