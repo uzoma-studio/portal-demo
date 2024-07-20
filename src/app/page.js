@@ -4,6 +4,15 @@ import { getData, dataMapper } from '../../data/fetchContent'
 import ActiveTemplate from './activeTemplate'
 import { AppProvider } from '../../context'
 
+/**
+ * Home component
+ * 
+ * This is a server-side component that fetches data from the server and provides
+ * it to the client-side components for rendering. The component uses a provider
+ * for context management and dynamically renders templates based on the fetched data.
+ * 
+ * @returns {JSX.Element} The Home page with the appropriate template and site settings
+ */
 const Home = async () => {
 
   // Retrieve data from the server at build time

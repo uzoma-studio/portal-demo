@@ -2,6 +2,16 @@ const headers = {
     "Authorization": `bearer ${process.env.STRAPI_ACCESS_TOKEN}`,
 }
 
+/**
+ * Fetches data from the specified API endpoint.
+ * 
+ * This async function constructs a URL using the provided endpoint and fetches
+ * data from the Strapi CMS. It includes headers and prevents caching by setting
+ * the cache option to 'no-store'.
+ * 
+ * @param {string} endpoint - The API endpoint to fetch data from.
+ * @returns {Promise<Object>} - The data retrieved from the API, parsed as JSON.
+ */
 const getData = async (endpoint) => {
     const response = await fetch(`${process.env.STRAPI_URL}/api/${endpoint}?populate=*`, {
         headers,

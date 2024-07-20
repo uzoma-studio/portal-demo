@@ -9,6 +9,18 @@ import Islands from '../../templates/islands/page'
 import Notion from '../../templates/notion/page'
 import Windows from '../../templates/windows/page'
 
+/**
+ * ActiveTemplate component
+ * 
+ * This component dynamically renders one of several templates based on the current
+ * active template. The active template can be set via a query parameter or from
+ * localStorage.
+ * 
+ * @param {Object} props - The props object
+ * @param {Array} props.pages - The data to be passed to each template
+ * 
+ * @returns {JSX.Element} The currently active template component
+ */
 const ActiveTemplate = ({ pages }) => {
 
   // Index templates
@@ -24,6 +36,7 @@ const ActiveTemplate = ({ pages }) => {
   const defaultTemplateName = 'islands'
   const [activeTemplate, setActiveTemplate] = useState(templates[defaultTemplateName]);
 
+  // Load the active template from localStorage if it exists
   useEffect(() => {
       const storedTemplateName = localStorage.getItem('activeTemplate');
       if (storedTemplateName && templates[storedTemplateName]) {
@@ -33,6 +46,7 @@ const ActiveTemplate = ({ pages }) => {
 
   const router = useRouter()
 
+  // Set the active template based on the URL query parameter
   useEffect(() => {
     if(window && window.location.search !== '') {
       const url = new URL(window.location.href)
