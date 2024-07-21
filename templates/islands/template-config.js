@@ -9,7 +9,9 @@ import { globalConfig } from "@/app/template-config"
 
 const config = {
     style: {
-        ...globalConfig.style
+        ...globalConfig.style,
+        backgroundColor: '#2980b9',
+        bodyTextColor: '#fff'
     },
     pageConfig: [
         {

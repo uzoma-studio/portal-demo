@@ -4,11 +4,12 @@
 
 export const globalConfig = {
     style: {
-        backgroundColor: '#2980b9',
-        bodyTextColor: '#fff',
+        backgroundColor: '#fff',
+        bodyTextColor: '#222',
         headerFont: 'Helvetica',
         headerFontColor: '#222',
         bodyFont: 'Courier New',
         contentTextColor: '#222',
+        // TODO: add more parameters
     }
 }

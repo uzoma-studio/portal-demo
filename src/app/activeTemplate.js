@@ -8,6 +8,7 @@ import ImageMap from '../../templates/image-map/page'
 import Islands from '../../templates/islands/page'
 import Notion from '../../templates/notion/page'
 import Windows from '../../templates/windows/page'
+import Starter from '../../templates/starter/page'
 
 /**
  * ActiveTemplate component
@@ -30,7 +31,8 @@ const ActiveTemplate = ({ pages }) => {
     islands: <Islands pages={pages} />,
     windows: <Windows pages={pages} />,
     notion: <Notion pages={pages} />,
-    imagemap: <ImageMap pages={pages} />
+    imagemap: <ImageMap pages={pages} />,
+    starter: <Starter pages={pages} />
   }
 
   const defaultTemplateName = 'islands'
