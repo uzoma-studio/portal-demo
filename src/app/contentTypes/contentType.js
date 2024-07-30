@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { getData } from '../../../data/fetchContent'
 
 import Blog from './Blog'
+import Archive from './Archive'
 
 /**
  * ContentType component
@@ -17,16 +18,20 @@ import Blog from './Blog'
  */
 
 const ContentType = ({ type }) => {
-
     /**
      * Determines the API endpoint based on the content type
      * 
      * @returns {string|null} The endpoint string or null if the type is not recognized
      */
+    const blog = 'Blog'
+    const archive = 'Archive'
+
     const contentTypeEndPoint = () => {
         switch (type) {
-            case 'Blog':
-              return 'blog-posts'
+            case blog:
+                return 'blog-posts'
+            case archive:
+                return 'archives'
             default:
                 return null
         }
@@ -42,16 +47,17 @@ const ContentType = ({ type }) => {
         const fetchData = async () => {
             try {
                 const res = await getData(contentTypeEndPoint());
-                // const passDataToTheRightComponent = () => {
-                //     switch (type) {
-                //         case 'Blog':
-                //           return <Blog data={data} />
-                //         default:
-                //             return null
-                //     }
-                // }
-                // setActiveContentTypeComponent(passDataToTheRightComponent)
-                setActiveContentTypeComponent(<Blog data={res.data} />)
+                const passDataToTheRightComponent = () => {
+                    switch (type) {
+                        case blog:
+                            return <Blog data={res.data} />
+                        case archive:
+                            return <Archive data={res.data[0]} />
+                        default:
+                            return null
+                    }
+                }
+                setActiveContentTypeComponent(passDataToTheRightComponent())
             } catch (error) {
                 console.error('Error fetching data:', error);
             }

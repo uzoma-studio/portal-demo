@@ -20,7 +20,6 @@ export const StyledPageOverlay = styled.div`
     background-color: rgba(255, 255, 255, 0.8);
     display: flex;
     flex-direction: column;
-    align-items: center;
     padding: 25px 10px;
     width: 80%;
     /* min-height: 100vh; */
