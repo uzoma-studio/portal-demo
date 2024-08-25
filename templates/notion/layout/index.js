@@ -23,7 +23,7 @@ const Index = ({ pages, setCurrentPage }) => {
             <div className='pages-container'>
                 {
                     pages.map((pageData) => {
-                        const pageHeaderImage = findPage(pageConfig, pageData.id).headerImage
+                        const pageHeaderImage = pageData.coverImage ? `${process.env.STRAPI_URL}${pageData.coverImage.data.attributes.url}` : null
                         return <RenderPages
                                     openPageViaLink={true}
                                     pageSlug={pageData.slug}
