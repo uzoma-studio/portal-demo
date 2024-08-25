@@ -33,3 +33,8 @@ export const renderCurrentPage = (pages) => {
         return page
     }
 }
+
+export const getCoverImageUrl = (coverImage) => {
+    return coverImage ? `${process.env.STRAPI_URL}${coverImage.data.attributes.url}` : null
+
+}

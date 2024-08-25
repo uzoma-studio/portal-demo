@@ -3,7 +3,7 @@
 import React from 'react'
 import { config } from '../template-config';
 import Island from '../components/island';
-import { findPage } from '../../../utils/utils';
+import { findPage, getCoverImageUrl } from '../../../utils/utils';
 import RenderPages from '@/app/utils/renderPages';
 
 const Index = ({ pages, setCurrentPage }) => {
@@ -13,7 +13,8 @@ const Index = ({ pages, setCurrentPage }) => {
             {
                 pages.map((pageData) => {
 
-                    const pageImage = findPage(config.pageConfig, pageData.id).coverImage
+                    const pageImage = getCoverImageUrl(pageData.coverImage)
+                    const pageImagePosition = findPage(config.pageConfig, pageData.id).coverImage.position
 
                     return <RenderPages
                                 key={pageData.id}
@@ -23,7 +24,7 @@ const Index = ({ pages, setCurrentPage }) => {
                                 currentPage={pageData}
                             >
                                 <Island 
-                                    pageData={{...pageData, pageImage}} 
+                                    pageData={{...pageData, pageImage, pageImagePosition}} 
                                     setCurrentPage={setCurrentPage}
                                 />
                             </RenderPages>

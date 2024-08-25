@@ -5,7 +5,7 @@ import { StyledContainer } from './style'
 import { renderCurrentPage } from '../../utils/utils'
 
 // Import root components
-import BannerImage from '@/app/components/bannerImage'
+import HeroSection from '@/app/components/heroSection'
 import Header from '@/app/components/Header'
 import Footer from '@/app/components/Footer'
 
@@ -24,11 +24,7 @@ const Layout = ({ pages }) => {
     
     return (
         <StyledContainer>
-            <Header 
-                showPagesNav={true}
-                pages={pages}
-            />
-            <BannerImage
+            <HeroSection
                 image={'url(/assets/planets/universe.jpeg)'}
             />
             <div className='content'>
