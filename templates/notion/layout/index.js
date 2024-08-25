@@ -1,10 +1,9 @@
 import React, { useContext } from 'react'
 
 import { AppContext } from '../../../context'
-import { findPage } from '../../../utils/utils'
+import { getCoverImageUrl } from '../../../utils/utils'
 
-import { config } from '../template-config'
-const { pageConfig } = config
+// import { config } from '../template-config'
 
 import { StyledPageIcon } from '../style'
 
@@ -23,7 +22,7 @@ const Index = ({ pages, setCurrentPage }) => {
             <div className='pages-container'>
                 {
                     pages.map((pageData) => {
-                        const pageHeaderImage = findPage(pageConfig, pageData.id).headerImage
+                        const pageHeaderImage = getCoverImageUrl(pageData.coverImage)
                         return <RenderPages
                                     openPageViaLink={true}
                                     pageSlug={pageData.slug}

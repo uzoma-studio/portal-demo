@@ -27,13 +27,14 @@ const getData = async (endpoint) => {
 const dataMapper = (data) => {
     const dataMap = []
 
-    data.forEach(({id, attributes: { Title, Body, Slug, Content }}) => 
+    data.forEach(({id, attributes: { Title, Body, Slug, Content, CoverImage }}) => 
         dataMap.push({
             id,
             title: Title,
             body: Body,
             slug: Slug,
-            contentType: Content
+            contentType: Content,
+            coverImage: CoverImage,
         })
     );
     
