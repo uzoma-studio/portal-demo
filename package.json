@@ -10,9 +10,9 @@
   },
   "dependencies": {
     "@strapi/blocks-react-renderer": "^1.0.1",
-    "next": "14.1.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "next": "^15.2.3",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "react-draggable": "^4.4.6",
     "sass": "^1.70.0",
     "styled-components": "^6.1.11"
