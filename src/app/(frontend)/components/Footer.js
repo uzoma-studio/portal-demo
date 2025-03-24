@@ -11,7 +11,8 @@ const StyledFooter = styled.div`
     flex-direction: column;
     padding: 0 2.5rem;
     justify-content: center;
-    align-items: start;
+    align-items: center;
+    font-family: monospace;
 `
 
 /**
@@ -25,14 +26,14 @@ const StyledFooter = styled.div`
  */
 const Footer = ({ background, height, pages, showPagesNav }) => {
     const context = useContext(AppContext)
-    const { SiteTitle } = context
+    const { siteTitle } = context
     return (
     <StyledFooter
         $background={background}
         $height={height}
         $showPagesNav={showPagesNav}
     >
-        <h3>{ SiteTitle }</h3>
+        <h3>{ siteTitle }</h3>
         { showPagesNav && <Navbar pages={pages} />}
     </StyledFooter>
     )

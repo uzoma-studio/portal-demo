@@ -14,12 +14,10 @@ const Index = ({ pages, setCurrentPage }) => {
 
     // Get site metadata from React Context
     const context = useContext(AppContext)
-    const { SiteTitle, SiteDescription } = context
+    const { siteTitle, siteDescription } = context
 
     return (
         <>
-            <h1>{SiteTitle}</h1>
-            <h4>{SiteDescription}</h4>
             <div className='pages-container'>
                 {
                     pages.map((pageData) => {

@@ -45,6 +45,14 @@ const config = {
                 url: "/assets/islands/island-4.png", 
                 position: {x: 100, y: 80}
             }
+        },
+        {
+            id: 5, 
+            pageSlug: 'vulputate-sapien', 
+            coverImage: {
+                url: "/assets/islands/island-5.png", 
+                position: {x: 80, y: 40}
+            }
         }
     ]
 }

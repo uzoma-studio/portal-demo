@@ -40,7 +40,12 @@ const config = {
             id: 4, 
             pageSlug: 'nulla-facilisi',
             position: {x: 20, y: 20}
-        }
+        },
+        {
+            id: 5, 
+            pageSlug: 'nulla-semptate',
+            position: {x: 50, y: 30}
+        },
     ]
 }
 

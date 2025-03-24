@@ -27,7 +27,7 @@ const RenderPages = ({ children, openPageViaLink, pageSlug, setCurrentPage, curr
   return <>
         {
             openPageViaLink ?
-                <span onClick={() => setAsCurrentPage()}>
+                <span onClick={() => setAsCurrentPage()} style={{width: '45%'}}>
                     {children}
                 </span>
                 :

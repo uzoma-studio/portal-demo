@@ -34,14 +34,14 @@ const StyledHeader = styled.div`
 const Header = ({ background, height, pages, showPagesNav }) => {
 
     const context = useContext(AppContext)
-    const { SiteTitle } = context
+    const { siteTitle } = context
   return (
     <StyledHeader
         $background={background}
         $height={height}
         $showPagesNav={showPagesNav}
     >
-        <h1>{ SiteTitle }</h1>
+        <h1>{ siteTitle }</h1>
         { showPagesNav && <Navbar pages={pages} />}
     </StyledHeader>
   )

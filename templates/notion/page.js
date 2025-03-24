@@ -1,18 +1,22 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { StyledContainer } from './style'
 import { renderCurrentPage } from '../../utils/utils'
 
 // Import root components
-import BannerImage from '@/app/(frontend)/components/bannerImage'
-import Header from '@/app/(frontend)/components/Header'
+import HeroSection from '@/app/(frontend)/components/HeroSection'
 import Footer from '@/app/(frontend)/components/Footer'
 
 import Index from './layout/index'
 import SinglePage from './layout/single'
+import { AppContext } from '../../context'
 
 const Layout = ({ pages }) => {
+
+    // Get site metadata from React Context
+    const context = useContext(AppContext)
+    const { siteTitle, siteDescription } = context
 
     const [currentPage, setCurrentPage] = useState(null)
 
@@ -24,13 +28,12 @@ const Layout = ({ pages }) => {
     
     return (
         <StyledContainer>
-            <Header 
-                showPagesNav={true}
-                pages={pages}
-            />
-            <BannerImage
-                image={'url(/assets/planets/universe.jpeg)'}
-            />
+            <HeroSection image={'url(/assets/planets/universe.jpeg)'} height='50vh'>
+                <h1 style={{color: '#fff', fontSize: '50px'}}>
+                    {siteTitle}
+                </h1>
+                <p style={{color: '#fff'}}>{siteDescription}</p>
+            </HeroSection>
             <div className='content'>
                 {
                     currentPage ?
