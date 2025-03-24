@@ -8,7 +8,7 @@ const { pageConfig } = config
 
 import { StyledPageIcon } from '../style'
 
-import RenderPages from '@/app/utils/renderPages'
+import RenderPages from '@/app/(frontend)/utils/renderPages'
 
 const Index = ({ pages, setCurrentPage }) => {
 

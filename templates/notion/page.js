@@ -5,9 +5,9 @@ import { StyledContainer } from './style'
 import { renderCurrentPage } from '../../utils/utils'
 
 // Import root components
-import BannerImage from '@/app/components/bannerImage'
-import Header from '@/app/components/Header'
-import Footer from '@/app/components/Footer'
+import BannerImage from '@/app/(frontend)/components/bannerImage'
+import Header from '@/app/(frontend)/components/Header'
+import Footer from '@/app/(frontend)/components/Footer'
 
 import Index from './layout/index'
 import SinglePage from './layout/single'

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { getData } from '../../../data/fetchContent'
+import { getData } from '../../../../data/fetchContent.server'
 
 import Blog from './Blog'
 import Archive from './Archive'
@@ -46,13 +46,12 @@ const ContentType = ({ type }) => {
          */
         const fetchData = async () => {
             try {
-                const res = await getData(contentTypeEndPoint());
                 const passDataToTheRightComponent = () => {
                     switch (type) {
                         case blog:
-                            return <Blog data={res.data} />
+                            return <Blog data={{}} />
                         case archive:
-                            return <Archive data={res.data[0]} />
+                            return <Archive data={{}} />
                         default:
                             return null
                     }

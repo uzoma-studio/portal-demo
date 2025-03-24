@@ -78,7 +78,7 @@ const Window = ({ position, title, children }) => {
     }
     
     return (
-        <Draggable handle='.status-bar' onStart={bringWindowToFront} bounds='.container'>
+        // <Draggable handle='.status-bar' onStart={bringWindowToFront} bounds='.container'>
             <StyledWindow 
                 $position={position}
                 ref={windowRef}
@@ -94,7 +94,7 @@ const Window = ({ position, title, children }) => {
                     { children }         
                 </div>
             </StyledWindow>
-        </Draggable>
+        // </Draggable>
   )
 }
 

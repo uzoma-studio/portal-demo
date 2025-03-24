@@ -1,7 +1,6 @@
 import React from 'react'
-import { BlocksRenderer } from '@strapi/blocks-react-renderer'
 import { StyledPageOverlay } from '../styles';
-import RenderSinglePageContent from '@/app/utils/renderSinglePageContent';
+import RenderSinglePageContent from '@/app/(frontend)/utils/renderSinglePageContent';
 
 const Single = ({ currentPage, setCurrentPage }) => {
 
@@ -13,7 +12,8 @@ const Single = ({ currentPage, setCurrentPage }) => {
                     onClick={() => setCurrentPage(null)}
                 >x</h6>
                 <div className='content'>
-                    <BlocksRenderer content={currentPage.body} />
+                    {/* <BlocksRenderer content={currentPage.body} /> */}
+                    <p>Body</p>
                 </div>
             </RenderSinglePageContent>
         </StyledPageOverlay>

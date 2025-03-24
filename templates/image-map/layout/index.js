@@ -6,7 +6,7 @@ import { StyledBackgroundImageContainer } from '../styles'
 import { findPage } from '../../../utils/utils';
 import { config } from '../template-config';
 
-import RenderPages from '@/app/utils/renderPages';
+import RenderPages from '@/app/(frontend)/utils/renderPages';
 import SinglePage from './single'
 
 const Index = ({ pages }) => {

@@ -1,14 +1,13 @@
 import React from 'react'
-import { BlocksRenderer } from '@strapi/blocks-react-renderer'
-import RenderSinglePageContent from '@/app/utils/renderSinglePageContent';
-import CloseButton from '@/app/components/closeButton';
+import RenderSinglePageContent from '@/app/(frontend)/utils/renderSinglePageContent';
+import CloseButton from '@/app/(frontend)/components/closeButton';
 
 const SinglePage = ({ page, setCurrentPage }) => {
   return (
     <RenderSinglePageContent pageData={page}>
         <CloseButton closeFn={() => setCurrentPage(null)} position={{x: 80, y: 5}} />
         <div className='content'>
-            <BlocksRenderer content={page.body} />
+            <p>Body</p>
         </div>
     </RenderSinglePageContent>
   )

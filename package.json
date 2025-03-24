@@ -9,8 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@strapi/blocks-react-renderer": "^1.0.1",
+    "@payloadcms/db-postgres": "^3.29.0",
+    "@payloadcms/next": "^3.29.0",
+    "@payloadcms/payload-cloud": "^3.29.0",
+    "@payloadcms/richtext-lexical": "^3.29.0",
+    "graphql": "^16.10.0",
     "next": "^15.2.3",
+    "payload": "^3.29.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-draggable": "^4.4.6",
@@ -19,9 +24,11 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.0.1",
+    "dotenv": "^16.4.7",
     "eslint": "^8",
     "eslint-config-next": "14.1.0",
-    "postcss": "^8",
+    "postcss": "^8.5.3",
     "tailwindcss": "^3.3.0"
-  }
+  },
+  "type": "module"
 }

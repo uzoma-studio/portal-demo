@@ -4,11 +4,11 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 // Import various templates
-import ImageMap from '../../templates/image-map/page'
-import Islands from '../../templates/islands/page'
-import Notion from '../../templates/notion/page'
-import Windows from '../../templates/windows/page'
-import Starter from '../../templates/starter/page'
+import ImageMap from '../../../templates/image-map/page'
+import Islands from '../../../templates/islands/page'
+import Notion from '../../../templates/notion/page'
+import Windows from '../../../templates/windows/page'
+import Starter from '../../../templates/starter/page'
 
 /**
  * ActiveTemplate component

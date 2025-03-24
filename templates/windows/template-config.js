@@ -5,7 +5,7 @@
  * @type {Array} pageConfig - for mapping template designs to site pages
  */
 
-import { globalConfig } from "@/app/template-config"
+import { globalConfig } from "@/app/(frontend)/template-config"
 
 const config = {
     style: {

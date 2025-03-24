@@ -1,8 +1,9 @@
 import React from 'react'
 
-import { getData, dataMapper } from '../../data/fetchContent'
+// import { getData, dataMapper } from '../../../data/fetchContent'
+import { fetchPages, getSiteSettings } from '../../../data/fetchContent.server'
 import ActiveTemplate from './activeTemplate'
-import { AppProvider } from '../../context'
+import { AppProvider } from '../../../context'
 
 /**
  * Home component
@@ -16,16 +17,16 @@ import { AppProvider } from '../../context'
 const Home = async () => {
 
   // Retrieve data from the server at build time
-  const pages = await getData('pages')
-  const siteSettings = await getData('setting')
+  // const pages = await getData('pages')
+  // const siteSettings = await getData('setting')
 
-  // Take the data from the CMS and transform it to a format template files can use instead of interacting with CMS schema directly
-  const pagesData = dataMapper(pages.data)
+  const data = await fetchPages()
+  const settings = await getSiteSettings()
   
   // This is a server component which uses a client component for state mgt and interactivity:
   return (
-    <AppProvider value={siteSettings.data.attributes}>
-      <ActiveTemplate pages={pagesData} />
+    <AppProvider value={settings.docs[0]}>
+      <ActiveTemplate pages={data.docs} />
     </AppProvider>
   );
 }

@@ -1,10 +1,9 @@
 import React, { useState }  from 'react'
 
-import { BlocksRenderer } from '@strapi/blocks-react-renderer'
-import RenderSinglePageContent from '@/app/utils/renderSinglePageContent'
+import RenderSinglePageContent from '@/app/(frontend)/utils/renderSinglePageContent'
 
 import { StyledPage } from '../styles'
-import CloseButton from '@/app/components/closeButton'
+import CloseButton from '@/app/(frontend)/components/closeButton'
 
 const SinglePage = ({ pageData, pagePosition }) => {
 
@@ -17,11 +16,12 @@ const SinglePage = ({ pageData, pagePosition }) => {
                     <StyledPage $position={pagePosition}>
                         <CloseButton closeFn={() => setShowPage(false)} position={{x: 90, y: 0}} />
                         <RenderSinglePageContent pageData={pageData}>
-                            <BlocksRenderer content={pageData.body} />
+                            {/* <BlocksRenderer content={pageData.body} /> */}
+                            <h1>Hello</h1>
                         </RenderSinglePageContent>
                     </StyledPage>
                     :
-                    <div class="hotspot" 
+                    <div className="hotspot" 
                         style={{
                             left: `${pagePosition.x}%`,
                             top: `${pagePosition.y}%`,

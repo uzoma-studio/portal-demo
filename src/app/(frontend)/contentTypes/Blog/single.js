@@ -1,5 +1,4 @@
 import React from 'react'
-import { BlocksRenderer } from '@strapi/blocks-react-renderer'
 
 const Single = ({ currentPost, setCurrentPost }) => {
   const { id, attributes: { Title, Date, Author, Body }} = currentPost
@@ -12,7 +11,8 @@ const Single = ({ currentPost, setCurrentPost }) => {
             ⬅️
         </button>
         <br />
-        <BlocksRenderer content={Body} />
+        {/* <BlocksRenderer content={Body} /> */}
+        <h1>Hello</h1>
     </div>
   )
 }

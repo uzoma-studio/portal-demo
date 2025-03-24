@@ -4,7 +4,7 @@ import React from 'react'
 import { config } from '../template-config';
 import Island from '../components/island';
 import { findPage } from '../../../utils/utils';
-import RenderPages from '@/app/utils/renderPages';
+import RenderPages from '@/app/(frontend)/utils/renderPages';
 
 const Index = ({ pages, setCurrentPage }) => {
 
