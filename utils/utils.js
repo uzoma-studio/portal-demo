@@ -33,3 +33,11 @@ export const renderCurrentPage = (pages) => {
         return page
     }
 }
+
+export const getCoverImageUrl = (coverImage) => {
+    if (typeof window === 'undefined' || !coverImage) {
+        return null;
+    }
+
+    return `${window.location.origin}${coverImage.url}`;
+}

@@ -177,6 +177,7 @@ export interface Page {
   } | null;
   slug?: string | null;
   contentType?: ('blog' | 'files') | null;
+  coverImage?: (number | null) | Media;
   updatedAt: string;
   createdAt: string;
 }
@@ -299,6 +300,7 @@ export interface PagesSelect<T extends boolean = true> {
   body?: T;
   slug?: T;
   contentType?: T;
+  coverImage?: T;
   updatedAt?: T;
   createdAt?: T;
 }

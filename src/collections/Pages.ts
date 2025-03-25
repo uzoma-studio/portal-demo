@@ -25,5 +25,10 @@ export const Pages: CollectionConfig = {
             { label: 'Files', value: 'files' },
         ],
     },
+    {
+        name: 'coverImage',
+        type: 'upload',
+        relationTo: 'media',
+    }
   ],
 }

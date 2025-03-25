@@ -6,8 +6,8 @@ import styled from 'styled-components'
 const StyledIslandContainer = styled.div`
     position: absolute;
     width: 50%;
-    left: ${props => `${props.$image.position.x}%`};
-    top: ${props => `${props.$image.position.y}%`};
+    left: ${props => `${props.$imagePosition.x}%`};
+    top: ${props => `${props.$imagePosition.y}%`};
 
     &:hover {
         filter: brightness(0.9);
@@ -28,12 +28,14 @@ const StyledIslandContainer = styled.div`
 `
 
 const Island = ({ pageData }) => {
+    console.log(pageData.pageImage);
+    
     return (
         <StyledIslandContainer
-            $image={pageData.pageImage}
+            $imagePosition={pageData.pageImagePosition}
         >
             <img
-                src={pageData.pageImage.url}
+                src={pageData.pageImage}
                 alt=''
             />
             <p>{pageData.title}</p>
