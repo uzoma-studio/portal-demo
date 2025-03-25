@@ -8,6 +8,7 @@
 import { globalConfig } from "@/app/(frontend)/template-config"
 
 const config = {
+    templateImage: '/assets/image-map/kiefer.png',
     style: {
         ...globalConfig.style,
         hotspotColor: 'crimson',

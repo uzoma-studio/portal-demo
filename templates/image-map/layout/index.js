@@ -10,11 +10,10 @@ import RenderPages from '@/app/(frontend)/utils/renderPages';
 import SinglePage from './single'
 
 const Index = ({ pages }) => {
-
     return (
         <StyledBackgroundImageContainer>
             <Image 
-                src='/assets/image-map/kiefer.png'
+                src={config.templateImage}
                 layout="fill"
                 objectFit="cover"
                 quality={100}
@@ -22,7 +21,7 @@ const Index = ({ pages }) => {
             />
             {
                 pages.map((pageData) =>
-                    <RenderPages>
+                    <RenderPages key={pageData.id}>
                         <SinglePage
                             key={pageData.id}
                             pageData={pageData}
