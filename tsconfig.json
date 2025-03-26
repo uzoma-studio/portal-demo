@@ -33,7 +33,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "src/app/(frontend)/utils/richTextRenderer.js"  ],
   "exclude": [
     "node_modules"
   ]

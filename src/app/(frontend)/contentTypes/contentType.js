@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { getData } from '../../../../data/fetchContent.server'
+import { getContent } from 'data/fetchContent.server'
 
 import Blog from './Blog'
 import Archive from './Archive'
@@ -17,21 +17,23 @@ import Archive from './Archive'
  * @returns {JSX.Element} The rendered content component based on the type prop
  */
 
-const ContentType = ({ type }) => {
+const ContentType = ({ pageData }) => {
     /**
      * Determines the API endpoint based on the content type
      * 
      * @returns {string|null} The endpoint string or null if the type is not recognized
      */
-    const blog = 'Blog'
-    const archive = 'Archive'
+    const blog = 'blog'
+    const files = 'files'
 
-    const contentTypeEndPoint = () => {
+    const type = pageData.contentType
+
+    const fetchContentByType = async () => {
         switch (type) {
             case blog:
-                return 'blog-posts'
-            case archive:
-                return 'archives'
+                return getContent('posts')
+            case files:
+                return getContent('files')
             default:
                 return null
         }
@@ -45,13 +47,15 @@ const ContentType = ({ type }) => {
          * Fetches data from the determined endpoint and sets the appropriate content component
          */
         const fetchData = async () => {
+            const res = await fetchContentByType()
+            const data = res.docs
             try {
                 const passDataToTheRightComponent = () => {
                     switch (type) {
                         case blog:
-                            return <Blog data={{}} />
-                        case archive:
-                            return <Archive data={{}} />
+                            return <Blog data={data} />
+                        case files:
+                            return <Archive data={{data}} />
                         default:
                             return null
                     }

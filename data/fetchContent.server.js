@@ -7,16 +7,23 @@ const payload = await getPayload({ config })
 
 const fetchPages = async () => {
     const result = await payload.find({
-        collection: 'pages', // required
+        collection: 'pages',
     })
     return result
 }
 
 const getSiteSettings = async () => {
     const result = await payload.find({
-        collection: 'siteSettings', // required
+        collection: 'siteSettings',
     })
     return result
 }
 
-export { fetchPages, getSiteSettings }
+const getContent = async (type) => {
+    const result = await payload.find({
+        collection: type,
+    })
+    return result
+}
+
+export { fetchPages, getSiteSettings, getContent }

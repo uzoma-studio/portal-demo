@@ -2,6 +2,7 @@
 import React from 'react'
 import Window from '../components/window'
 import RenderSinglePageContent from '@/app/(frontend)/utils/renderSinglePageContent'
+import RichText from '@/app/(frontend)/utils/richTextRenderer'
 
 const Page = ({ pagePosition, pageData }) => {
 
@@ -9,9 +10,7 @@ const Page = ({ pagePosition, pageData }) => {
     
     return (
         <Window position={pagePosition} title={title}>
-            <RenderSinglePageContent pageData={pageData}>
-                <p>Body</p>          
-            </RenderSinglePageContent>
+            <RenderSinglePageContent pageData={pageData} />
         </Window>
   )
 }

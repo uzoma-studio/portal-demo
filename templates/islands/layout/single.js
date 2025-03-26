@@ -6,16 +6,7 @@ const Single = ({ currentPage, setCurrentPage }) => {
 
     return (
         <StyledPageOverlay>
-            <RenderSinglePageContent pageData={currentPage}>
-                <h6
-                    className='close-btn'
-                    onClick={() => setCurrentPage(null)}
-                >x</h6>
-                <div className='content'>
-                    {/* <BlocksRenderer content={currentPage.body} /> */}
-                    <p>Body</p>
-                </div>
-            </RenderSinglePageContent>
+            <RenderSinglePageContent pageData={currentPage} setCurrentPage={setCurrentPage} />
         </StyledPageOverlay>
     )
 }

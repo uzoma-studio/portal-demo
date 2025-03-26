@@ -1,5 +1,7 @@
 import React from 'react'
 import ContentType from '../contentTypes/contentType'
+import RichText from './richTextRenderer'
+import CloseButton from '../components/closeButton'
 
 /**
  * RenderSinglePageContent component
@@ -17,13 +19,18 @@ import ContentType from '../contentTypes/contentType'
  * @returns {JSX.Element} The rendered page content
  */
 
-const RenderSinglePageContent = ({ children, pageData }) => {
+const RenderSinglePageContent = ({ children, pageData, setCurrentPage }) => {
   const { title, contentType } = pageData
   return (
     <div>
         {title && <h1>{pageData.title}</h1> }
+        {/* Display a close button if a close function has been provided */}
+        { setCurrentPage && <CloseButton closeFn={() => setCurrentPage(null)} position={{x: 80, y: 5}} /> }
         { children }
-        { contentType && <ContentType type={contentType} />}
+        <div className='content'>
+          <RichText data={pageData.body} />
+        </div>
+        { contentType && <ContentType pageData={pageData} />}
     </div>
   )
 }

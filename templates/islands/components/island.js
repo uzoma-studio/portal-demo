@@ -28,8 +28,6 @@ const StyledIslandContainer = styled.div`
 `
 
 const Island = ({ pageData }) => {
-    console.log(pageData.pageImage);
-    
     return (
         <StyledIslandContainer
             $imagePosition={pageData.pageImagePosition}

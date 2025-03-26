@@ -4,13 +4,9 @@ import RenderSinglePageContent from '@/app/(frontend)/utils/renderSinglePageCont
 
 const Page = ({ currentPage, setCurrentPage }) => {
 
-    const { body } = currentPage
-
     return (
         <RenderSinglePageContent pageData={currentPage}>
             <BackButton onClickFn={setCurrentPage} prevPage={null} />
-            {/* <BlocksRenderer content={body} /> */}
-            <p>Body</p>
         </RenderSinglePageContent>
     )
 }

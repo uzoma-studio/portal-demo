@@ -28,11 +28,10 @@ const Blog = ({ data }) => {
             <StyledBlogPostsList>
                 {
                     data.map((blogPost) => {
-                      const { id, attributes: { Title, Date, Author }} = blogPost
+                      const { id, title, date } = blogPost
                       return <li key={id} onClick={() => setCurrentPost(blogPost)}>
-                          <h4>{Title}</h4>
-                          <p>{Date}</p>
-                          <h6>{Author}</h6>
+                          <h4>{title}</h4>
+                          <p>{date}</p>
                       </li>
                     })
                 }
