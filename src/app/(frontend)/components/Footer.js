@@ -24,7 +24,7 @@ const StyledFooter = styled.div`
  * @param {object} [pages=false] - Pages to be passed to the Navbar component
  * @returns {JSX.Element} Footer component
  */
-const Footer = ({ background, height, pages, showPagesNav }) => {
+const Footer = ({ background, height, pages, showPagesNav, children }) => {
     const context = useContext(AppContext)
     const { siteTitle } = context
     return (
@@ -34,6 +34,7 @@ const Footer = ({ background, height, pages, showPagesNav }) => {
         $showPagesNav={showPagesNav}
     >
         <h3>{ siteTitle }</h3>
+        {children}
         { showPagesNav && <Navbar pages={pages} />}
     </StyledFooter>
     )

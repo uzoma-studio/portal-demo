@@ -3,22 +3,13 @@
 import React, { useEffect, useState } from 'react'
 import { config } from '../template-config';
 import Island from '../components/island';
-import { findPage, getCoverImageUrl } from '../../../utils/utils';
+import { findPage } from '../../../utils/utils';
 import RenderPages from '@/app/(frontend)/utils/renderPages';
+import usePageImages from '@/app/(frontend)/hooks/usePageImages'
 
 const Index = ({ pages, setCurrentPage }) => {
 
-    const [ pageImages, setPageImages ] = useState([])
-
-    // TODO: Convert to hook to use across templates
-    useEffect(() => {
-        const pageImages = []
-        pages.forEach(page => {
-            pageImages.push(page.coverImage)
-        });
-        setPageImages(pageImages)
-    }, [])
-    
+    const pageImages = usePageImages(pages);
 
     return (
         <>
