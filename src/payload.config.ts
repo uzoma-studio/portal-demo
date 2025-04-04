@@ -12,6 +12,7 @@ import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { SiteSettings } from './collections/Settings'
 import { Posts } from './collections/Posts'
+import { NewsTicker } from './collections/NewsTicker'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -23,7 +24,44 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, SiteSettings, Media, Pages, Posts],
+  collections: [
+    {
+      ...Media,
+      admin: {
+        group: 'Content',
+      },
+    },
+    {
+      ...Pages,
+      admin: {
+        group: 'Content',
+      },
+    },
+    {
+      ...Posts,
+      admin: {
+        group: 'Content',
+      },
+    },
+    {
+      ...NewsTicker,
+      admin: {
+        group: 'Widgets'
+      }
+    },
+    {
+      ...Users,
+      admin: {
+        group: 'Users & Permissions',
+      },
+    },
+    {
+      ...SiteSettings,
+      admin: {
+        group: 'Settings',
+      },
+    },
+  ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
