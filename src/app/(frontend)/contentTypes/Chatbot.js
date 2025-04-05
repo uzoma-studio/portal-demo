@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { globalConfig } from '../template-config';
 
 const ChatWrapper = styled.div`
-    margin: 2rem 20rem 5rem 20rem;
+    margin: 2rem ${props => props.$sideMargins ? props.$sideMargins : 'auto'};
     border: 2px solid ${props => props.$mainColor ? props.$mainColor : '#222'};
     border-radius: 20px;
     padding: 3rem;
@@ -67,6 +67,10 @@ const ChatWrapper = styled.div`
         margin: .5rem 0;
     }
 
+    .avatar {
+        border-radius: 50%;
+    }
+
     button {
         background-color: ${props => props.$mainColor ? props.$mainColor : '#222'};
         color: ${props => props.$accentColor ? props.$accentColor : '#fff'};
@@ -121,7 +125,7 @@ const ChatWrapper = styled.div`
     }
 `;
 
-export default function Chatbot ({ data, mainColor, accentColor }) {
+export default function Chatbot ({ data, mainColor, accentColor, sideMargins }) {
 
     const [chat, setChat] = useState({})
     // const [isMobile, setIsMobile] = useState(false)
@@ -181,13 +185,14 @@ export default function Chatbot ({ data, mainColor, accentColor }) {
         <ChatWrapper
             $mainColor={mainColor}
             $accentColor={accentColor} 
+            $sideMargins={sideMargins}
         >
             <div className='chat' id='chat'>
                 {
                     Object.keys(chat).length > 0 && nodesToShowIds.map(
                         (nodeId, index) =>
                             <div key={`${nodeId}-${index}`}> {/* see note on index in getReplyOptions */}
-                                { chat.avatar && <Image src={chat.avatar.url} width={100} height={100} alt="chat avatar" className='avatar'/> }
+                                { chat.avatar && <Image src={chat.avatar.url} width={75} height={75} alt="chat avatar" className='avatar'/> }
                                 <div className='bot-messages' ref={bottomRef}>
                                     { createMessageNode(nodeId) }
                                 </div>
