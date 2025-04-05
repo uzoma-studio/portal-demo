@@ -13,6 +13,9 @@ const StyledFooter = styled.div`
     justify-content: center;
     align-items: center;
     font-family: monospace;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 `
 
 /**
