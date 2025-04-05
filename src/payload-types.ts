@@ -70,6 +70,7 @@ export interface Config {
     media: Media;
     pages: Page;
     posts: Post;
+    chatbot: Chatbot;
     newsTicker: NewsTicker;
     users: User;
     siteSettings: SiteSetting;
@@ -82,6 +83,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
+    chatbot: ChatbotSelect<false> | ChatbotSelect<true>;
     newsTicker: NewsTickerSelect<false> | NewsTickerSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     siteSettings: SiteSettingsSelect<false> | SiteSettingsSelect<true>;
@@ -163,8 +165,29 @@ export interface Page {
     [k: string]: unknown;
   } | null;
   slug?: string | null;
-  contentType?: ('blog' | 'files') | null;
+  contentType?: ('blog' | 'files' | 'chatbot') | null;
+  chatbot?: (number | null) | Chatbot;
   coverImage?: (number | null) | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "chatbot".
+ */
+export interface Chatbot {
+  id: number;
+  name: string;
+  avatar?: (number | null) | Media;
+  nodes:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -264,6 +287,10 @@ export interface PayloadLockedDocument {
         value: number | Post;
       } | null)
     | ({
+        relationTo: 'chatbot';
+        value: number | Chatbot;
+      } | null)
+    | ({
         relationTo: 'newsTicker';
         value: number | NewsTicker;
       } | null)
@@ -344,6 +371,7 @@ export interface PagesSelect<T extends boolean = true> {
   body?: T;
   slug?: T;
   contentType?: T;
+  chatbot?: T;
   coverImage?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -359,6 +387,17 @@ export interface PostsSelect<T extends boolean = true> {
   slug?: T;
   date?: T;
   date_tz?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "chatbot_select".
+ */
+export interface ChatbotSelect<T extends boolean = true> {
+  name?: T;
+  avatar?: T;
+  nodes?: T;
   updatedAt?: T;
   createdAt?: T;
 }

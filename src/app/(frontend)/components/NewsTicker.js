@@ -25,7 +25,7 @@ const StyledTicker = styled.div`
   height: 3rem;
   padding-left: 100%;
   box-sizing: content-box;
-  background-color: ${({ $backgroundColor = '#ccc' }) => $backgroundColor};
+  background-color: ${props => props.$backgroundColor ? props.$backgroundColor : '#ccc'};
 
     div.content {
         display: inline-block;
@@ -34,13 +34,13 @@ const StyledTicker = styled.div`
         white-space: nowrap;
         padding-right: 100%;
         box-sizing: content-box;
-        animation: ${tickerAnimation} ${({ $scrollSpeed = '45s' }) => $scrollSpeed} linear infinite;
+        animation: ${tickerAnimation} ${props => props.$scrollSpeed ? props.$scrollSpeed : '45s'} linear infinite;
     }
 `;
 
 const TickerItem = styled(Link)`
   display: inline-block;
-  padding: 0 ${({ $itemSpacing = '3rem' }) => $itemSpacing};
+  padding: 0 ${props => props.$itemSpacing ? props.$itemSpacing : '3rem'};
   font-size: 1.25rem;
   text-transform: uppercase;
   color: #000 !important;
@@ -56,7 +56,6 @@ const NewsTicker = ({ backgroundColor, scrollSpeed, itemSpacing }) => {
 
         async function fetchData() {
             const data = await getContent('newsTicker');
-            console.log(data);
             
             setTickerItems(data.docs[0].tickerItems)
         }

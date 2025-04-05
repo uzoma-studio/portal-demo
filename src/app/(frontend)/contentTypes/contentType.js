@@ -3,6 +3,7 @@ import { getContent } from 'data/fetchContent.server'
 
 import Blog from './Blog'
 import Archive from './Archive'
+import Chatbot from './Chatbot'
 
 /**
  * ContentType component
@@ -25,6 +26,7 @@ const ContentType = ({ pageData }) => {
      */
     const blog = 'blog'
     const files = 'files'
+    const chatbot = 'chatbot'
 
     const type = pageData.contentType
 
@@ -34,6 +36,8 @@ const ContentType = ({ pageData }) => {
                 return getContent('posts')
             case files:
                 return getContent('files')
+            case chatbot:
+                return getContent('chatbot')
             default:
                 return null
         }
@@ -55,7 +59,9 @@ const ContentType = ({ pageData }) => {
                         case blog:
                             return <Blog data={data} />
                         case files:
-                            return <Archive data={{data}} />
+                            return <Archive data={data} />
+                        case chatbot:
+                            return <Chatbot data={data} />
                         default:
                             return null
                     }

@@ -23,7 +23,16 @@ export const Pages: CollectionConfig = {
         options: [
             { label: 'Blog', value: 'blog' },
             { label: 'Files', value: 'files' },
+            { label: 'Chatbot', value: 'chatbot' },
         ],
+    },
+    {
+      name: 'chatbot',
+      type: 'relationship',
+      relationTo: 'chatbot',
+      admin: {
+        condition: (_, { contentType }) => contentType === 'chatbot',
+      },
     },
     {
         name: 'coverImage',
