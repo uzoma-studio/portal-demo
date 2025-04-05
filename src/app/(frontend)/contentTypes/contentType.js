@@ -76,7 +76,9 @@ const ContentType = ({ pageData }) => {
     }, []);
 
     return (
-        <>{activeContentTypeComponent}</>
+        <div style={{marginTop: '2rem'}}>
+            {activeContentTypeComponent}
+        </div>
     )
 }
 
