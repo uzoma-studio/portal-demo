@@ -41,3 +41,9 @@ export const getCoverImageUrl = (coverImage) => {
 
     return `${window.location.origin}${coverImage.url}`;
 }
+
+export const parseDate = (dateString) => {
+    const date = new Date(dateString);
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    return date.toLocaleDateString("en-US", options);
+}
