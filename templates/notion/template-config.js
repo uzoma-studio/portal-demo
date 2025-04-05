@@ -12,26 +12,7 @@ const config = {
         ...globalConfig.style,
         backgroundColor: '#fff'
     },
-    pageConfig: [
-        {
-            id: 1, 
-            pageSlug: 'lorem-ipsum',
-            headerImage: "/assets/islands/island-4.png"
-        },
-        {
-            id: 2, 
-            pageSlug: 'matnuis-calendrum',
-        },
-        {
-            id: 3, 
-            pageSlug: 'maecenas',
-        },
-        {
-            id: 4, 
-            pageSlug: 'nulla-facilisi',
-            headerImage: "/assets/islands/island-2.png"
-        }
-    ]
+    pageConfig: globalConfig.pageConfig
 }
 
 export { config }

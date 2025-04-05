@@ -17,7 +17,7 @@ const Index = ({ pages, setCurrentPage }) => {
                 pages.map((pageData, index) => {
 
                     const pageImage = pageImages?.[index]?.url || null;
-                    const pageImagePosition = findPage(config.pageConfig, pageData.id).coverImage.position
+                    const pageImagePosition = findPage(config.pageConfig, pageData.id).position
 
                     return <RenderPages
                                 key={pageData.id}

@@ -8,7 +8,10 @@
 import { globalConfig } from "@/app/(frontend)/template-config"
 
 const config = {
-    templateImage: '/assets/image-map/kiefer.png',
+    templateImage: {
+        url: '/assets/image-map/kiefer.png',
+        alt: 'Image of Kiefers Room'
+    },
     style: {
         ...globalConfig.style,
         hotspotColor: 'crimson',
@@ -21,33 +24,7 @@ const config = {
             borderWidth: '3px'
         }
     },
-    pageConfig: [
-        {
-            id: 1, 
-            pageSlug: 'lorem-ipsum',
-            position: {x: 35, y: 20}
-        },
-        {
-            id: 2, 
-            pageSlug: 'matnuis-calendrum',
-            position: {x: 85, y: 25}
-        },
-        {
-            id: 3, 
-            pageSlug: 'maecenas',
-            position: {x: 62.5, y: 60}
-        },
-        {
-            id: 4, 
-            pageSlug: 'nulla-facilisi',
-            position: {x: 20, y: 20}
-        },
-        {
-            id: 5, 
-            pageSlug: 'nulla-semptate',
-            position: {x: 50, y: 30}
-        },
-    ]
+    pageConfig: globalConfig.pageConfig
 }
 
 export { config }

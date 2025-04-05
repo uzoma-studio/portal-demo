@@ -13,48 +13,7 @@ const config = {
         backgroundColor: '#2980b9',
         bodyTextColor: '#fff'
     },
-    pageConfig: [
-        {
-            id: 1, 
-            pageSlug: 'lorem-ipsum', 
-            coverImage: {
-                url: "/assets/islands/island-1.png", 
-                position: {x: 5, y: 10}
-            }
-        },
-        {
-            id: 2, 
-            pageSlug: 'id-diam-maecenas', 
-            coverImage: {
-                url: "/assets/islands/island-2.png", 
-                position: {x: 90, y: 15}
-            }
-        },
-        {
-            id: 3, 
-            pageSlug: 'urna-condimentum', 
-            coverImage: {
-                url: "/assets/islands/island-3.png", 
-                position: {x: 20, y: 75}
-            }
-        },
-        {
-            id: 4, 
-            pageSlug: 'vulputate-sapien', 
-            coverImage: {
-                url: "/assets/islands/island-4.png", 
-                position: {x: 100, y: 80}
-            }
-        },
-        {
-            id: 5, 
-            pageSlug: 'vulputate-sapien', 
-            coverImage: {
-                url: "/assets/islands/island-5.png", 
-                position: {x: 80, y: 40}
-            }
-        }
-    ]
+    pageConfig: globalConfig.pageConfig
 }
 
 export { config }

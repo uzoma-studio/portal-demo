@@ -12,14 +12,7 @@ const config = {
         ...globalConfig.style,
         // you can add template-specific config
     },
-    pageConfig: [
-        {
-            id: 1, 
-            pageSlug: '',
-            // you can add more config per page
-        },
-        // ...
-    ]
+    pageConfig: globalConfig.pageConfig
 }
 
 export { config }

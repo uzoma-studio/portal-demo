@@ -16,11 +16,28 @@ export const StyledBackgroundImageContainer = styled.div`
         border-radius: 100%;
         cursor: pointer;
         z-index: -1;
+        animation: pulse 1.5s infinite ease-in-out;
 
         &:hover {
             width: ${`${Number(style.hotspotSize) + 2.5}px`};
             height: ${`${Number(style.hotspotSize) + 2.5}px`};
             transition: ease-in .2s;
+            animation-play-state: paused;
+        }
+    }
+
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+            opacity: 1;
+        }
+        50% {
+            transform: scale(1.5);
+            opacity: 0.6;
+        }
+        100% {
+            transform: scale(1);
+            opacity: 1;
         }
     }
 `

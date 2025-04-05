@@ -13,11 +13,11 @@ const Index = ({ pages }) => {
     return (
         <StyledBackgroundImageContainer>
             <Image 
-                src={config.templateImage}
+                src={config.templateImage.url}
                 layout="fill"
                 objectFit="cover"
                 quality={100}
-                alt='Image of Kiefers room'
+                alt={config.templateImage.alt}
             />
             {
                 pages.map((pageData) =>
