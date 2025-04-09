@@ -14,6 +14,7 @@ import { SiteSettings } from './collections/Settings'
 import { Posts } from './collections/Posts'
 import { NewsTicker } from './collections/NewsTicker'
 import { Chatbot } from './collections/Chatbot'
+import { ChatMessages } from './collections/ChatMessages'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -49,6 +50,12 @@ export default buildConfig({
       admin: {
         group: 'Content Types',
       },
+    },
+    {
+      ...ChatMessages,
+      admin: {
+        group: 'Content Types'
+      }
     },
     {
       ...NewsTicker,

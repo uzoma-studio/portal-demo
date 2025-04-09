@@ -71,6 +71,7 @@ export interface Config {
     pages: Page;
     posts: Post;
     chatbot: Chatbot;
+    'chat-messages': ChatMessage;
     newsTicker: NewsTicker;
     users: User;
     siteSettings: SiteSetting;
@@ -84,6 +85,7 @@ export interface Config {
     pages: PagesSelect<false> | PagesSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
     chatbot: ChatbotSelect<false> | ChatbotSelect<true>;
+    'chat-messages': ChatMessagesSelect<false> | ChatMessagesSelect<true>;
     newsTicker: NewsTickerSelect<false> | NewsTickerSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     siteSettings: SiteSettingsSelect<false> | SiteSettingsSelect<true>;
@@ -165,7 +167,7 @@ export interface Page {
     [k: string]: unknown;
   } | null;
   slug?: string | null;
-  contentType?: ('blog' | 'files' | 'chatbot') | null;
+  contentType?: ('blog' | 'files' | 'chatbot' | 'chat-messages') | null;
   chatbot?: (number | null) | Chatbot;
   coverImage?: (number | null) | Media;
   updatedAt: string;
@@ -217,6 +219,18 @@ export interface Post {
   slug?: string | null;
   date?: string | null;
   date_tz?: SupportedTimezones;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "chat-messages".
+ */
+export interface ChatMessage {
+  id: number;
+  user: string;
+  message: string;
+  timestamp?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -289,6 +303,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'chatbot';
         value: number | Chatbot;
+      } | null)
+    | ({
+        relationTo: 'chat-messages';
+        value: number | ChatMessage;
       } | null)
     | ({
         relationTo: 'newsTicker';
@@ -398,6 +416,17 @@ export interface ChatbotSelect<T extends boolean = true> {
   name?: T;
   avatar?: T;
   nodes?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "chat-messages_select".
+ */
+export interface ChatMessagesSelect<T extends boolean = true> {
+  user?: T;
+  message?: T;
+  timestamp?: T;
   updatedAt?: T;
   createdAt?: T;
 }

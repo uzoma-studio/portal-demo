@@ -24,5 +24,10 @@ export const globalConfig = {
             slug: 'chat-page',
             position: {x: 50, y: 25}
         },
+        {
+            id: 3,
+            slug: 'messages',
+            position: {x: 20, y: 75}
+        },
     ]
 }

@@ -24,6 +24,7 @@ export const Pages: CollectionConfig = {
             { label: 'Blog', value: 'blog' },
             { label: 'Files', value: 'files' },
             { label: 'Chatbot', value: 'chatbot' },
+            { label: 'Chat', value: 'chat-messages' },
         ],
     },
     {

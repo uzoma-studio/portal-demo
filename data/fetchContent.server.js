@@ -19,10 +19,10 @@ const getSiteSettings = async () => {
     return result
 }
 
-const getContent = async (type) => {
+const getContent = async (type, sortFn='-createdAt') => {
     const result = await payload.find({
         collection: type,
-        sort: '-createdAt',
+        sort: sortFn,
     })
     return result
 }
