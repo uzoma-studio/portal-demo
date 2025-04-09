@@ -26,6 +26,5 @@ export async function POST(req) {
     data: { user, message },
   });
 
-  console.log(NextResponse.json(newMessage));
   return NextResponse.json(newMessage);
 }
