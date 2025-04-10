@@ -57,21 +57,25 @@ const Chat = ({ data }) => {
     }, [messages]);
 
     const sendMessage = async () => {
-    if (!message.trim()) return;
-    
-    setButtonText('Sending...');
-        
-        const res = await fetch('/api/chat', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ user, message }),
-        });
+        if (!message.trim()) return;
 
-        const newMessage = await res.json();
-        setMessages((prev) => [...prev, newMessage]);
-        setMessage('');
-    
-        setButtonText('Send');
+        setButtonText('Sending...');
+
+        try {
+            const res = await fetch('/api/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ user, message }),
+            });
+
+            const newMessage = await res.json();
+            setMessages((prev) => [...prev, newMessage]);
+            setMessage('');
+        } catch (error) {
+            console.error('Error sending message:', error);
+        } finally {
+            setButtonText('Send');
+        }
     };
 
     return (
