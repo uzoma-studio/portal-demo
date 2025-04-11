@@ -4,6 +4,9 @@ import { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components'
 import { globalConfig } from '../template-config';
 
+import AuthButton from '@/app/(frontend)/widgets/Authentication/AuthButton'
+import { useAuth } from '../context/AuthProvider';
+
 const ChatWrapper = styled.div`
 
     font-family: ${globalConfig.style.bodyFont};
@@ -16,18 +19,18 @@ const ChatWrapper = styled.div`
             bottom: 5%;
             width: 100%;
     
-            input {
+            input.chat-input {
                 border: 2px solid #222;
                 border-radius: 5px;
                 padding: 2%;
                 width: 70%;
             }
     
-            button {
+            .chat-button {
                 text-align: center;
-                display: bloc;
-                width: 15%;
-                margin-left: 3.25%;
+                display: block;
+                width: 7.5%;
+                margin: 0 1%;
                 background-color: #222;
                 color: #fff;
                 border-radius: 5px;
@@ -47,7 +50,9 @@ const Chat = ({ data }) => {
     const [messages, setMessages] = useState(data);
     const [message, setMessage] = useState('');
     const [buttonText, setButtonText] = useState('Send')
-    const [user, setUser] = useState('Guest');
+    const { user } = useAuth()
+
+    const username = user ? user.username : 'Guest'
 
     const bottomRef = useRef(null);
 
@@ -55,6 +60,7 @@ const Chat = ({ data }) => {
         // Scroll to the bottom when messages update
         bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [messages]);
+
 
     const sendMessage = async () => {
         if (!message.trim()) return;
@@ -65,7 +71,7 @@ const Chat = ({ data }) => {
             const res = await fetch('/api/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ user, message }),
+                body: JSON.stringify({ user: username, message }),
             });
 
             const newMessage = await res.json();
@@ -82,22 +88,24 @@ const Chat = ({ data }) => {
         <ChatWrapper>
             <h2>Chat</h2>
             <div className='chat-container'>
-                <div style={{ maxHeight: '300px', overflowY: 'auto' }}>
+                <ul style={{ maxHeight: '300px', overflowY: 'auto' }}>
                     {messages.map((msg) => (
-                        <div key={msg.id}>
+                        <li key={msg.id}>
                             <strong>{msg.user}:</strong> {msg.message}
-                        </div>
+                        </li>
                     ))}
                     <div ref={bottomRef} />
-                </div>
+                </ul>
                 <div className='input-box-container'>
                     <input
                         type="text"
                         placeholder="Type your message..."
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
+                        className='chat-input'
                     />
-                    <button onClick={sendMessage}>{buttonText}</button>
+                    <button className='chat-button' onClick={sendMessage}>{user ? buttonText : `${buttonText} as Guest`}</button>
+                    <AuthButton />
                 </div>
             </div>
         </ChatWrapper>

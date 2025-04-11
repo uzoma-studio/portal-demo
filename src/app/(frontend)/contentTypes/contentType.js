@@ -41,7 +41,7 @@ const ContentType = ({ pageData }) => {
             case chatbot:
                 return getContent('chatbot')
             case chat:
-                return getContent('chat-messages', 'date')
+                return getContent('chat-messages', 'date', 50)
             default:
                 return null
         }
