@@ -15,6 +15,8 @@ import { Posts } from './collections/Posts'
 import { NewsTicker } from './collections/NewsTicker'
 import { Chatbot } from './collections/Chatbot'
 import { ChatMessages } from './collections/ChatMessages'
+import { Products } from './collections/Products'
+import { Subscriptions } from './collections/Subscriptions'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -58,9 +60,21 @@ export default buildConfig({
       }
     },
     {
+      ...Products,
+      admin: {
+        group: 'Content Types'
+      }
+    },
+    {
       ...NewsTicker,
       admin: {
         group: 'Widgets'
+      }
+    },
+    {
+      ...Subscriptions,
+      admin: {
+        group: 'Payments'
       }
     },
     {
