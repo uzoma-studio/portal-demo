@@ -72,7 +72,9 @@ export interface Config {
     posts: Post;
     chatbot: Chatbot;
     'chat-messages': ChatMessage;
+    products: Product;
     newsTicker: NewsTicker;
+    subscriptions: Subscription;
     users: User;
     siteSettings: SiteSetting;
     'payload-locked-documents': PayloadLockedDocument;
@@ -86,7 +88,9 @@ export interface Config {
     posts: PostsSelect<false> | PostsSelect<true>;
     chatbot: ChatbotSelect<false> | ChatbotSelect<true>;
     'chat-messages': ChatMessagesSelect<false> | ChatMessagesSelect<true>;
+    products: ProductsSelect<false> | ProductsSelect<true>;
     newsTicker: NewsTickerSelect<false> | NewsTickerSelect<true>;
+    subscriptions: SubscriptionsSelect<false> | SubscriptionsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     siteSettings: SiteSettingsSelect<false> | SiteSettingsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -167,7 +171,7 @@ export interface Page {
     [k: string]: unknown;
   } | null;
   slug?: string | null;
-  contentType?: ('blog' | 'files' | 'chatbot' | 'chat-messages') | null;
+  contentType?: ('blog' | 'files' | 'chatbot' | 'chat-messages' | 'products') | null;
   chatbot?: (number | null) | Chatbot;
   coverImage?: (number | null) | Media;
   updatedAt: string;
@@ -236,6 +240,21 @@ export interface ChatMessage {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products".
+ */
+export interface Product {
+  id: number;
+  name: string;
+  description?: string | null;
+  price: number;
+  paymentType: 'one-time' | 'subscription';
+  productImage?: (number | null) | Media;
+  paystackPlanId?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "newsTicker".
  */
 export interface NewsTicker {
@@ -249,6 +268,19 @@ export interface NewsTicker {
         blockType: 'tickerItem';
       }[]
     | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "subscriptions".
+ */
+export interface Subscription {
+  id: number;
+  user: number | User;
+  product: number | Product;
+  paystackSubscriptionId: string;
+  status?: ('active' | 'cancelled' | 'expired') | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -310,8 +342,16 @@ export interface PayloadLockedDocument {
         value: number | ChatMessage;
       } | null)
     | ({
+        relationTo: 'products';
+        value: number | Product;
+      } | null)
+    | ({
         relationTo: 'newsTicker';
         value: number | NewsTicker;
+      } | null)
+    | ({
+        relationTo: 'subscriptions';
+        value: number | Subscription;
       } | null)
     | ({
         relationTo: 'users';
@@ -433,6 +473,20 @@ export interface ChatMessagesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products_select".
+ */
+export interface ProductsSelect<T extends boolean = true> {
+  name?: T;
+  description?: T;
+  price?: T;
+  paymentType?: T;
+  productImage?: T;
+  paystackPlanId?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "newsTicker_select".
  */
 export interface NewsTickerSelect<T extends boolean = true> {
@@ -448,6 +502,18 @@ export interface NewsTickerSelect<T extends boolean = true> {
               blockName?: T;
             };
       };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "subscriptions_select".
+ */
+export interface SubscriptionsSelect<T extends boolean = true> {
+  user?: T;
+  product?: T;
+  paystackSubscriptionId?: T;
+  status?: T;
   updatedAt?: T;
   createdAt?: T;
 }

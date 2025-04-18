@@ -29,5 +29,10 @@ export const globalConfig = {
             slug: 'messages',
             position: {x: 20, y: 75}
         },
+        {
+            id: 4,
+            slug: 'shop',
+            position: {x: 40, y: 60}
+        },
     ]
 }

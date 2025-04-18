@@ -5,6 +5,7 @@ import Blog from './Blog'
 import Archive from './Archive'
 import Chatbot from './Chatbot'
 import Chat from './Chat'
+import Shop from './Shop'
 
 /**
  * ContentType component
@@ -29,6 +30,7 @@ const ContentType = ({ pageData }) => {
     const files = 'files'
     const chatbot = 'chatbot'
     const chat = 'chat-messages'
+    const product = 'products'
 
     const type = pageData.contentType
 
@@ -42,6 +44,8 @@ const ContentType = ({ pageData }) => {
                 return getContent('chatbot')
             case chat:
                 return getContent('chat-messages', 'date', 50)
+            case product:
+                return getContent('products')
             default:
                 return null
         }
@@ -68,6 +72,8 @@ const ContentType = ({ pageData }) => {
                             return <Chatbot data={data} />
                         case chat:
                             return <Chat data={data} />
+                        case product:
+                            return <Shop data={data} />
                         default:
                             return null
                     }
