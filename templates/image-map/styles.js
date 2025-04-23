@@ -4,8 +4,6 @@ import styled from 'styled-components'
 const { style } = config
 
 export const StyledBackgroundImageContainer = styled.div`
-    background: url(${config.templateImage.url});
-
     img {
         z-index: -1;
     }
