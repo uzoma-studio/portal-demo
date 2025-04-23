@@ -35,7 +35,7 @@ const ActiveTemplate = ({ pages }) => {
     starter: <Starter pages={pages} />
   }
 
-  const defaultTemplateName = 'islands'
+  const defaultTemplateName = 'imagemap'
   const [activeTemplate, setActiveTemplate] = useState(templates[defaultTemplateName]);
 
   // Load the active template from localStorage if it exists
