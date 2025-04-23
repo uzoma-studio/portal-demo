@@ -16,23 +16,27 @@ export const globalConfig = {
     pageConfig: [
         {
             id: 1,
+            pageTitle: 'Updates',
             slug: 'sample-page',
-            position: {x: 35, y: 20}
+            position: {x: 28.5, y: 25}
         },
         {
             id: 2,
+            pageTitle: 'Chatbot',
             slug: 'chat-page',
-            position: {x: 50, y: 25}
+            position: {x: 61.5, y: 15}
         },
         {
             id: 3,
+            pageTitle: 'Messages',
             slug: 'messages',
-            position: {x: 20, y: 75}
+            position: {x: 10, y: 58.5}
         },
         {
             id: 4,
+            pageTitle: 'Shop',
             slug: 'shop',
-            position: {x: 40, y: 60}
+            position: {x: 91.5, y: 25}
         },
     ]
 }

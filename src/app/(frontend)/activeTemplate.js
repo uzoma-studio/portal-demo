@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 // Import various templates
-import ImageMap from '../../../templates/image-map/page'
+import ImageMap from '../../../templates/image-map/layout/index' //TODO: No need for `page` for the other imports, delete that file so it's one less file and just use `layout/index` instead, it's doing pretty much the same thing anyways
 import Islands from '../../../templates/islands/page'
 import Notion from '../../../templates/notion/page'
 import Windows from '../../../templates/windows/page'

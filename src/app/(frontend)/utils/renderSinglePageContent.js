@@ -25,7 +25,7 @@ const RenderSinglePageContent = ({ children, pageData, setCurrentPage }) => {
     <div>
         {title && <h1>{pageData.title}</h1> }
         {/* Display a close button if a close function has been provided */}
-        { setCurrentPage && <CloseButton closeFn={() => setCurrentPage(null)} position={{x: 80, y: 5}} /> }
+        { setCurrentPage && <CloseButton closeFn={() => setCurrentPage(null)} position={{x: 95, y: 5}} /> }
         { children }
         <div className='content'>
           <RichText data={pageData.body} />

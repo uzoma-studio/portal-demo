@@ -9,18 +9,18 @@ import { globalConfig } from "@/app/(frontend)/template-config"
 
 const config = {
     templateImage: {
-        url: '/assets/image-map/kiefer.png',
-        alt: 'Image of Kiefers Room'
+        url: '/assets/image-map/space.png',
+        alt: 'Composition of my living room'
     },
     style: {
         ...globalConfig.style,
-        hotspotColor: 'crimson',
+        hotspotColor: 'purple',
         hotspotSize: '15',
         pageStyles: {
-            width: '500px',
-            height: '500px',
+            width: '50%',
+            height: '70vh',
             backgroundColor: '#fff',
-            borderColor: 'crimson',
+            borderColor: 'purple',
             borderWidth: '3px'
         }
     },
