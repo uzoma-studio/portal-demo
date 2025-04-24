@@ -1,6 +1,5 @@
 import { withPayload } from "@payloadcms/next/withPayload";
-import dotenv from 'dotenv';
-dotenv.config();
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     env: {
