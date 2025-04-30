@@ -19,6 +19,13 @@ const getSiteSettings = async () => {
     return result
 }
 
+const getThemeSettings = async () => {
+    const result = await payload.find({
+        collection: 'themeSettings',
+    })
+    return result
+}
+
 const getContent = async (type, sortFn='-createdAt', limit=10) => {
     const result = await payload.find({
         collection: type,
@@ -28,4 +35,4 @@ const getContent = async (type, sortFn='-createdAt', limit=10) => {
     return result
 }
 
-export { fetchPages, getSiteSettings, getContent }
+export { fetchPages, getSiteSettings, getThemeSettings, getContent }

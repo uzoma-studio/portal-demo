@@ -77,6 +77,7 @@ export interface Config {
     subscriptions: Subscription;
     users: User;
     siteSettings: SiteSetting;
+    themeSettings: ThemeSetting;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -93,6 +94,7 @@ export interface Config {
     subscriptions: SubscriptionsSelect<false> | SubscriptionsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     siteSettings: SiteSettingsSelect<false> | SiteSettingsSelect<true>;
+    themeSettings: ThemeSettingsSelect<false> | ThemeSettingsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -316,6 +318,24 @@ export interface SiteSetting {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "themeSettings".
+ */
+export interface ThemeSetting {
+  id: number;
+  config?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -360,6 +380,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'siteSettings';
         value: number | SiteSetting;
+      } | null)
+    | ({
+        relationTo: 'themeSettings';
+        value: number | ThemeSetting;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -541,6 +565,15 @@ export interface SiteSettingsSelect<T extends boolean = true> {
   siteTitle?: T;
   siteDescription?: T;
   siteUrl?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "themeSettings_select".
+ */
+export interface ThemeSettingsSelect<T extends boolean = true> {
+  config?: T;
   updatedAt?: T;
   createdAt?: T;
 }

@@ -16,7 +16,8 @@ const Layout = ({ pages }) => {
 
     // Get site metadata from React Context
     const context = useContext(AppContext)
-    const { siteTitle, siteDescription } = context
+    const siteSettings = context.site
+    const { siteTitle, siteDescription } = siteSettings
 
     const [currentPage, setCurrentPage] = useState(null)
 

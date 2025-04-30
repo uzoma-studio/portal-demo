@@ -19,6 +19,7 @@ import { Chatbot } from './collections/Chatbot'
 import { ChatMessages } from './collections/ChatMessages'
 import { Products } from './collections/Products'
 import { Subscriptions } from './collections/Subscriptions'
+import { ThemeSettings } from './collections/ThemeSettings'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -87,6 +88,12 @@ export default buildConfig({
     },
     {
       ...SiteSettings,
+      admin: {
+        group: 'Settings',
+      },
+    },
+    {
+      ...ThemeSettings,
       admin: {
         group: 'Settings',
       },

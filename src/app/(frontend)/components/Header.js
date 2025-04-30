@@ -34,7 +34,9 @@ const StyledHeader = styled.div`
 const Header = ({ background, height, pages, showPagesNav }) => {
 
     const context = useContext(AppContext)
-    const { siteTitle } = context
+    const siteSettings = context.site
+    const { siteTitle } = siteSettings
+    
   return (
     <StyledHeader
         $background={background}

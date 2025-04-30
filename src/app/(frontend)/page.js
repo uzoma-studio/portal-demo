@@ -1,7 +1,7 @@
 import React from 'react'
 
 // import { getData, dataMapper } from '../../../data/fetchContent'
-import { fetchPages, getSiteSettings } from '../../../data/fetchContent.server'
+import { fetchPages, getSiteSettings, getThemeSettings } from '../../../data/fetchContent.server'
 import ActiveTemplate from './activeTemplate'
 import { AppProvider } from '../../../context'
 
@@ -21,11 +21,17 @@ const Home = async () => {
   // const siteSettings = await getData('setting')
 
   const data = await fetchPages()
-  const settings = await getSiteSettings()
+  const siteSettings = await getSiteSettings()
+  const themeSettings = await getThemeSettings()
+
+  const settings = {
+    site: siteSettings.docs?.[0] || {},
+    theme: themeSettings.docs?.[0] || {},
+  };
   
   // This is a server component which uses a client component for state mgt and interactivity:
   return (
-    <AppProvider value={settings.docs[0]}>
+    <AppProvider value={settings}>
       <ActiveTemplate pages={data.docs} />
     </AppProvider>
   );

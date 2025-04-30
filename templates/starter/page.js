@@ -15,7 +15,8 @@ const Page = ({ pages }) => {
 
     // Get site metadata from React Context
     const context = useContext(AppContext)
-    const { siteTitle, siteDescription } = context || {}
+    const siteSettings = context.site
+    const { siteTitle, siteDescription } = siteSettings || {}
 
     useEffect(() => {
         setCurrentPage(renderCurrentPage(pages))

@@ -1,4 +1,5 @@
-import React, { useState }  from 'react'
+import React, { useState, useContext } from 'react'
+import { AppContext } from '../../../context';
 
 import RenderSinglePageContent from '@/app/(frontend)/utils/renderSinglePageContent'
 
@@ -7,14 +8,17 @@ import { StyledPage } from '../styles'
 const SinglePage = ({ pageData, pageConfig, pageDisplayStyle }) => {
 
     const [ showPage, setShowPage ] = useState(false)
+    
     const hotspotConfig = pageConfig
     const pagePosition = hotspotConfig.position
+
+    const settings = useContext(AppContext)
 
     return (
         <>
             {
                 showPage ?
-                    <StyledPage $position={pagePosition} $pageDisplayStyle={pageDisplayStyle}>
+                    <StyledPage $position={pagePosition} $pageDisplayStyle={pageDisplayStyle} $settings={settings.theme.config}>
                         <RenderSinglePageContent pageData={pageData} setCurrentPage={setShowPage} />
                     </StyledPage>
                     :

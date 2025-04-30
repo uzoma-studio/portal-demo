@@ -29,7 +29,9 @@ const StyledFooter = styled.div`
  */
 const Footer = ({ background, height, pages, showPagesNav, children }) => {
     const context = useContext(AppContext)
-    const { siteTitle } = context
+    const siteSettings = context.site
+    const { siteTitle } = siteSettings
+    
     return (
     <StyledFooter
         $background={background}
