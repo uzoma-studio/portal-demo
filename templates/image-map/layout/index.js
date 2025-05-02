@@ -21,11 +21,11 @@ const Index = ({ pages }) => {
             <NewsTicker />
             <StyledBackgroundImageContainer $settings={config}>
                 <Image 
-                    src={config.templateImage.url}
+                    src={config?.templateImage?.url}
                     layout="fill"
                     objectFit="cover"
                     quality={100}
-                    alt={config.templateImage.alt}
+                    alt={config?.templateImage?.alt}
                 />
                 {
                     pages.map((pageData) =>

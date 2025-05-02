@@ -10,14 +10,14 @@ const SinglePage = ({ pageData, pageConfig, pageDisplayStyle }) => {
     const [ showPage, setShowPage ] = useState(false)
     
     const hotspotConfig = pageConfig
-    const pagePosition = hotspotConfig.position
+    const pagePosition = hotspotConfig?.position
 
     const settings = useContext(AppContext)
 
     return (
         <>
             {
-                showPage ?
+                pageConfig && showPage ?
                     <StyledPage $position={pagePosition} $pageDisplayStyle={pageDisplayStyle} $settings={settings.theme.config}>
                         <RenderSinglePageContent pageData={pageData} setCurrentPage={setShowPage} />
                     </StyledPage>

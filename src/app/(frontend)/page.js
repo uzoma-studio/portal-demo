@@ -16,17 +16,27 @@ import { AppProvider } from '../../../context'
  */
 const Home = async () => {
 
-  // Retrieve data from the server at build time
-  // const pages = await getData('pages')
-  // const siteSettings = await getData('setting')
-
   const data = await fetchPages()
-  const siteSettings = await getSiteSettings()
-  const themeSettings = await getThemeSettings()
+  let siteSettings = {}
+  let themeSettings = {}
+
+  try {
+    const result = await getThemeSettings();
+    themeSettings = result?.docs?.[0] || {};
+  } catch (err) {
+    console.warn('WARNING: Theme settings not ready, using fallback.');
+  }
+
+  try {
+    const result = await getSiteSettings();
+    siteSettings = result?.docs?.[0] || {};
+  } catch (err) {
+    console.warn('WARNING: Site settings not ready, using fallback.');
+  }
 
   const settings = {
-    site: siteSettings.docs?.[0] || {},
-    theme: themeSettings.docs?.[0] || {},
+    site: siteSettings,
+    theme: themeSettings,
   };
   
   // This is a server component which uses a client component for state mgt and interactivity:

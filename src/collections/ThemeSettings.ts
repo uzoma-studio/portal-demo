@@ -1,6 +1,7 @@
-import type { GlobalConfig } from 'payload'
+import type { CollectionConfig } from 'payload'
 
-export const ThemeSettings: GlobalConfig = {
+// TODO: This should be a GlobalConfig but using this causes the Vercel build to fail
+export const ThemeSettings: CollectionConfig = {
   slug: 'themeSettings',
   fields: [
     {
