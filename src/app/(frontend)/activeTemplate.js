@@ -5,9 +5,6 @@ import { useRouter } from 'next/navigation'
 
 // Import various templates
 import ImageMap from '../../../templates/image-map/layout/index' //TODO: No need for `page` for the other imports, delete that file so it's one less file and just use `layout/index` instead, it's doing pretty much the same thing anyways
-import Islands from '../../../templates/islands/page'
-import Notion from '../../../templates/notion/page'
-import Windows from '../../../templates/windows/page'
 import Starter from '../../../templates/starter/page'
 
 /**
@@ -28,9 +25,6 @@ const ActiveTemplate = ({ pages }) => {
   // The same `pages` data is used across all templates in the project
   // TODO: use Context or sth instead of having to pass this prop over and over again
   const templates = {
-    islands: <Islands pages={pages} />,
-    windows: <Windows pages={pages} />,
-    notion: <Notion pages={pages} />,
     imagemap: <ImageMap pages={pages} />,
     starter: <Starter pages={pages} />
   }

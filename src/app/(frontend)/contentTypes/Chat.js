@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components'
-import { globalConfig } from '../template-config';
+import { globalConfig } from '../template-config'; //TODO: Use themeSettings instead of the globalConfig object across the site
 
 import AuthButton from '@/app/(frontend)/widgets/Authentication/AuthButton'
 import { useAuth } from '../context/AuthProvider';
