@@ -14,7 +14,10 @@ import { AppProvider } from '../../../context'
  * 
  * @returns {JSX.Element} The Home page with the appropriate template and site settings
  */
+export const dynamic = 'force-dynamic'; //TODO: with this, data is fetched on every incoming request to the server. Find less expensive ways of handling this while ensuring config stays fresh and up to date
+
 const Home = async () => {
+  
 
   const data = await fetchPages()
   let siteSettings = {}

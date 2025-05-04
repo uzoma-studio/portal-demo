@@ -16,5 +16,6 @@ export const SiteSettings: CollectionConfig = {
         type: 'text',
         unique: true
     },
+    // TODO: add background img and alt properties to be set dynamically from Payload
   ]
 }
