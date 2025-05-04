@@ -13,6 +13,7 @@ export const globalConfig = {
         // TODO: Scrap this object since it is now being created and gotten from the CMS
     },
     // Manually map page ids from Payload backend to config
+    // TODO: Note that this is irrelevant and not being used in rendering the pages (at least in imagemap template), the data is now being fetched from the CMS
     pageConfig: [
         {
             id: 1,
