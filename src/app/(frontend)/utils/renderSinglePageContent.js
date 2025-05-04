@@ -27,6 +27,7 @@ const RenderSinglePageContent = ({ children, pageData, setCurrentPage }) => {
         {/* Display a close button if a close function has been provided */}
         { setCurrentPage && <CloseButton closeFn={() => setCurrentPage(null)} position={{x: 95, y: 5}} /> }
         { children }
+        {/* TODO: The page content should not be shown all the time. With blog posts for example, it can be shown on the index page but it doesn't make sense to show it on the single post page. Same thing for the title actually */}
         <div className='content'>
           <RichText data={pageData.body} />
         </div>

@@ -86,7 +86,6 @@ const Chat = ({ data }) => {
 
     return (
         <ChatWrapper>
-            <h2>Chat</h2>
             <div className='chat-container'>
                 <ul style={{ maxHeight: '300px', overflowY: 'auto' }}>
                     {messages.map((msg) => (
