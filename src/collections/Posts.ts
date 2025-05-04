@@ -24,6 +24,7 @@ export const Posts: CollectionConfig = {
     {
         name: 'slug',
         type: 'text',
+        // TODO: auto-generate and ensure uniqueness for slugs
     },
     {
         name: 'date',

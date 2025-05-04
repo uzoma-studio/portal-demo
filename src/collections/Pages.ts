@@ -16,6 +16,7 @@ export const Pages: CollectionConfig = {
     {
         name: 'slug',
         type: 'text',
+        // TODO: auto-generate and ensure uniqueness for slugs
     },
     {
         name: 'contentType',

@@ -10,7 +10,7 @@ export const globalConfig = {
         headerFontColor: '#222',
         bodyFont: 'Courier New',
         contentTextColor: '#222',
-        // TODO: add more parameters
+        // TODO: Scrap this object since it is now being created and gotten from the CMS
     },
     // Manually map page ids from Payload backend to config
     pageConfig: [

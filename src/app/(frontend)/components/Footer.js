@@ -27,6 +27,9 @@ const StyledFooter = styled.div`
  * @param {object} [pages=false] - Pages to be passed to the Navbar component
  * @returns {JSX.Element} Footer component
  */
+
+// TODO: change folder structure of the project: folders = root-components (Footer, Header, Navbar, etc), site-widgets (NewsTicker, AuthButton), page-content-types (Blog, Shop)
+// TODO: make the site softcodeable, meaning all content, styles and settings for root components like Footer, Header, Navbar, etc should be set on the CMS
 const Footer = ({ background, height, pages, showPagesNav, children }) => {
     const context = useContext(AppContext)
     const siteSettings = context.site
