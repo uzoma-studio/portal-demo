@@ -28,7 +28,7 @@ const Index = ({ pages }) => {
                     alt={config?.templateImage?.alt}
                 />
                 {
-                    pages.map((pageData) =>
+                    config && pages.map((pageData) =>
                         <RenderPages key={pageData.id}>
                             <SinglePage
                                 key={pageData.id}

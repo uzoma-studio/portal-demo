@@ -21,17 +21,18 @@ const Home = async () => {
   let themeSettings = {}
 
   try {
-    const result = await getThemeSettings();
-    themeSettings = result?.docs?.[0] || {};
-  } catch (err) {
-    console.warn('WARNING: Theme settings not ready, using fallback.');
-  }
-
-  try {
     const result = await getSiteSettings();
     siteSettings = result?.docs?.[0] || {};
   } catch (err) {
     console.warn('WARNING: Site settings not ready, using fallback.');
+  }
+
+
+  try {
+    const result = await getThemeSettings();
+    themeSettings = result?.docs?.[0] || {};
+  } catch (err) {
+    console.warn('WARNING: Theme settings not ready, using fallback.');
   }
 
   const settings = {
