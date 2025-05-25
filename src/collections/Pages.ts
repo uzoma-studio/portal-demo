@@ -7,6 +7,7 @@ export const Pages: CollectionConfig = {
     {
       name: 'title',
       type: 'text',
+      required: true,
     },
     {
         name: 'body',
@@ -16,7 +17,11 @@ export const Pages: CollectionConfig = {
     {
         name: 'slug',
         type: 'text',
-        // TODO: auto-generate and ensure uniqueness for slugs
+        required: true,
+        unique: true,
+        admin: {
+          position: 'sidebar',
+        },
     },
     {
         name: 'contentType',
@@ -28,6 +33,9 @@ export const Pages: CollectionConfig = {
             { label: 'Chat', value: 'chat-messages' },
             { label: 'Shop', value: 'products' },
         ],
+        admin: {
+          description: 'Leave blank for default Page content type',
+        },
     },
     {
       name: 'chatbot',
@@ -38,9 +46,122 @@ export const Pages: CollectionConfig = {
       },
     },
     {
-        name: 'coverImage',
-        type: 'upload',
-        relationTo: 'media',
-    }
+      name: 'spaceId',
+      type: 'text',
+      required: true,
+      index: true, // Add index for better query performance
+    },
+    {
+      name: 'themeConfig',
+      type: 'group',
+      fields: [
+        {
+          name: 'position',
+          type: 'group',
+          fields: [
+            {
+              name: 'x',
+              type: 'number',
+              required: true,
+              min: 0,
+              max: 100,
+              admin: {
+                description: 'X coordinate (0-100)',
+              },
+            },
+            {
+              name: 'y',
+              type: 'number',
+              required: true,
+              min: 0,
+              max: 100,
+              admin: {
+                description: 'Y coordinate (0-100)',
+              },
+            },
+          ],
+        },
+        {
+          name: 'icon',
+          type: 'upload',
+          relationTo: 'media',
+          admin: {
+            description: 'Optional icon image for the hotspot',
+          },
+        },
+        {
+          name: 'hotspotName',
+          type: 'text',
+          admin: {
+            description: 'Optional name to display on the hotspot',
+          },
+        },
+      ],
+    },
   ],
+  hooks: {
+    beforeChange: [
+      async ({ data, req, operation }) => {
+        // Only generate slug if title exists and it's a create operation or title is being updated
+        if (data.title && (operation === 'create' || (req.body && 'title' in req.body))) {
+          // Convert title to lowercase and replace spaces with hyphens
+          let slug = data.title.toLowerCase().replace(/\s+/g, '-');
+          
+          // Remove special characters
+          slug = slug.replace(/[^a-z0-9-]/g, '');
+          
+          // Remove consecutive hyphens
+          slug = slug.replace(/-+/g, '-');
+          
+          // Remove leading and trailing hyphens
+          slug = slug.replace(/^-+|-+$/g, '');
+          
+          // If it's an update operation, check if the slug already exists
+          if (operation === 'update') {
+            const existingPages = await req.payload.find({
+              collection: 'pages',
+              where: {
+                slug: {
+                  equals: slug,
+                },
+                id: {
+                  not_equals: data.id,
+                },
+              },
+            });
+            
+            // If slug exists, append a number
+            if (existingPages.totalDocs > 0) {
+              let counter = 1;
+              let newSlug = `${slug}-${counter}`;
+              
+              while (true) {
+                const checkSlug = await req.payload.find({
+                  collection: 'pages',
+                  where: {
+                    slug: {
+                      equals: newSlug,
+                    },
+                    id: {
+                      not_equals: data.id,
+                    },
+                  },
+                });
+                
+                if (checkSlug.totalDocs === 0) break;
+                counter++;
+                newSlug = `${slug}-${counter}`;
+              }
+              
+              slug = newSlug;
+            }
+          }
+          
+          data.slug = slug;
+        }
+        
+        return data;
+      },
+    ],
+  },
 }

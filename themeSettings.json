@@ -1,0 +1,20 @@
+{
+    "style": {
+      "bodyFont": "Courier New",
+      "headerFont": "Helvetica",
+      "pageStyles": {
+        "width": "50%",
+        "height": "70vh",
+        "borderColor": "purple",
+        "borderWidth": "3px",
+        "displayStyle": "center-modal",
+        "backgroundColor": "#fff"
+      },
+      "hotspotSize": "15",
+      "hotspotColor": "purple",
+      "bodyTextColor": "#222",
+      "backgroundColor": "#fff",
+      "headerFontColor": "#222",
+      "contentTextColor": "#222"
+    }
+  }

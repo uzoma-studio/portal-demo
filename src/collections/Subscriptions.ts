@@ -7,6 +7,12 @@ export const Subscriptions: CollectionConfig = {
   },
   fields: [
     {
+      name: 'spaceId',
+      type: 'text',
+      required: true,
+      index: true,
+    },
+    {
       name: 'user',
       type: 'relationship',
       relationTo: 'users',

@@ -20,6 +20,7 @@ import { ChatMessages } from './collections/ChatMessages'
 import { Products } from './collections/Products'
 import { Subscriptions } from './collections/Subscriptions'
 import { ThemeSettings } from './collections/ThemeSettings'
+import { Spaces } from './collections/Spaces'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -84,6 +85,12 @@ export default buildConfig({
       ...Users,
       admin: {
         group: 'Users & Permissions',
+      },
+    },
+    {
+      ...Spaces,
+      admin: {
+        group: 'Settings',
       },
     },
     {

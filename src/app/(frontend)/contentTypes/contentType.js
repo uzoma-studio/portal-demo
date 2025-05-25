@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { getContent } from 'data/fetchContent.server'
+import { AppContext } from '../../../../context'
 
 import Blog from './Blog'
 import Archive from './Archive'
@@ -21,6 +22,9 @@ import Shop from './Shop'
  */
 
 const ContentType = ({ pageData }) => {
+    const context = useContext(AppContext)
+    const spaceId = context.space?.id
+
     /**
      * Determines the API endpoint based on the content type
      * 
@@ -35,17 +39,19 @@ const ContentType = ({ pageData }) => {
     const type = pageData.contentType
 
     const fetchContentByType = async () => {
+        if (!spaceId) return null;
+
         switch (type) {
             case blog:
-                return getContent('posts')
+                return getContent('posts', spaceId)
             case files:
-                return getContent('files')
+                return getContent('files', spaceId)
             case chatbot:
-                return getContent('chatbot')
+                return getContent('chatbot', spaceId)
             case chat:
-                return getContent('chat-messages', 'date', 50)
+                return getContent('chat-messages', spaceId, 'date', 50)
             case product:
-                return getContent('products')
+                return getContent('products', spaceId)
             default:
                 return null
         }

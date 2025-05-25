@@ -8,6 +8,12 @@ export const ChatMessages: CollectionConfig = {
   },
   fields: [
     {
+      name: 'spaceId',
+      type: 'text',
+      required: true,
+      index: true,
+    },
+    {
       name: 'user',
       type: 'text',
       required: true,

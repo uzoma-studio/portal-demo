@@ -2,37 +2,59 @@
 
 import { getPayload } from 'payload'
 import config from '@payload-config'
+import { headers } from 'next/headers'
 
 const payload = await getPayload({ config })
 
-const fetchPages = async () => {
+const getCurrentSpace = async () => {
+    try {
+        const headersList = await headers()
+        const hostname = headersList.get('host').split('.')[0] || ''
+        
+        const space = await payload.find({
+            collection: 'spaces',
+            where: {
+                domain: {
+                    equals: hostname
+                }
+            }
+        })
+
+        if (space.docs.length > 0) {
+            return space.docs[0]
+        }
+        
+        return null
+    } catch (error) {
+        console.error('Error fetching space:', error)
+        return null
+    }
+}
+
+const fetchPages = async (spaceId) => {
     const result = await payload.find({
         collection: 'pages',
+        where: {
+            spaceId: {
+                equals: spaceId
+            }
+        }
     })
     return result
 }
 
-const getSiteSettings = async () => {
-    const result = await payload.find({
-        collection: 'siteSettings',
-    })
-    return result
-}
-
-const getThemeSettings = async () => {
-    const result = await payload.find({
-        collection: 'themeSettings',
-    })
-    return result
-}
-
-const getContent = async (type, sortFn='-createdAt', limit=10) => {
+const getContent = async (type, spaceId, sortFn='-createdAt', limit=10) => {
     const result = await payload.find({
         collection: type,
         sort: sortFn,
-        limit
+        limit,
+        where: {
+            spaceId: {
+                equals: spaceId
+            }
+        }
     })
     return result
 }
 
-export { fetchPages, getSiteSettings, getThemeSettings, getContent }
+export { getCurrentSpace, fetchPages, getContent }

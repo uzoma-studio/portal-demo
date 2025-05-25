@@ -76,6 +76,7 @@ export interface Config {
     newsTicker: NewsTicker;
     subscriptions: Subscription;
     users: User;
+    spaces: Space;
     siteSettings: SiteSetting;
     themeSettings: ThemeSetting;
     'payload-locked-documents': PayloadLockedDocument;
@@ -93,6 +94,7 @@ export interface Config {
     newsTicker: NewsTickerSelect<false> | NewsTickerSelect<true>;
     subscriptions: SubscriptionsSelect<false> | SubscriptionsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    spaces: SpacesSelect<false> | SpacesSelect<true>;
     siteSettings: SiteSettingsSelect<false> | SiteSettingsSelect<true>;
     themeSettings: ThemeSettingsSelect<false> | ThemeSettingsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -156,7 +158,7 @@ export interface Media {
  */
 export interface Page {
   id: number;
-  title?: string | null;
+  title: string;
   body?: {
     root: {
       type: string;
@@ -172,10 +174,33 @@ export interface Page {
     };
     [k: string]: unknown;
   } | null;
-  slug?: string | null;
+  slug: string;
+  /**
+   * Leave blank for default Page content type
+   */
   contentType?: ('blog' | 'files' | 'chatbot' | 'chat-messages' | 'products') | null;
   chatbot?: (number | null) | Chatbot;
-  coverImage?: (number | null) | Media;
+  spaceId: string;
+  themeConfig: {
+    position: {
+      /**
+       * X coordinate (0-100)
+       */
+      x: number;
+      /**
+       * Y coordinate (0-100)
+       */
+      y: number;
+    };
+    /**
+     * Optional icon image for the hotspot
+     */
+    icon?: (number | null) | Media;
+    /**
+     * Optional name to display on the hotspot
+     */
+    hotspotName?: string | null;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -185,6 +210,7 @@ export interface Page {
  */
 export interface Chatbot {
   id: number;
+  spaceId: string;
   name: string;
   avatar?: (number | null) | Media;
   nodes:
@@ -205,6 +231,7 @@ export interface Chatbot {
  */
 export interface Post {
   id: number;
+  spaceId: string;
   title?: string | null;
   coverImage?: (number | null) | Media;
   body?: {
@@ -234,6 +261,7 @@ export interface Post {
  */
 export interface ChatMessage {
   id: number;
+  spaceId: string;
   user: string;
   message: string;
   timestamp?: string | null;
@@ -246,6 +274,7 @@ export interface ChatMessage {
  */
 export interface Product {
   id: number;
+  spaceId: string;
   name: string;
   description?: string | null;
   price: number;
@@ -279,6 +308,7 @@ export interface NewsTicker {
  */
 export interface Subscription {
   id: number;
+  spaceId: string;
   user: number | User;
   product: number | Product;
   paystackSubscriptionId: string;
@@ -303,6 +333,31 @@ export interface User {
   loginAttempts?: number | null;
   lockUntil?: string | null;
   password?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "spaces".
+ */
+export interface Space {
+  id: number;
+  name: string;
+  domain: string;
+  settings?: {
+    siteTitle?: string | null;
+    siteDescription?: string | null;
+    backgroundImage?: (number | null) | Media;
+    theme?:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
+  };
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -376,6 +431,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'users';
         value: number | User;
+      } | null)
+    | ({
+        relationTo: 'spaces';
+        value: number | Space;
       } | null)
     | ({
         relationTo: 'siteSettings';
@@ -455,7 +514,19 @@ export interface PagesSelect<T extends boolean = true> {
   slug?: T;
   contentType?: T;
   chatbot?: T;
-  coverImage?: T;
+  spaceId?: T;
+  themeConfig?:
+    | T
+    | {
+        position?:
+          | T
+          | {
+              x?: T;
+              y?: T;
+            };
+        icon?: T;
+        hotspotName?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
@@ -464,6 +535,7 @@ export interface PagesSelect<T extends boolean = true> {
  * via the `definition` "posts_select".
  */
 export interface PostsSelect<T extends boolean = true> {
+  spaceId?: T;
   title?: T;
   coverImage?: T;
   body?: T;
@@ -478,6 +550,7 @@ export interface PostsSelect<T extends boolean = true> {
  * via the `definition` "chatbot_select".
  */
 export interface ChatbotSelect<T extends boolean = true> {
+  spaceId?: T;
   name?: T;
   avatar?: T;
   nodes?: T;
@@ -489,6 +562,7 @@ export interface ChatbotSelect<T extends boolean = true> {
  * via the `definition` "chat-messages_select".
  */
 export interface ChatMessagesSelect<T extends boolean = true> {
+  spaceId?: T;
   user?: T;
   message?: T;
   timestamp?: T;
@@ -500,6 +574,7 @@ export interface ChatMessagesSelect<T extends boolean = true> {
  * via the `definition` "products_select".
  */
 export interface ProductsSelect<T extends boolean = true> {
+  spaceId?: T;
   name?: T;
   description?: T;
   price?: T;
@@ -534,6 +609,7 @@ export interface NewsTickerSelect<T extends boolean = true> {
  * via the `definition` "subscriptions_select".
  */
 export interface SubscriptionsSelect<T extends boolean = true> {
+  spaceId?: T;
   user?: T;
   product?: T;
   paystackSubscriptionId?: T;
@@ -556,6 +632,24 @@ export interface UsersSelect<T extends boolean = true> {
   hash?: T;
   loginAttempts?: T;
   lockUntil?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "spaces_select".
+ */
+export interface SpacesSelect<T extends boolean = true> {
+  name?: T;
+  domain?: T;
+  settings?:
+    | T
+    | {
+        siteTitle?: T;
+        siteDescription?: T;
+        backgroundImage?: T;
+        theme?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

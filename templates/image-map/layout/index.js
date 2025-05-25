@@ -14,18 +14,21 @@ import NewsTicker from '@/app/(frontend)/components/NewsTicker'
 const Index = ({ pages }) => {
 
     const settings = useContext(AppContext)
-    const config = settings.theme.config
+    const config = settings.theme
+
+    console.log(pages);
+    
     
     return (
         <>
             <NewsTicker />
             <StyledBackgroundImageContainer $settings={config}>
                 <Image 
-                    src={config?.templateImage?.url}
+                    src={settings.site.backgroundImage?.url}
                     layout="fill"
                     objectFit="cover"
                     quality={100}
-                    alt={config?.templateImage?.alt}
+                    alt={settings.site.backgroundImage?.alt}
                 />
                 {
                     config && pages.map((pageData) =>
@@ -33,7 +36,7 @@ const Index = ({ pages }) => {
                             <SinglePage
                                 key={pageData.id}
                                 pageData={pageData}
-                                pageConfig={findPage(config.pageConfig, pageData.id)}
+                                pageConfig={pageData.themeConfig}
                                 pageDisplayStyle='center-modal'
                             />
                         </RenderPages>

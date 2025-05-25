@@ -1,7 +1,7 @@
 import React from 'react'
 
 // import { getData, dataMapper } from '../../../data/fetchContent'
-import { fetchPages, getSiteSettings, getThemeSettings } from '../../../data/fetchContent.server'
+import { fetchPages, getCurrentSpace } from '../../../data/fetchContent.server'
 import ActiveTemplate from './activeTemplate'
 import { AppProvider } from '../../../context'
 
@@ -18,29 +18,15 @@ export const dynamic = 'force-dynamic'; //TODO: with this, data is fetched on ev
 
 const Home = async () => {
   
-
-  const data = await fetchPages()
-  let siteSettings = {}
-  let themeSettings = {}
-
-  try {
-    const result = await getSiteSettings();
-    siteSettings = result?.docs?.[0] || {};
-  } catch (err) {
-    console.warn('WARNING: Site settings not ready, using fallback.');
-  }
-
-
-  try {
-    const result = await getThemeSettings();
-    themeSettings = result?.docs?.[0] || {};
-  } catch (err) {
-    console.warn('WARNING: Theme settings not ready, using fallback.');
-  }
-
+  const space = await getCurrentSpace()
+  
+  const data = await fetchPages(space.id)
+  
+  const { siteTitle, siteDescription, backgroundImage } = space.settings
   const settings = {
-    site: siteSettings,
-    theme: themeSettings,
+    spaceId: space.id,
+    site: {siteTitle, siteDescription, backgroundImage},
+    theme: space.settings.theme,
   };
   
   // This is a server component which uses a client component for state mgt and interactivity:

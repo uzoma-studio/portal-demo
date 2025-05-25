@@ -7,6 +7,12 @@ export const Products: CollectionConfig = {
   },
   fields: [
     {
+      name: 'spaceId',
+      type: 'text',
+      required: true,
+      index: true,
+    },
+    {
       name: 'name',
       type: 'text',
       required: true,

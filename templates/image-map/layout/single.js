@@ -9,15 +9,14 @@ const SinglePage = ({ pageData, pageConfig, pageDisplayStyle }) => {
 
     const [ showPage, setShowPage ] = useState(false)
     
-    const hotspotConfig = pageConfig
-    const pagePosition = hotspotConfig?.position
+    const pagePosition = pageConfig?.position
 
     const settings = useContext(AppContext)
 
     return (
         <>
             {
-                pageConfig && showPage ?
+                pagePosition && showPage ?
                     <StyledPage $position={pagePosition} $pageDisplayStyle={pageDisplayStyle} $settings={settings.theme.config}>
                         <RenderSinglePageContent pageData={pageData} setCurrentPage={setShowPage} />
                     </StyledPage>
@@ -31,7 +30,7 @@ const SinglePage = ({ pageData, pageConfig, pageDisplayStyle }) => {
                         <div className="hotspot-icon" />
                         <div className='hotspot-tooltip'>
                             <div className="tooltip-arrow" />
-                            <p className='tooltip-text'>{hotspotConfig.pageTitle}</p>
+                            <p className='tooltip-text'>{pageConfig.hotspotName || pageData.title}</p>
                         </div>
                     </div>
             }
