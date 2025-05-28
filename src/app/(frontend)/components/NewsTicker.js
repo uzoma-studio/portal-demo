@@ -1,9 +1,9 @@
 'use client'
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styled, { keyframes } from 'styled-components';
 import Link from 'next/link';
-import { globalConfig } from '../template-config';
+import { AppContext } from '../context';
 import { getContent } from 'data/fetchContent.server';
 
 const tickerAnimation = keyframes`
@@ -25,7 +25,7 @@ const StyledTicker = styled.div`
   height: 3rem;
   padding-left: 100%;
   box-sizing: content-box;
-  background-color: ${props => props.$backgroundColor ? props.$backgroundColor : '#ccc'};
+  background-color: ${props => props.$backgroundColor || props.$theme?.style?.primaryColor || '#ccc'};
 
     div.content {
         display: inline-block;
@@ -34,29 +34,27 @@ const StyledTicker = styled.div`
         white-space: nowrap;
         padding-right: 100%;
         box-sizing: content-box;
-        animation: ${tickerAnimation} ${props => props.$scrollSpeed ? props.$scrollSpeed : '45s'} linear infinite;
+        animation: ${tickerAnimation} ${props => props.$scrollSpeed || '45s'} linear infinite;
     }
 `;
 
 const TickerItem = styled(Link)`
   display: inline-block;
-  padding: 0 ${props => props.$itemSpacing ? props.$itemSpacing : '3rem'};
+  padding: 0 ${props => props.$itemSpacing || '3rem'};
   font-size: 1.25rem;
   text-transform: uppercase;
-  color: #000 !important;
+  color: ${props => props.$theme?.style?.accentColor || '#000'} !important;
   text-decoration: none;
-  font-family: ${globalConfig.style.bodyFont}
+  font-family: ${props => props.$theme?.style?.bodyFont}
 `;
 
 const NewsTicker = ({ backgroundColor, scrollSpeed, itemSpacing }) => {
-
-    const [ tickerItems, setTickerItems ] = useState(null)
+    const [tickerItems, setTickerItems] = useState(null)
+    const settings = useContext(AppContext)
 
     useEffect(() => {
-
         async function fetchData() {
             const data = await getContent('newsTicker');
-            
             setTickerItems(data.docs[0].tickerItems)
         }
 
@@ -67,11 +65,19 @@ const NewsTicker = ({ backgroundColor, scrollSpeed, itemSpacing }) => {
         <StyledTicker 
             $backgroundColor={backgroundColor}
             $scrollSpeed={scrollSpeed}
+            $theme={settings.theme}
         >
             <div className='content'>
                 {
                     tickerItems && tickerItems.map(({text, link, id}) => 
-                        <TickerItem $itemSpacing={itemSpacing} key={id} href={link ? link : '/'}>{text}</TickerItem>
+                        <TickerItem 
+                            $itemSpacing={itemSpacing} 
+                            key={id} 
+                            href={link ? link : '/'}
+                            $theme={settings.theme}
+                        >
+                            {text}
+                        </TickerItem>
                     )
                 }
             </div>

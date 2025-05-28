@@ -1,19 +1,17 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useContext } from 'react';
 import styled from 'styled-components'
-import { globalConfig } from '../template-config'; //TODO: Use themeSettings instead of the globalConfig object across the site
+import { AppContext } from '../../../../context';
 
 import AuthButton from '@/app/(frontend)/widgets/Authentication/AuthButton'
 import { useAuth } from '../context/AuthProvider';
 import UserProfile from '../widgets/Authentication/UserProfile';
 
 const ChatWrapper = styled.div`
-
-    font-family: ${globalConfig.style.bodyFont};
+    font-family: ${props => props.$theme?.style?.bodyFont};
 
     .chat-container {
-
         .input-box-container {
             display: flex;
             position: absolute;
@@ -21,7 +19,7 @@ const ChatWrapper = styled.div`
             width: 100%;
     
             input.chat-input {
-                border: 2px solid #222;
+                border: 2px solid ${props => props.$theme?.style?.primaryColor || '#222'};
                 border-radius: 5px;
                 padding: 2%;
                 width: 70%;
@@ -32,18 +30,17 @@ const ChatWrapper = styled.div`
                 display: block;
                 width: 7.5%;
                 margin: 0 1%;
-                background-color: #222;
-                color: #fff;
+                background-color: ${props => props.$theme?.style?.primaryColor || '#222'};
+                color: ${props => props.$theme?.style?.accentColor || '#fff'};
                 border-radius: 5px;
 
                 &:hover {
-                    background-color: #fff;
-                    border: 2px solid #222;
-                    color: #222;
+                    background-color: ${props => props.$theme?.style?.accentColor || '#fff'};
+                    border: 2px solid ${props => props.$theme?.style?.primaryColor || '#222'};
+                    color: ${props => props.$theme?.style?.primaryColor || '#222'};
                 }
             }
         }
-
     }
 `
 
@@ -52,6 +49,7 @@ const Chat = ({ data }) => {
     const [message, setMessage] = useState('');
     const [buttonText, setButtonText] = useState('Send')
     const { user } = useAuth()
+    const settings = useContext(AppContext)
 
     const username = user ? user.username : 'Guest'
 
@@ -61,7 +59,6 @@ const Chat = ({ data }) => {
         // Scroll to the bottom when messages update
         bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [messages]);
-
 
     const sendMessage = async () => {
         if (!message.trim()) return;
@@ -86,7 +83,7 @@ const Chat = ({ data }) => {
     };
 
     return (
-        <ChatWrapper>
+        <ChatWrapper $theme={settings.theme}>
             <div className='chat-container'>
                 <ul style={{ maxHeight: '300px', overflowY: 'auto' }}>
                     {messages.map((msg) => (

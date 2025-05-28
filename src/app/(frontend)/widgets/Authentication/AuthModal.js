@@ -1,10 +1,10 @@
 // AuthModal.jsx
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
 import styled from 'styled-components';
 import CloseButton from '../../components/closeButton';
-import { globalConfig } from '../../template-config';
+import { AppContext } from '../../../../../context';
 
 const ModalOverlay = styled.div`
     position: fixed;
@@ -46,14 +46,13 @@ const ModalOverlay = styled.div`
     }
 
     .modal-body {
-
         form {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
 
             input {
-                border: 2px solid #222;
+                border: 2px solid ${props => props.$theme?.style?.primaryColor || '#222'};
                 border-radius: 5px;
                 padding: 2%;
                 width: 100%;
@@ -65,15 +64,15 @@ const ModalOverlay = styled.div`
 
             button {
                 padding: .5rem;
-                background: #222; //TODO: globalConfig not working, change it
-                color: #fff;
-                border: 2px solid #fff;
+                background: ${props => props.$theme?.style?.primaryColor || '#222'};
+                color: ${props => props.$theme?.style?.accentColor || '#fff'};
+                border: 2px solid ${props => props.$theme?.style?.accentColor || '#fff'};
                 border-radius: 5px;
 
                 &:hover {
-                    border: 2px solid #222;
-                    color: #222;
-                    background: #fff;
+                    border: 2px solid ${props => props.$theme?.style?.primaryColor || '#222'};
+                    color: ${props => props.$theme?.style?.primaryColor || '#222'};
+                    background: ${props => props.$theme?.style?.accentColor || '#fff'};
                 }
             }
         }
@@ -81,24 +80,23 @@ const ModalOverlay = styled.div`
 
     .modal-tabs, .modal-body {
         button {
-            color: ${globalConfig.style.bodyTextColor};
+            color: ${props => props.$theme?.style?.bodyTextColor || '#222'};
         }
     }
 `;
 
-
 const AuthModal = ({ isOpen, onClose, setUser }) => {
-    const [formType, setFormType] = useState('login'); // 'login' or 'signup'
+    const [formType, setFormType] = useState('login');
+    const settings = useContext(AppContext);
 
-    if (!isOpen) return null; // Don't render if modal is closed
+    if (!isOpen) return null;
 
     return (
-        <ModalOverlay onClick={onClose} $isOpen={isOpen}>
+        <ModalOverlay onClick={onClose} $isOpen={isOpen} $theme={settings.theme}>
             <div
                 className="modal-content"
-                onClick={e => e.stopPropagation()} // Prevent closing modal when clicking inside content
+                onClick={e => e.stopPropagation()}
             >
-                {/* Modal header with close button */}
                 <div className="modal-header">
                     <CloseButton closeFn={onClose} position={{x: '90', y: '5'}} />
                 </div>

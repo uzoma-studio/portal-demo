@@ -1,18 +1,18 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useContext } from 'react'
 import Link from 'next/link'
 import styled from 'styled-components'
 import Image from 'next/image';
-import { globalConfig } from '../template-config';
+import { AppContext } from '../../../../context';
 
 const ChatWrapper = styled.div`
     margin: 2rem ${props => props.$sideMargins ? props.$sideMargins : 'auto'};
-    border: 2px solid ${props => props.$mainColor ? props.$mainColor : '#222'};
+    border: 2px solid ${props => props.$theme?.style?.primaryColor || '#222'};
     border-radius: 20px;
     padding: 3rem;
-    font-family: ${globalConfig.style.bodyFont};
+    font-family: ${props => props.$theme?.style?.bodyFont};
 
     .chat-box {
-        border: 2px solid ${props => props.$mainColor ? props.$mainColor : '#222'};
+        border: 2px solid ${props => props.$theme?.style?.primaryColor || '#222'};
         border-radius: 20px;
         display: inline;
         height: fit-content;
@@ -45,7 +45,7 @@ const ChatWrapper = styled.div`
             }
 
             span {
-                color: ${props => props.$mainColor ? props.$mainColor : '#222'};
+                color: ${props => props.$theme?.style?.primaryColor || '#222'};
             }
         }
     }
@@ -72,16 +72,16 @@ const ChatWrapper = styled.div`
     }
 
     button {
-        background-color: ${props => props.$mainColor ? props.$mainColor : '#222'};
-        color: ${props => props.$accentColor ? props.$accentColor : '#fff'};
+        background-color: ${props => props.$theme?.style?.primaryColor || '#222'};
+        color: ${props => props.$theme?.style?.accentColor || '#fff'};
         padding: .5rem;
         border-radius: 10px;
         border: 2px solid #999;
 
         &:hover {
-            background-color: ${props => props.$accentColor ? props.$accentColor : '#fff'};
-            color: ${props => props.$mainColor ? props.$mainColor : '#222'};
-            border-color: ${props => props.$mainColor ? props.$mainColor : '#222'};
+            background-color: ${props => props.$theme?.style?.accentColor || '#fff'};
+            color: ${props => props.$theme?.style?.primaryColor || '#222'};
+            border-color: ${props => props.$theme?.style?.primaryColor || '#222'};
         }
     }
 
@@ -116,7 +116,7 @@ const ChatWrapper = styled.div`
         .chat {
             margin: unset;
             padding: 20px;
-            max-height: 85vh; /* to prevent overlapping the 'exit chat' button */
+            max-height: 85vh;
         }
 
         .exit-btn {
@@ -125,29 +125,22 @@ const ChatWrapper = styled.div`
     }
 `;
 
-export default function Chatbot ({ data, mainColor, accentColor, sideMargins }) {
-
+export default function Chatbot ({ data, sideMargins }) {
     const [chat, setChat] = useState({})
-    // const [isMobile, setIsMobile] = useState(false)
+    const settings = useContext(AppContext)
 
     useEffect(() => {
         setChat(data[0])
-
-        //   if (typeof window !== 'undefined') {
-        //     setIsMobile(window.innerWidth < 768)
-        //   }
-    
         return () => {}
     }, [])
 
     const [nodesToShowIds, setNodesToShowIds] = useState(["intro"])
-
     const bottomRef = useRef(null);
 
     useEffect(() => {
         // 👇️ scroll to bottom every time messages change
         bottomRef.current?.scrollIntoView({behavior: 'smooth'});
-      }, [nodesToShowIds]);
+    }, [nodesToShowIds]);
 
     const getCurrentNode = (id) => {   
         return chat.nodes.find(message => message.id === id)
@@ -183,8 +176,7 @@ export default function Chatbot ({ data, mainColor, accentColor, sideMargins }) 
 
     return (
         <ChatWrapper
-            $mainColor={mainColor}
-            $accentColor={accentColor} 
+            $theme={settings.theme}
             $sideMargins={sideMargins}
         >
             <div className='chat' id='chat'>
@@ -200,9 +192,6 @@ export default function Chatbot ({ data, mainColor, accentColor, sideMargins }) 
                             </div>
                     )
                 }
-                {/* <Link href='/' className='exit-btn'>
-                    <button>Exit Chat</button>
-                </Link> */}
             </div>
         </ChatWrapper>
     )
