@@ -20,6 +20,9 @@ export async function GET(req) {
             where: {
                 user: {
                     equals: user.id
+                },
+                status: {
+                    equals: 'active'
                 }
             },
             depth: 1, // Include the space details

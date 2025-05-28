@@ -386,8 +386,6 @@ export interface SpaceMembership {
  */
 export interface SiteSetting {
   id: number;
-  siteTitle?: string | null;
-  siteDescription?: string | null;
   siteUrl?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -696,8 +694,6 @@ export interface SpaceMembershipsSelect<T extends boolean = true> {
  * via the `definition` "siteSettings_select".
  */
 export interface SiteSettingsSelect<T extends boolean = true> {
-  siteTitle?: T;
-  siteDescription?: T;
   siteUrl?: T;
   updatedAt?: T;
   createdAt?: T;

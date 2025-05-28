@@ -1,7 +1,7 @@
 import React from 'react'
 
 // import { getData, dataMapper } from '../../../data/fetchContent'
-import { fetchPages, getCurrentSpace } from '../../../data/fetchContent.server'
+import { fetchPages, getCurrentSpace, getSiteSettings } from '../../../data/fetchContent.server'
 import ActiveTemplate from './activeTemplate'
 import { AppProvider } from '../../../context'
 
@@ -21,12 +21,16 @@ const Home = async () => {
   const space = await getCurrentSpace()
   
   const data = await fetchPages(space.id)
+
+  const siteSettings = await getSiteSettings()
   
+
   const { siteTitle, siteDescription, backgroundImage } = space.settings
   const settings = {
     spaceId: space.id,
     site: {siteTitle, siteDescription, backgroundImage},
     theme: space.settings.theme,
+    siteUrl: siteSettings.docs[0].siteUrl
   };
   
   // This is a server component which uses a client component for state mgt and interactivity:

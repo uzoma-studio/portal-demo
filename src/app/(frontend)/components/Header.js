@@ -1,10 +1,12 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import styled from 'styled-components'
 import { AppContext } from '../../../../context'
 import AuthButton from '../widgets/Authentication/AuthButton'
 import UserProfile from '../widgets/Authentication/UserProfile'
 import { useAuth } from '@/app/(frontend)/context/AuthProvider'
 import JoinSpaceButton from '../widgets/Spaces/JoinSpaceButton'
+import SpacesSidebar from '../widgets/Spaces/SpacesSidebar'
+import Image from 'next/image'
 
 const StyledHeader = styled.div`
     background: ${props => props.$theme?.style?.menu?.backgroundColor || 'inherit'};
@@ -22,6 +24,11 @@ const StyledHeader = styled.div`
     }
 `
 
+const StyledLogo = styled.div`
+    cursor: pointer;
+    padding: 0.5rem;
+`
+
 /**
  * Header component
  * 
@@ -37,21 +44,36 @@ const Header = ({ background, height, pages, showPagesNav }) => {
     const theme = context.theme
     const { siteTitle } = siteSettings
     const { user } = useAuth()
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false)
     
     return (
-        <StyledHeader
-            $background={background}
-            $height={height}
-            $showPagesNav={showPagesNav}
-            $theme={theme}
-        >
-            <p>{` `}</p>
-            <h1 className='site-title'>{siteTitle}</h1>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                {user ? <UserProfile /> : <AuthButton />}
-                <JoinSpaceButton spaceId={context.spaceId} theme={theme} />
-            </div>
-        </StyledHeader>
+        <>
+            <StyledHeader
+                $background={background}
+                $height={height}
+                $showPagesNav={showPagesNav}
+                $theme={theme}
+            >
+                <StyledLogo onClick={() => setIsSidebarOpen(true)}>
+                    <Image 
+                        src="/logo.png" 
+                        alt="Logo" 
+                        width={40} 
+                        height={40} 
+                        priority
+                    />
+                </StyledLogo>
+                <h1 className='site-title'>{siteTitle}</h1>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                    {user ? <UserProfile /> : <AuthButton />}
+                    <JoinSpaceButton spaceId={context.spaceId} theme={theme} />
+                </div>
+            </StyledHeader>
+            <SpacesSidebar 
+                isOpen={isSidebarOpen} 
+                onClose={() => setIsSidebarOpen(false)} 
+            />
+        </>
     )
 }
 

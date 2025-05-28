@@ -57,4 +57,10 @@ const getContent = async (type, spaceId, sortFn='-createdAt', limit=10) => {
     return result
 }
 
-export { getCurrentSpace, fetchPages, getContent }
+const getSiteSettings = async () => {
+    return await payload.find({
+        collection: 'siteSettings'
+    })
+}
+
+export { getCurrentSpace, fetchPages, getContent, getSiteSettings }
