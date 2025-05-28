@@ -6,6 +6,7 @@ import { globalConfig } from '../template-config'; //TODO: Use themeSettings ins
 
 import AuthButton from '@/app/(frontend)/widgets/Authentication/AuthButton'
 import { useAuth } from '../context/AuthProvider';
+import UserProfile from '../widgets/Authentication/UserProfile';
 
 const ChatWrapper = styled.div`
 
@@ -104,7 +105,7 @@ const Chat = ({ data }) => {
                         className='chat-input'
                     />
                     <button className='chat-button' onClick={sendMessage}>{user ? buttonText : `${buttonText} as Guest`}</button>
-                    <AuthButton />
+                    {user ? <UserProfile /> : <AuthButton />}
                 </div>
             </div>
         </ChatWrapper>

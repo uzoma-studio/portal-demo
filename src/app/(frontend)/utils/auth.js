@@ -21,7 +21,7 @@ export async function getCurrentUser() {
 export async function logoutUser() {
     try {
         const res = await fetch('/api/auth/logout', {
-            method: 'POST',
+            method: 'GET',
             credentials: 'include', // Ensures cookies/session tokens are sent
         });
   

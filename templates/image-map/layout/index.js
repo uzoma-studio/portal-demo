@@ -4,24 +4,19 @@ import Image from 'next/image'
 
 import { StyledBackgroundImageContainer } from '../styles'
 
-import { findPage } from '../../../utils/utils';
-
 import RenderPages from '@/app/(frontend)/utils/renderPages';
 import SinglePage from './single'
 
-import NewsTicker from '@/app/(frontend)/components/NewsTicker'
+import Header from '@/app/(frontend)/components/Header'
 
 const Index = ({ pages }) => {
 
     const settings = useContext(AppContext)
     const config = settings.theme
 
-    console.log(pages);
-    
-    
     return (
         <>
-            <NewsTicker />
+            <Header />
             <StyledBackgroundImageContainer $settings={config}>
                 <Image 
                     src={settings.site.backgroundImage?.url}

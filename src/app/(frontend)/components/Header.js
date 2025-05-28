@@ -1,26 +1,25 @@
 import React, { useContext } from 'react'
 import styled from 'styled-components'
 import { AppContext } from '../../../../context'
-import Navbar from './Navbar'
+import AuthButton from '../widgets/Authentication/AuthButton'
+import UserProfile from '../widgets/Authentication/UserProfile'
+import { useAuth } from '@/app/(frontend)/context/AuthProvider'
 
 const StyledHeader = styled.div`
-    background: ${props => props.$image ? props.$image : ( props.$color ? props.$color : '#ecf0f1' )};
-    // height: ${props => props.$height ? props.$height : '3.5rem'};
+    background: ${props => props.$theme?.style?.menu?.backgroundColor || 'inherit'};
+    height: ${props => props.$theme?.style?.menu?.defaultHeight || 'inherit'};
+    font-family: ${props => props.$theme?.style?.headerFont || 'inherit'};
+    color: ${props => props.$theme?.style?.headerFontColor || 'inherit'};
 
     display: flex;
-    flex-direction: column;
     padding: 0 2.5rem;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-`
 
-/**
- * TODO - imagine if I wanted to give my header the font that I've specified in my template's template config...
- * It would be cool to have a function or sth that maps styles for root components to styles defined in template config
- * Another option might just be to have the style attributes in template files not be template-specific but apply to the
- * whole site...
- * 
- */
+    .site-title {
+      margin-bottom: 0;
+    }
+`
 
 /**
  * Header component
@@ -32,21 +31,24 @@ const StyledHeader = styled.div`
  * @returns {JSX.Element} Header component
  */
 const Header = ({ background, height, pages, showPagesNav }) => {
-
     const context = useContext(AppContext)
     const siteSettings = context.site
+    const theme = context.theme
     const { siteTitle } = siteSettings
+    const { user } = useAuth()
     
-  return (
-    <StyledHeader
-        $background={background}
-        $height={height}
-        $showPagesNav={showPagesNav}
-    >
-        <h1>{ siteTitle }</h1>
-        { showPagesNav && <Navbar pages={pages} />}
-    </StyledHeader>
-  )
+    return (
+        <StyledHeader
+            $background={background}
+            $height={height}
+            $showPagesNav={showPagesNav}
+            $theme={theme}
+        >
+            <p>{` `}</p>
+            <h1 className='site-title'>{siteTitle}</h1>
+            {user ? <UserProfile /> : <AuthButton />}
+        </StyledHeader>
+    )
 }
 
 export default Header

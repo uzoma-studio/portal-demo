@@ -29,14 +29,8 @@ const AuthButton = () => {
 
     return (
         <>
-            {user ? (
-                <UserProfile />
-            ) : (
-                <>
-                    <StyledButton onClick={() => setIsModalOpen(true)}>Log In</StyledButton>
-                    <AuthModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} setUser={setUser} />
-                </>
-            )}
+            <StyledButton onClick={() => setIsModalOpen(true)}>Log In</StyledButton>
+            <AuthModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} setUser={setUser} />
         </>
   );
 };
