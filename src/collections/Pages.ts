@@ -84,9 +84,9 @@ export const Pages: CollectionConfig = {
         {
           name: 'icon',
           type: 'upload',
-          relationTo: 'media',
+          relationTo: 'icons',
           admin: {
-            description: 'Optional icon image for the hotspot',
+            description: 'Optional icon image for the page',
           },
         },
         {

@@ -79,7 +79,7 @@ export interface Config {
     spaces: Space;
     spaceMemberships: SpaceMembership;
     siteSettings: SiteSetting;
-    themeSettings: ThemeSetting;
+    icons: Icon;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -98,7 +98,7 @@ export interface Config {
     spaces: SpacesSelect<false> | SpacesSelect<true>;
     spaceMemberships: SpaceMembershipsSelect<false> | SpaceMembershipsSelect<true>;
     siteSettings: SiteSettingsSelect<false> | SiteSettingsSelect<true>;
-    themeSettings: ThemeSettingsSelect<false> | ThemeSettingsSelect<true>;
+    icons: IconsSelect<false> | IconsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -195,9 +195,9 @@ export interface Page {
       y: number;
     };
     /**
-     * Optional icon image for the hotspot
+     * Optional icon image for the page
      */
-    icon?: (number | null) | Media;
+    icon?: (number | null) | Icon;
     /**
      * Optional name to display on the hotspot
      */
@@ -226,6 +226,51 @@ export interface Chatbot {
     | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "icons".
+ */
+export interface Icon {
+  id: number;
+  /**
+   * A descriptive name for the icon
+   */
+  name: string;
+  /**
+   * Optional description of the icon's purpose or usage
+   */
+  description?: string | null;
+  /**
+   * Add tags to help categorize and find icons
+   */
+  tags?:
+    | {
+        tag?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+  sizes?: {
+    thumbnail?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -392,24 +437,6 @@ export interface SiteSetting {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "themeSettings".
- */
-export interface ThemeSetting {
-  id: number;
-  config?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -464,8 +491,8 @@ export interface PayloadLockedDocument {
         value: number | SiteSetting;
       } | null)
     | ({
-        relationTo: 'themeSettings';
-        value: number | ThemeSetting;
+        relationTo: 'icons';
+        value: number | Icon;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -700,12 +727,42 @@ export interface SiteSettingsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "themeSettings_select".
+ * via the `definition` "icons_select".
  */
-export interface ThemeSettingsSelect<T extends boolean = true> {
-  config?: T;
+export interface IconsSelect<T extends boolean = true> {
+  name?: T;
+  description?: T;
+  tags?:
+    | T
+    | {
+        tag?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+  sizes?:
+    | T
+    | {
+        thumbnail?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

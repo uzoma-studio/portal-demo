@@ -1,8 +1,24 @@
 import styled from 'styled-components'
 
-export const StyledBackgroundImageContainer = styled.div`
+export const StyledBackgroundContainer = styled.div`
     img {
         z-index: -1;
+    }
+
+    div.background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        z-index: -1;
+        background: ${props => props.$settings?.style?.backgroundMode === 'gradient' 
+            ? `linear-gradient(180deg, 
+                ${props.$settings?.style?.primaryColor || '#9333ea'}, 
+                ${props.$settings?.style?.secondaryColor || '#c084fc'}, 
+                ${props.$settings?.style?.backgroundColor || '#fff'})`
+            : props.$settings?.style?.backgroundColor || '#fff'
+        };
     }
 
     .hotspot {
@@ -19,7 +35,6 @@ export const StyledBackgroundImageContainer = styled.div`
             border-radius: 100%;
             z-index: -1;
             animation: pulse 1.5s infinite ease-in-out;
-
 
             &:hover {
                 width: ${props => `${props.$settings?.style?.hotspotSize + 2.5}px`};
@@ -57,7 +72,49 @@ export const StyledBackgroundImageContainer = styled.div`
         }
     }
 
-    
+    .page-icon {
+        position: relative;
+        transition: transform 0.2s ease;
+        box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+
+        &:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .icon-tooltip {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 0.5em;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+
+            .tooltip-arrow {
+                border-left: 6px solid transparent;
+                border-right: 6px solid transparent;
+                border-bottom: 6px solid ${props => props.$settings?.style?.hotspotColor || '#9333ea'};
+            }
+
+            .tooltip-text {
+                font-family: ${props => props.$settings?.style?.bodyFont};
+                background: ${props => props.$settings?.style?.hotspotColor || '#9333ea'};
+                color: #fff;
+                padding: 4px 8px;
+                border-radius: 4px;
+                white-space: nowrap;
+                font-size: 0.875rem;
+            }
+        }
+
+        &:hover .icon-tooltip {
+            opacity: 1;
+        }
+    }
 
     @keyframes pulse {
         0% {

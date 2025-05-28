@@ -22,6 +22,7 @@ import { Subscriptions } from './collections/Subscriptions'
 import { ThemeSettings } from './collections/ThemeSettings'
 import { Spaces } from './collections/Spaces'
 import { SpaceMemberships } from './collections/SpaceMembers'
+import { Icons } from './collections/Icons'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -107,7 +108,7 @@ export default buildConfig({
       },
     },
     {
-      ...ThemeSettings,
+      ...Icons,
       admin: {
         group: 'Settings',
       },

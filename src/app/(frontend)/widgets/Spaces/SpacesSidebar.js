@@ -114,7 +114,7 @@ const SpacesSidebar = ({ isOpen, onClose }) => {
                     {spaces.map(space => (
                         <SpaceItem 
                             key={space.id} 
-                            href={`/spaces/${space.id}`} //TODO: Add the correct subdomain url
+                            href={`/spaces/${space.id}`}
                             className={space.id === window.location.pathname.split('/')[2] ? 'active' : ''}
                         >
                             <p>{space.name}</p>
