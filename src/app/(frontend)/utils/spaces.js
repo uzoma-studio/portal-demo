@@ -1,0 +1,88 @@
+export async function joinSpace(spaceId) {
+    try {
+        const res = await fetch('/api/spaces/join', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ spaceId }),
+            credentials: 'include',
+        });
+
+        if (!res.ok) {
+            const error = await res.json();
+            throw new Error(error.error || 'Failed to join space');
+        }
+
+        return await res.json();
+    } catch (error) {
+        console.error('Error joining space:', error);
+        throw error;
+    }
+}
+
+export async function leaveSpace(spaceId) {
+    try {
+        const res = await fetch('/api/spaces/leave', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ spaceId }),
+            credentials: 'include',
+        });
+
+        if (!res.ok) {
+            const error = await res.json();
+            throw new Error(error.error || 'Failed to leave space');
+        }
+
+        return await res.json();
+    } catch (error) {
+        console.error('Error leaving space:', error);
+        throw error;
+    }
+}
+
+export async function getSpaceMemberships(spaceId) {
+    try {
+        const res = await fetch(`/api/spaces/${spaceId}/members`, {
+            method: 'GET',
+            credentials: 'include',
+        });
+
+        if (!res.ok) {
+            const error = await res.json();
+            throw new Error(error.error || 'Failed to fetch space members');
+        }
+
+        return await res.json();
+    } catch (error) {
+        console.error('Error fetching space members:', error);
+        throw error;
+    }
+}
+
+export async function isUserSpaceMember(spaceId) {
+    try {
+        const res = await fetch('/api/auth/me', {
+            method: 'GET',
+            credentials: 'include',
+        });
+
+        if (!res.ok) {
+            return false;
+        }
+
+        const { user } = await res.json();
+        if (!user || !user.spaces) {
+            return false;
+        }        
+        
+        const userSpaceIds = user.spaces.map(({id}) => (id))
+        return userSpaceIds.includes(spaceId);
+    } catch (error) {
+        console.error('Error checking space membership:', error);
+        return false;
+    }
+} 

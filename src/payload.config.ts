@@ -21,6 +21,7 @@ import { Products } from './collections/Products'
 import { Subscriptions } from './collections/Subscriptions'
 import { ThemeSettings } from './collections/ThemeSettings'
 import { Spaces } from './collections/Spaces'
+import { SpaceMemberships } from './collections/SpaceMembers'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -89,6 +90,12 @@ export default buildConfig({
     },
     {
       ...Spaces,
+      admin: {
+        group: 'Settings',
+      },
+    },
+    {
+      ...SpaceMemberships,
       admin: {
         group: 'Settings',
       },

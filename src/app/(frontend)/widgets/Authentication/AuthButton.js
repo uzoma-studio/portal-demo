@@ -8,7 +8,6 @@ import UserProfile from './UserProfile'
 const StyledButton = styled.button`
     text-align: center;
     display: block;
-    width: 7.5%;
     margin: 0 1%;
     background-color: #222;
     color: #fff;

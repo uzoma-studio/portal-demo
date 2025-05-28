@@ -13,5 +13,19 @@ export const Users: CollectionConfig = {
       required: true,
       defaultValue: ({ req }) => req?.user?.email?.split('@')[0] || 'user',
     },
+    {
+      name: 'avatar',
+      type: 'upload',
+      relationTo: 'media',
+    },
+    {
+      name: 'spaces',
+      type: 'relationship',
+      relationTo: 'spaces',
+      hasMany: true,
+      admin: {
+        description: 'Spaces this user is a member of',
+      },
+    },
   ],
 }

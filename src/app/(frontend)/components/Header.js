@@ -4,6 +4,7 @@ import { AppContext } from '../../../../context'
 import AuthButton from '../widgets/Authentication/AuthButton'
 import UserProfile from '../widgets/Authentication/UserProfile'
 import { useAuth } from '@/app/(frontend)/context/AuthProvider'
+import JoinSpaceButton from '../widgets/Spaces/JoinSpaceButton'
 
 const StyledHeader = styled.div`
     background: ${props => props.$theme?.style?.menu?.backgroundColor || 'inherit'};
@@ -46,7 +47,10 @@ const Header = ({ background, height, pages, showPagesNav }) => {
         >
             <p>{` `}</p>
             <h1 className='site-title'>{siteTitle}</h1>
-            {user ? <UserProfile /> : <AuthButton />}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                {user ? <UserProfile /> : <AuthButton />}
+                <JoinSpaceButton spaceId={context.spaceId} theme={theme} />
+            </div>
         </StyledHeader>
     )
 }

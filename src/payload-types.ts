@@ -77,6 +77,7 @@ export interface Config {
     subscriptions: Subscription;
     users: User;
     spaces: Space;
+    spaceMemberships: SpaceMembership;
     siteSettings: SiteSetting;
     themeSettings: ThemeSetting;
     'payload-locked-documents': PayloadLockedDocument;
@@ -95,6 +96,7 @@ export interface Config {
     subscriptions: SubscriptionsSelect<false> | SubscriptionsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     spaces: SpacesSelect<false> | SpacesSelect<true>;
+    spaceMemberships: SpaceMembershipsSelect<false> | SpaceMembershipsSelect<true>;
     siteSettings: SiteSettingsSelect<false> | SiteSettingsSelect<true>;
     themeSettings: ThemeSettingsSelect<false> | ThemeSettingsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -323,6 +325,11 @@ export interface Subscription {
 export interface User {
   id: number;
   username: string;
+  avatar?: (number | null) | Media;
+  /**
+   * Spaces this user is a member of
+   */
+  spaces?: (number | Space)[] | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -356,6 +363,20 @@ export interface Space {
       | boolean
       | null;
   };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "spaceMemberships".
+ */
+export interface SpaceMembership {
+  id: number;
+  user: number | User;
+  space: number | Space;
+  role: 'member' | 'admin' | 'owner';
+  joinedAt: string;
+  status: 'active' | 'pending' | 'suspended';
   updatedAt: string;
   createdAt: string;
 }
@@ -435,6 +456,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'spaces';
         value: number | Space;
+      } | null)
+    | ({
+        relationTo: 'spaceMemberships';
+        value: number | SpaceMembership;
       } | null)
     | ({
         relationTo: 'siteSettings';
@@ -623,6 +648,8 @@ export interface SubscriptionsSelect<T extends boolean = true> {
  */
 export interface UsersSelect<T extends boolean = true> {
   username?: T;
+  avatar?: T;
+  spaces?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -648,6 +675,19 @@ export interface SpacesSelect<T extends boolean = true> {
         backgroundImage?: T;
         theme?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "spaceMemberships_select".
+ */
+export interface SpaceMembershipsSelect<T extends boolean = true> {
+  user?: T;
+  space?: T;
+  role?: T;
+  joinedAt?: T;
+  status?: T;
   updatedAt?: T;
   createdAt?: T;
 }
