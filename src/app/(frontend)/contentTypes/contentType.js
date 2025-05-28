@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { getContent } from 'data/fetchContent.server'
+import { getContent, getPostsByUpdate } from 'data/fetchContent.server'
 import { AppContext } from '../../../../context'
 
 import Blog from './Blog'
@@ -21,7 +21,7 @@ import Shop from './Shop'
  * @returns {JSX.Element} The rendered content component based on the type prop
  */
 
-const ContentType = ({ pageData }) => {
+const ContentType = ({ pageData, setIsPageIndex }) => {
     const context = useContext(AppContext)
     const spaceId = context.space?.id
 
@@ -43,7 +43,7 @@ const ContentType = ({ pageData }) => {
 
         switch (type) {
             case blog:
-                return getContent('posts', spaceId)
+                return getPostsByUpdate(pageData.updates[0].id)
             case files:
                 return getContent('files', spaceId)
             case chatbot:
@@ -66,12 +66,12 @@ const ContentType = ({ pageData }) => {
          */
         const fetchData = async () => {
             const res = await fetchContentByType()
-            const data = res.docs
+            const data = res.docs || []
             try {
                 const passDataToTheRightComponent = () => {
                     switch (type) {
                         case blog:
-                            return <Blog data={data} />
+                            return <Blog data={data} setIsPageIndex={setIsPageIndex} />
                         case files:
                             return <Archive data={data} />
                         case chatbot:

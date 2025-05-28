@@ -35,7 +35,7 @@ const fetchPages = async (spaceId) => {
     const result = await payload.find({
         collection: 'pages',
         where: {
-            spaceId: {
+            space: {
                 equals: spaceId
             }
         }
@@ -49,7 +49,7 @@ const getContent = async (type, spaceId, sortFn='-createdAt', limit=10) => {
         sort: sortFn,
         limit,
         where: {
-            spaceId: {
+            space: {
                 equals: spaceId
             }
         }
@@ -61,6 +61,22 @@ const getSiteSettings = async () => {
     return await payload.find({
         collection: 'siteSettings'
     })
+
+    return settings[0]
 }
 
-export { getCurrentSpace, fetchPages, getContent, getSiteSettings }
+const getPostsByUpdate = async(updateId) => {
+    const results = await payload.find({
+        collection: 'posts',
+        where: {
+            update: {
+                equals: updateId,
+            },
+        },
+        sort: '-date',
+    });
+
+    return results;
+}
+
+export { getCurrentSpace, fetchPages, getContent, getSiteSettings, getPostsByUpdate }

@@ -30,15 +30,7 @@ const ChatWrapper = styled.div`
                 display: block;
                 width: 7.5%;
                 margin: 0 1%;
-                background-color: ${props => props.$theme?.style?.primaryColor || '#222'};
-                color: ${props => props.$theme?.style?.accentColor || '#fff'};
                 border-radius: 5px;
-
-                &:hover {
-                    background-color: ${props => props.$theme?.style?.accentColor || '#fff'};
-                    border: 2px solid ${props => props.$theme?.style?.primaryColor || '#222'};
-                    color: ${props => props.$theme?.style?.primaryColor || '#222'};
-                }
             }
         }
     }
@@ -69,7 +61,7 @@ const Chat = ({ data }) => {
             const res = await fetch('/api/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ user: username, message }),
+                body: JSON.stringify({ user: username, message, space: settings.space }),
             });
 
             const newMessage = await res.json();
@@ -85,14 +77,19 @@ const Chat = ({ data }) => {
     return (
         <ChatWrapper $theme={settings.theme}>
             <div className='chat-container'>
-                <ul style={{ maxHeight: '300px', overflowY: 'auto' }}>
-                    {messages.map((msg) => (
-                        <li key={msg.id}>
-                            <strong>{msg.user}:</strong> {msg.message}
-                        </li>
-                    ))}
-                    <div ref={bottomRef} />
-                </ul>
+                {
+                    data.length > 0 ?
+                        <ul style={{ maxHeight: '300px', overflowY: 'auto' }}>
+                            {messages.map((msg) => (
+                                <li key={msg.id}>
+                                    <strong>{msg.user}:</strong> {msg.message}
+                                </li>
+                            ))}
+                            <div ref={bottomRef} />
+                        </ul>
+                        :
+                        <p>Send the first message</p>
+                }
                 <div className='input-box-container'>
                     <input
                         type="text"
@@ -101,7 +98,7 @@ const Chat = ({ data }) => {
                         onChange={(e) => setMessage(e.target.value)}
                         className='chat-input'
                     />
-                    <button className='chat-button' onClick={sendMessage}>{user ? buttonText : `${buttonText} as Guest`}</button>
+                    <button className='chat-button default-button' onClick={sendMessage}>{user ? buttonText : `${buttonText} as Guest`}</button>
                     {user ? <UserProfile /> : <AuthButton />}
                 </div>
             </div>

@@ -8,12 +8,6 @@ export const ChatMessages: CollectionConfig = {
   },
   fields: [
     {
-      name: 'spaceId',
-      type: 'text',
-      required: true,
-      index: true,
-    },
-    {
       name: 'user',
       type: 'text',
       required: true,
@@ -32,6 +26,14 @@ export const ChatMessages: CollectionConfig = {
         },
       },
       defaultValue: () => new Date().toISOString(),
+    },
+    {
+      name: 'space',
+      type: 'relationship',
+      relationTo: 'spaces',
+      required: true,
+      hasMany: false,
+      index: true,
     },
   ],
 };

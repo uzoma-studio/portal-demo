@@ -32,7 +32,6 @@ const SinglePage = ({ pageData, pageConfig, pageDisplayStyle }) => {
 
     const renderPageTrigger = () => {
         if (displayMode === 'icons') {
-            console.log('Icon data:', pageConfig.icon)
             return (
                 <div style={{
                     position: 'absolute',

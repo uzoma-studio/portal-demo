@@ -27,6 +27,7 @@ const Home = async () => {
 
   const { siteTitle, siteDescription, backgroundImage } = space.settings
   const settings = {
+    space,
     spaceId: space.id,
     site: {siteTitle, siteDescription, backgroundImage},
     theme: space.settings.theme,

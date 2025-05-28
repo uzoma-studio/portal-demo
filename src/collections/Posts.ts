@@ -8,14 +8,18 @@ export const Posts: CollectionConfig = {
   },
   fields: [
     {
-      name: 'spaceId',
-      type: 'text',
-      required: true,
-      index: true,
-    },
-    {
       name: 'title',
       type: 'text',
+    },
+    {
+      name: 'update',
+      type: 'relationship',
+      relationTo: 'updates',
+      required: true,
+      hasMany: false,
+      admin: {
+        description: 'The update this post belongs to',
+      },
     },
     {
         name: 'coverImage',
@@ -37,5 +41,5 @@ export const Posts: CollectionConfig = {
         type: 'date',
         timezone: true,
     },
-  ]
+  ],
 }

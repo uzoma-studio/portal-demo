@@ -25,7 +25,7 @@ const Page = ({ pages }) => {
     }, [])
 
     return (
-        <StyledContainer>
+        <StyledContainer $config={context.theme}>
             {
                 !currentPage ?
                     <>

@@ -69,6 +69,7 @@ export interface Config {
   collections: {
     media: Media;
     pages: Page;
+    updates: Update;
     posts: Post;
     chatbot: Chatbot;
     'chat-messages': ChatMessage;
@@ -88,6 +89,7 @@ export interface Config {
   collectionsSelect: {
     media: MediaSelect<false> | MediaSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
+    updates: UpdatesSelect<false> | UpdatesSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
     chatbot: ChatbotSelect<false> | ChatbotSelect<true>;
     'chat-messages': ChatMessagesSelect<false> | ChatMessagesSelect<true>;
@@ -182,7 +184,14 @@ export interface Page {
    */
   contentType?: ('blog' | 'files' | 'chatbot' | 'chat-messages' | 'products') | null;
   chatbot?: (number | null) | Chatbot;
-  spaceId: string;
+  /**
+   * Updates for this blog page
+   */
+  updates?: (number | Update)[] | null;
+  /**
+   * Select the space this page belongs to
+   */
+  space: number | Space;
   themeConfig: {
     position: {
       /**
@@ -224,6 +233,79 @@ export interface Chatbot {
     | number
     | boolean
     | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "updates".
+ */
+export interface Update {
+  id: number;
+  title: string;
+  description?: string | null;
+  /**
+   * Posts in this update
+   */
+  posts?: (number | Post)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts".
+ */
+export interface Post {
+  id: number;
+  title?: string | null;
+  /**
+   * The update this post belongs to
+   */
+  update: number | Update;
+  coverImage?: (number | null) | Media;
+  body?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  slug?: string | null;
+  date?: string | null;
+  date_tz?: SupportedTimezones;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "spaces".
+ */
+export interface Space {
+  id: number;
+  name: string;
+  domain: string;
+  settings?: {
+    siteTitle?: string | null;
+    siteDescription?: string | null;
+    backgroundImage?: (number | null) | Media;
+    theme?:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -274,44 +356,14 @@ export interface Icon {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts".
- */
-export interface Post {
-  id: number;
-  spaceId: string;
-  title?: string | null;
-  coverImage?: (number | null) | Media;
-  body?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  slug?: string | null;
-  date?: string | null;
-  date_tz?: SupportedTimezones;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "chat-messages".
  */
 export interface ChatMessage {
   id: number;
-  spaceId: string;
   user: string;
   message: string;
   timestamp?: string | null;
+  space: number | Space;
   updatedAt: string;
   createdAt: string;
 }
@@ -388,31 +440,6 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "spaces".
- */
-export interface Space {
-  id: number;
-  name: string;
-  domain: string;
-  settings?: {
-    siteTitle?: string | null;
-    siteDescription?: string | null;
-    backgroundImage?: (number | null) | Media;
-    theme?:
-      | {
-          [k: string]: unknown;
-        }
-      | unknown[]
-      | string
-      | number
-      | boolean
-      | null;
-  };
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "spaceMemberships".
  */
 export interface SpaceMembership {
@@ -449,6 +476,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'pages';
         value: number | Page;
+      } | null)
+    | ({
+        relationTo: 'updates';
+        value: number | Update;
       } | null)
     | ({
         relationTo: 'posts';
@@ -564,7 +595,8 @@ export interface PagesSelect<T extends boolean = true> {
   slug?: T;
   contentType?: T;
   chatbot?: T;
-  spaceId?: T;
+  updates?: T;
+  space?: T;
   themeConfig?:
     | T
     | {
@@ -582,11 +614,22 @@ export interface PagesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "updates_select".
+ */
+export interface UpdatesSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  posts?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "posts_select".
  */
 export interface PostsSelect<T extends boolean = true> {
-  spaceId?: T;
   title?: T;
+  update?: T;
   coverImage?: T;
   body?: T;
   slug?: T;
@@ -612,10 +655,10 @@ export interface ChatbotSelect<T extends boolean = true> {
  * via the `definition` "chat-messages_select".
  */
 export interface ChatMessagesSelect<T extends boolean = true> {
-  spaceId?: T;
   user?: T;
   message?: T;
   timestamp?: T;
+  space?: T;
   updatedAt?: T;
   createdAt?: T;
 }

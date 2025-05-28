@@ -23,6 +23,7 @@ import { ThemeSettings } from './collections/ThemeSettings'
 import { Spaces } from './collections/Spaces'
 import { SpaceMemberships } from './collections/SpaceMembers'
 import { Icons } from './collections/Icons'
+import { Updates } from './collections/Updates'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -43,6 +44,12 @@ export default buildConfig({
     },
     {
       ...Pages,
+      admin: {
+        group: 'Content',
+      },
+    },
+    {
+      ...Updates,
       admin: {
         group: 'Content',
       },

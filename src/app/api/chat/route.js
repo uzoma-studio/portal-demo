@@ -21,7 +21,7 @@ export async function GET() {
 export async function POST(req) {
   try {
     const payload = await getPayload({ config });
-    const { user, message } = await req.json();
+    const { user, message, space } = await req.json();
 
     if (!user || !message) {
       return NextResponse.json({ error: 'User and message are required' }, { status: 400 });
@@ -29,7 +29,7 @@ export async function POST(req) {
 
     const newMessage = await payload.create({
       collection: 'chat-messages',
-      data: { user, message },
+      data: { user, message, space },
     });
 
     return NextResponse.json(newMessage);

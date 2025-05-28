@@ -46,10 +46,25 @@ export const Pages: CollectionConfig = {
       },
     },
     {
-      name: 'spaceId',
-      type: 'text',
+      name: 'updates',
+      type: 'relationship',
+      relationTo: 'updates',
+      hasMany: true,
+      admin: {
+        description: 'Updates for this blog page',
+        condition: (_, { contentType }) => contentType === 'blog',
+      },
+    },
+    {
+      name: 'space',
+      type: 'relationship',
+      relationTo: 'spaces',
       required: true,
-      index: true, // Add index for better query performance
+      hasMany: false,
+      index: true,
+      admin: {
+        description: 'Select the space this page belongs to',
+      },
     },
     {
       name: 'themeConfig',
@@ -83,7 +98,7 @@ export const Pages: CollectionConfig = {
         },
         {
           name: 'icon',
-          type: 'upload',
+        type: 'upload',
           relationTo: 'icons',
           admin: {
             description: 'Optional icon image for the page',
@@ -96,7 +111,7 @@ export const Pages: CollectionConfig = {
             description: 'Optional name to display on the hotspot',
           },
         },
-      ],
+  ],
     },
   ],
   hooks: {
