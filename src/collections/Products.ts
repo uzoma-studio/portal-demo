@@ -7,12 +7,6 @@ export const Products: CollectionConfig = {
   },
   fields: [
     {
-      name: 'spaceId',
-      type: 'text',
-      required: true,
-      index: true,
-    },
-    {
       name: 'name',
       type: 'text',
       required: true,
@@ -27,6 +21,17 @@ export const Products: CollectionConfig = {
       required: true,
     },
     {
+      name: 'space',
+      type: 'relationship',
+      relationTo: 'spaces',
+      required: true,
+      hasMany: false,
+      index: true,
+      admin: {
+        description: 'Select the space this product belongs to',
+      },
+    },
+    {
       name: 'paymentType',
       type: 'select',
       required: true,
@@ -36,9 +41,13 @@ export const Products: CollectionConfig = {
       ],
     },
     {
-        name: 'productImage',
-        type: 'upload',
-        relationTo: 'media',
+      name: 'images',
+      type: 'relationship',
+      relationTo: 'product-images',
+      hasMany: true,
+      admin: {
+        description: 'Add images for this product',
+      },
     },
     {
       name: 'paystackPlanId',

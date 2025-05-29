@@ -24,6 +24,7 @@ import { Spaces } from './collections/Spaces'
 import { SpaceMemberships } from './collections/SpaceMembers'
 import { Icons } from './collections/Icons'
 import { Updates } from './collections/Updates'
+import { ProductImages } from './collections/ProductImages'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -118,6 +119,12 @@ export default buildConfig({
       ...Icons,
       admin: {
         group: 'Settings',
+      },
+    },
+    {
+      ...ProductImages,
+      admin: {
+        group: 'Content',
       },
     },
   ],

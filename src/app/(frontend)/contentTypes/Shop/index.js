@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import Image from 'next/image'
 import SingleProduct from './single'
 import Cart from './cart'
+import { getImageUrl } from '../../../../../utils/utils'
 
 const StyledProductList = styled.ul`
     display: flex;
@@ -27,10 +28,6 @@ const StyledProductList = styled.ul`
             justify-content: center;
             &:hover {
                 background: rgba(0, 0, 0, 0.1)
-            }
-            
-            img {
-                width: 60%;
             }
         }
 
@@ -57,7 +54,7 @@ const Shop = ({ data }) => {
     const [ currentProduct, setCurrentProduct ] = useState(null)
     const [ showCart, setShowCart ] = useState(false)
 
-    const defaultCurrency = 'NGN'
+    const defaultCurrency = 'NGN' //TODO: Add currency field to space settings
     const currency = defaultCurrency
 
     useEffect(() => {
@@ -70,12 +67,20 @@ const Shop = ({ data }) => {
         <StyledProductList>
             {
                 products.map((product) => {
-                    const { id, name, price, productImage } = product
-                    const { url, width, height, alt } = productImage;
+                    const { id, name, price, images } = product
+                    
+                    // Get the main product image
+                    const { filename, width, height, alt, url } = images[0];
+                    
                     return (
                         <li key={id} onClick={() => setCurrentProduct(product)}>
                             <div className='img-container'>
-                                <Image src={url} width={width} height={height} alt={alt} />
+                                <Image 
+                                  src={getImageUrl(url, filename, 'product-images')} 
+                                  width={width} 
+                                  height={height} 
+                                  alt={alt} 
+                                />
                             </div>
                             <div className='text-container'>
                                 <p className='title'>{name}</p>
@@ -85,7 +90,14 @@ const Shop = ({ data }) => {
                     )
                 })
             }
-            { currentProduct && <SingleProduct product={currentProduct} currency={currency} setShowCart={setShowCart} setCurrentProduct={setCurrentProduct} /> }
+            { 
+                currentProduct && <SingleProduct 
+                                    product={currentProduct} 
+                                    currency={currency} 
+                                    setShowCart={setShowCart} 
+                                    setCurrentProduct={setCurrentProduct} 
+                                /> 
+            }
             { showCart && <Cart setShowCart={setShowCart} /> }
         </StyledProductList>
     )

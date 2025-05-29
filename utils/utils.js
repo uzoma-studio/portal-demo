@@ -47,3 +47,11 @@ export const parseDate = (dateString) => {
     const options = { year: "numeric", month: "long", day: "numeric" };
     return date.toLocaleDateString("en-US", options);
 }
+
+export const getImageUrl = (url, filename, imagesDir) => {
+    if (!url) return '/icons/default.svg';
+    
+    return process.env.NODE_ENV === 'production' 
+      ? url 
+      : `/${imagesDir}/${filename}`;
+  }; 

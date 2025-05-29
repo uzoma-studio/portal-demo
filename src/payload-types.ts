@@ -81,6 +81,7 @@ export interface Config {
     spaceMemberships: SpaceMembership;
     siteSettings: SiteSetting;
     icons: Icon;
+    'product-images': ProductImage;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -101,6 +102,7 @@ export interface Config {
     spaceMemberships: SpaceMembershipsSelect<false> | SpaceMembershipsSelect<true>;
     siteSettings: SiteSettingsSelect<false> | SiteSettingsSelect<true>;
     icons: IconsSelect<false> | IconsSelect<true>;
+    'product-images': ProductImagesSelect<false> | ProductImagesSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -373,15 +375,48 @@ export interface ChatMessage {
  */
 export interface Product {
   id: number;
-  spaceId: string;
   name: string;
   description?: string | null;
   price: number;
+  /**
+   * Select the space this product belongs to
+   */
+  space: number | Space;
   paymentType: 'one-time' | 'subscription';
-  productImage?: (number | null) | Media;
+  /**
+   * Add images for this product
+   */
+  images?: (number | ProductImage)[] | null;
   paystackPlanId?: string | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "product-images".
+ */
+export interface ProductImage {
+  id: number;
+  /**
+   * A descriptive name for the image
+   */
+  alt: string;
+  caption?: string | null;
+  /**
+   * The product this image belongs to
+   */
+  product?: (number | null) | Product;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -524,6 +559,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'icons';
         value: number | Icon;
+      } | null)
+    | ({
+        relationTo: 'product-images';
+        value: number | ProductImage;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -667,12 +706,12 @@ export interface ChatMessagesSelect<T extends boolean = true> {
  * via the `definition` "products_select".
  */
 export interface ProductsSelect<T extends boolean = true> {
-  spaceId?: T;
   name?: T;
   description?: T;
   price?: T;
+  space?: T;
   paymentType?: T;
-  productImage?: T;
+  images?: T;
   paystackPlanId?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -806,6 +845,26 @@ export interface IconsSelect<T extends boolean = true> {
               filename?: T;
             };
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "product-images_select".
+ */
+export interface ProductImagesSelect<T extends boolean = true> {
+  alt?: T;
+  caption?: T;
+  product?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
