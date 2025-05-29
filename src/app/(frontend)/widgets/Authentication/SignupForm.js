@@ -51,7 +51,7 @@ const SignupForm = ({ onClose, setUser }) => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
             />
-            <button type="submit">Sign Up</button>
+            <button type="submit" className='default-button'>Sign Up</button>
             {message && <p>{message}</p>}
         </form>
     );

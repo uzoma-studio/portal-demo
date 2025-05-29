@@ -44,7 +44,7 @@ const LoginForm = ({ onClose, setUser }) => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
             />
-            <button type="submit">Log In</button>
+            <button type="submit" className='default-button'>Log In</button>
             {message && <p>{message}</p>}
         </form>
     );
