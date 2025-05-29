@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-const SignupForm = ({ onClose, setUser }) => {
+const SignupForm = ({ onClose, setUser, isAuthPage }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');

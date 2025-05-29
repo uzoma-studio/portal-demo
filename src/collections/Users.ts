@@ -27,5 +27,13 @@ export const Users: CollectionConfig = {
         description: 'Spaces this user is a member of',
       },
     },
+    {
+      name: 'lastVisitedSpace',
+      type: 'text',
+      required: false,
+      admin: {
+        description: 'The last space the user visited'
+      }
+    },
   ],
 }

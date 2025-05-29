@@ -1,11 +1,15 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { getLastVisitedSpace } from '../../utils/spaces';
 
-const LoginForm = ({ onClose, setUser }) => {
+const LoginForm = ({ onClose, setUser, isAuthPage }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
+
+    const router = useRouter()
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -19,9 +23,25 @@ const LoginForm = ({ onClose, setUser }) => {
           const data = await res.json();
 
           setMessage(data.message || data.error);
-          setTimeout(() => { 
-            data.user && setUser(data.user)
-            onClose()
+          setTimeout(async () => { 
+            if(data.user){
+              // Different behaviours depending on where the user is logging in from
+              if(!isAuthPage){
+                setUser(data.user);
+                onClose();
+              } else {
+                const lastVisitedSpace = await getLastVisitedSpace(data.user.id)
+                if(lastVisitedSpace){
+                  router.push(process.env.NODE_ENV === 'development' ?
+                    `http://${lastVisitedSpace}.localhost:3000?userId=${data.user.id}` //TODO: Set domain name as env var
+                    :
+                    `https://${lastVisitedSpace}.portal8.space?userId=${data.user.id}`
+                  )
+                } else {
+                  router.push('/jumping')
+                }
+              }
+            }
           }, 2000);
         } catch (error) {
           setMessage('Login failed.');

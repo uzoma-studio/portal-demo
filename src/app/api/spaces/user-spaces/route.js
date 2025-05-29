@@ -10,6 +10,7 @@ export async function GET(req) {
         const headersList = await headers();
         
         const { user } = await payload.auth({ headers: headersList });
+        
         if (!user) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }

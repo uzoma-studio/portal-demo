@@ -85,4 +85,38 @@ export async function isUserSpaceMember(spaceId) {
         console.error('Error checking space membership:', error);
         return false;
     }
-} 
+}
+
+export const getLastVisitedSpace = async (userId) => {
+    try {
+        const res = await fetch(`/api/users/${userId}`)
+        const data = await res.json()
+
+        return data.lastVisitedSpace || null
+    } catch (error) {
+        console.error('Error getting last visited space:', error)
+        return null
+    }
+}
+
+export const setLastVisitedSpace = async (userId, spaceId) => {
+
+    try {
+        await fetch(`/api/users/${userId}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                lastVisitedSpace: spaceId
+            })
+        })
+    } catch (error) {
+        console.error('Error setting last visited space:', error)
+    }
+}
+
+export const clearLastVisitedSpace = () => {
+    if (typeof window === 'undefined') return
+    localStorage.removeItem('lastVisitedSpace')
+}

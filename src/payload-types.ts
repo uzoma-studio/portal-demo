@@ -462,6 +462,10 @@ export interface User {
    * Spaces this user is a member of
    */
   spaces?: (number | Space)[] | null;
+  /**
+   * The last space the user visited
+   */
+  lastVisitedSpace?: string | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -757,6 +761,7 @@ export interface UsersSelect<T extends boolean = true> {
   username?: T;
   avatar?: T;
   spaces?: T;
+  lastVisitedSpace?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;

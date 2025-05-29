@@ -23,7 +23,6 @@ const Home = async () => {
   const data = await fetchPages(space.id)
 
   const siteSettings = await getSiteSettings()
-  
 
   const { siteTitle, siteDescription, backgroundImage } = space.settings
   const settings = {
@@ -37,7 +36,7 @@ const Home = async () => {
   // This is a server component which uses a client component for state mgt and interactivity:
   return (
     <AppProvider value={settings}>
-      <ActiveTemplate pages={data.docs} />
+      <ActiveTemplate pages={data.docs} currentSpace={space.domain} />
     </AppProvider>
   );
 }

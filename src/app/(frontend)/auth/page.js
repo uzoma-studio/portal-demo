@@ -1,18 +1,27 @@
 'use client'
 
-import React, { useState, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import LoginForm from '../widgets/Authentication/LoginForm'
 import SignupForm from '../widgets/Authentication/SignupForm'
-import { AppContext } from '../../../../context'
+import Image from 'next/image'
 
 const StyledAuthPage = styled.div`
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     background: #f5f5f5;
     padding: 20px;
+    position: relative;
+
+    .logo-container {
+        position: absolute;
+        top: 15%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
 
     .auth-container {
         background: white;
@@ -64,6 +73,15 @@ const AuthPage = () => {
 
     return (
         <StyledAuthPage>
+            <div className="logo-container">
+                <Image 
+                    src={'/logo.png'} 
+                    width={70} 
+                    height={70} 
+                    alt='Portal logo - purple concentric circles' 
+                    priority
+                />
+            </div>
             <div className="auth-container">
                 <div className="modal-tabs">
                     <button
@@ -81,7 +99,7 @@ const AuthPage = () => {
                 </div>
 
                 <div className="modal-body">
-                    {formType === 'login' ? <LoginForm /> : <SignupForm />}
+                    {formType === 'login' ? <LoginForm isAuthPage={true} /> : <SignupForm isAuthPage={true} />}
                 </div>
             </div>
         </StyledAuthPage>
