@@ -1,12 +1,15 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 const SignupForm = ({ onClose, setUser, isAuthPage }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
     const [message, setMessage] = useState('');
+
+    const router = useRouter()
 
     const handleSignup = async (e) => {
         e.preventDefault();
@@ -19,9 +22,16 @@ const SignupForm = ({ onClose, setUser, isAuthPage }) => {
 
           const data = await res.json();
           setMessage(data.message || data.error);
-          setTimeout(() => { 
-            data.user && setUser(data.user)
-            onClose()
+          setTimeout(async() => {
+            if(data.user){
+              // Different behaviours depending on where the user is signing in from
+              if(!isAuthPage){
+                setUser(data.user);
+                onClose();
+              } else {
+                router.push('/jumping')
+              }
+            }
           }, 2000);
         } catch (error) {
           setMessage('Signup failed.');

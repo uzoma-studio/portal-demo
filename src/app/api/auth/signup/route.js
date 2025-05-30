@@ -18,12 +18,19 @@ export async function POST(req) {
 
     const response = NextResponse.json({ message: 'Signed up successfully', user });
 
+    // Get the domain from the request
+    const host = req.headers.get('host');
+    const domain = process.env.NODE_ENV === 'production' 
+      ? '.portal8.space'  // Production domain
+      : '.localhost';     // Development domain
+
     response.cookies.set('payload-token', user.token, {
-        httpOnly: true, // Prevents access from JavaScript
-        secure: process.env.NODE_ENV === 'production', // HTTPS only in production
-        sameSite: 'lax',
-        path: '/',
-      });
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      path: '/',
+      domain: domain, // Set the domain to work across subdomains
+    });
   
     return response
 
