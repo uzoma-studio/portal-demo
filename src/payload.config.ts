@@ -143,6 +143,8 @@ export default buildConfig({
     s3Storage({
       collections: {
         media: true,
+        icons: true,
+        productImages: true,
       },
       bucket: process.env.S3_BUCKET,
       config: {
