@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import styled from 'styled-components'
-import { AppContext } from '../../../../context'
+import { SpaceContext } from '@/app/(frontend)/context/SpaceProvider'
 import AuthButton from '../widgets/Authentication/AuthButton'
 import UserProfile from '../widgets/Authentication/UserProfile'
 import { useAuth } from '@/app/(frontend)/context/AuthProvider'
@@ -34,7 +34,7 @@ const StyledHeader = styled.div`
  * @returns {JSX.Element} Header component
  */
 const Header = ({ background, height, pages, showPagesNav }) => {
-    const context = useContext(AppContext)
+    const context = useContext(SpaceContext)
     const siteSettings = context.site
     const theme = context.theme
     const { siteTitle } = siteSettings

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { AppContext } from '../../../context';
+import { SpaceContext } from '@/app/(frontend)/context/SpaceProvider'
 import Image from 'next/image'
 
 import { StyledBackgroundContainer } from '../styles'
@@ -11,7 +11,8 @@ import Header from '@/app/(frontend)/components/Header'
 
 const Index = ({ pages }) => {
 
-    const settings = useContext(AppContext)
+    const settings = useContext(SpaceContext)
+    
     const config = settings.theme
     const backgroundImage = settings.site.backgroundImage
     

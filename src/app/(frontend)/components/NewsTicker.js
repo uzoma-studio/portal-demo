@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import styled, { keyframes } from 'styled-components';
 import Link from 'next/link';
-import { AppContext } from '../context';
+import { SpaceContext } from '@/app/(frontend)/context/SpaceProvider'
 import { getContent } from 'data/fetchContent.server';
 
 const tickerAnimation = keyframes`
@@ -50,7 +50,7 @@ const TickerItem = styled(Link)`
 
 const NewsTicker = ({ backgroundColor, scrollSpeed, itemSpacing }) => {
     const [tickerItems, setTickerItems] = useState(null)
-    const settings = useContext(AppContext)
+    const settings = useContext(SpaceContext)
 
     useEffect(() => {
         async function fetchData() {

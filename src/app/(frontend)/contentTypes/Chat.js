@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, useContext } from 'react';
 import styled from 'styled-components'
-import { AppContext } from '../../../../context';
+import { SpaceContext } from '@/app/(frontend)/context/SpaceProvider'
 
 import AuthButton from '@/app/(frontend)/widgets/Authentication/AuthButton'
 import { useAuth } from '../context/AuthProvider';
@@ -41,7 +41,7 @@ const Chat = ({ data }) => {
     const [message, setMessage] = useState('');
     const [buttonText, setButtonText] = useState('Send')
     const { user } = useAuth()
-    const settings = useContext(AppContext)
+    const settings = useContext(SpaceContext)
 
     const username = user ? user.username : 'Guest'
 

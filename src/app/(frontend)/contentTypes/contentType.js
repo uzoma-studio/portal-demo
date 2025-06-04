@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { getContent, getPostsByUpdate } from 'data/fetchContent.server'
-import { AppContext } from '../../../../context'
+import { SpaceContext } from '@/app/(frontend)/context/SpaceProvider'
 
 import Blog from './Blog'
 import Archive from './Archive'
@@ -22,7 +22,7 @@ import Shop from './Shop'
  */
 
 const ContentType = ({ pageData, setIsPageIndex }) => {
-    const context = useContext(AppContext)
+    const context = useContext(SpaceContext)
     const spaceId = context.space?.id
 
     /**

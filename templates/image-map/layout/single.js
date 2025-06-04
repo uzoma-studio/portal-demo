@@ -1,5 +1,5 @@
 import React, { useState, useContext, useRef, useEffect } from 'react'
-import { AppContext } from '../../../context';
+import { SpaceContext } from '@/app/(frontend)/context/SpaceProvider'
 import Image from 'next/image'
 
 import RenderSinglePageContent from '@/app/(frontend)/utils/renderSinglePageContent'
@@ -9,7 +9,7 @@ import { StyledPage } from '../styles'
 const SinglePage = ({ pageData, pageConfig, pageDisplayStyle }) => {
     const [showPage, setShowPage] = useState(false)
     const pagePosition = pageConfig?.position
-    const settings = useContext(AppContext)
+    const settings = useContext(SpaceContext)
     const displayMode = settings.theme.style?.displayMode || 'hotspots'
     const pageRef = useRef(null)
 

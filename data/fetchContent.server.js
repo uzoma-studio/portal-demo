@@ -6,16 +6,13 @@ import { headers } from 'next/headers'
 
 const payload = await getPayload({ config })
 
-const getCurrentSpace = async () => {
+const getCurrentSpace = async (spaceName) => {
     try {
-        const headersList = await headers()
-        const hostname = headersList.get('host').split('.')[0] || ''
-        
         const space = await payload.find({
             collection: 'spaces',
             where: {
                 domain: {
-                    equals: hostname
+                    equals: spaceName
                 }
             }
         })
