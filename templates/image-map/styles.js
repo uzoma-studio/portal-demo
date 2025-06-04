@@ -61,7 +61,7 @@ export const StyledBackgroundContainer = styled.div`
             .tooltip-text {
                 font-family: ${props => props.$settings?.style?.bodyFont};
                 background: ${props => props.$settings?.style?.hotspotColor};
-                color: #fff;
+                color: ${props => props.$settings?.style?.bodyTextColor};
                 padding: 2.5px;
                 border-radius: 5px;
             }

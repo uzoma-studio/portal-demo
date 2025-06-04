@@ -24,20 +24,6 @@ const StyledHeader = styled.div`
     }
 `
 
-const StyledLogo = styled.div`
-    cursor: pointer;
-    padding: 0.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-`
-
-const LogoWrapper = styled.div`
-    position: relative;
-    width: 40px;
-    height: 40px;
-`
-
 /**
  * Header component
  * 
@@ -63,17 +49,14 @@ const Header = ({ background, height, pages, showPagesNav }) => {
                 $showPagesNav={showPagesNav}
                 $theme={theme}
             >
-                <StyledLogo onClick={() => setIsSidebarOpen(true)}>
-                    <LogoWrapper>
-                        <Image 
-                            src="/logo.png" 
-                            alt="Logo" 
-                            fill
-                            style={{ objectFit: 'contain' }}
-                            priority
-                        />
-                    </LogoWrapper>
-                </StyledLogo>
+                {/* <Image 
+                    src="/logo.png" 
+                    alt="Logo" 
+                    fill
+                    style={{ objectFit: 'contain' }}
+                    priority
+                    onClick={() => setIsSidebarOpen(true)}
+                /> */}
                 <h1 className='site-title'>{siteTitle}</h1>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                     {user ? <UserProfile /> : <AuthButton />}
