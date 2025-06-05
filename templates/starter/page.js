@@ -2,11 +2,11 @@
 
 import React, { useState, useEffect, useContext } from 'react'
 import { StyledContainer } from './styles';
-import { renderCurrentPage } from '../../utils/utils';
+import { renderCurrentPage } from '../../src/utils/helpers';
 
 import Index from './layout/index'
 import SinglePage from './layout/single'
-import { SpaceContext } from '@/app/(frontend)/context/SpaceProvider'
+import { SpaceContext } from '@/context/SpaceProvider'
 
 const Page = ({ pages }) => {
 

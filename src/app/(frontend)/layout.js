@@ -1,5 +1,5 @@
 import "./globals.css";
-import { AuthProvider } from '@/app/(frontend)/context/AuthProvider';
+import { AuthProvider } from '@/context/AuthProvider';
 
 export const metadata = {
   //TODO: Update to use siteTitle and siteDescription set in CMS

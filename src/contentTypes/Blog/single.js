@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
-import RichText from '../../utils/richTextRenderer'
-import { parseDate } from 'utils/utils'
+import RichText from '@/utils/richTextRenderer'
+import { parseDate } from '@/utils/helpers'
 import Image from 'next/image'
 
 const Single = ({ currentPost, setCurrentPost, setIsPageIndex }) => {

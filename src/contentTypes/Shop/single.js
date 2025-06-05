@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import Image from 'next/image'
 import Cart, { addToCart } from './cart'
-import { getImageUrl } from '../../../../../utils/utils'
+import { getImageUrl } from '../../utils/helpers'
 
 const StyledProductModal = styled.div`
     position: absolute;

@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useContext, useState, useEffect } from 'react';
-import { getCurrentUser } from '@/app/(frontend)/utils/auth';
+import { getCurrentUser } from '@/utils/auth';
 
 const AuthContext = createContext(null);
 

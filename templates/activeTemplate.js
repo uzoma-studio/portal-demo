@@ -2,12 +2,12 @@
 
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { getLastVisitedSpace, setLastVisitedSpace } from './utils/spaces'
-import { useAuth } from './context/AuthProvider'
+import { getLastVisitedSpace, setLastVisitedSpace } from '../src/utils/spaces'
+import { useAuth } from '../src/context/AuthProvider'
 
 // Import various templates
-import ImageMap from '../../../templates/image-map/layout/index' //TODO: No need for `page` for the other imports, delete that file so it's one less file and just use `layout/index` instead, it's doing pretty much the same thing anyways
-import Starter from '../../../templates/starter/page'
+import ImageMap from './image-map/layout/index' //TODO: No need for `page` for the other imports, delete that file so it's one less file and just use `layout/index` instead, it's doing pretty much the same thing anyways
+import Starter from './starter/page'
 
 /**
  * ActiveTemplate component

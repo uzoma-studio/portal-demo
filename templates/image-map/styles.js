@@ -38,8 +38,8 @@ export const StyledBackgroundContainer = styled.div`
             animation: pulse 1.5s infinite ease-in-out;
 
             &:hover {
-                width: ${props => `${props.$settings?.style?.hotspotSize + 2.5}px`};
-                height: ${props => `${props.$settings?.style?.hotspotSize + 2.5}px`};
+                width: ${props => `${Number(props.$settings?.style?.hotspotSize) + 2.5}px`};
+                height: ${props => `${Number(props.$settings?.style?.hotspotSize) + 2.5}px`};
                 transition: ease-in .2s;
                 animation-play-state: paused;
             }

@@ -1,8 +1,8 @@
 import React, { useState, useContext, useRef, useEffect } from 'react'
-import { SpaceContext } from '@/app/(frontend)/context/SpaceProvider'
+import { SpaceContext } from '@/context/SpaceProvider'
 import Image from 'next/image'
 
-import RenderSinglePageContent from '@/app/(frontend)/utils/renderSinglePageContent'
+import RenderSinglePageContent from '@/utils/renderSinglePageContent'
 
 import { StyledPage } from '../styles'
 

@@ -38,7 +38,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-, "src/app/(frontend)/utils/richTextRenderer.js"  ],
+, "src/utils/richTextRenderer.js"  ],
   "exclude": [
     "node_modules"
   ]

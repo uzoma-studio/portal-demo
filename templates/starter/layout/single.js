@@ -1,6 +1,6 @@
 import React from 'react'
-import RenderSinglePageContent from '@/app/(frontend)/utils/renderSinglePageContent';
-import CloseButton from '@/app/(frontend)/components/closeButton';
+import RenderSinglePageContent from '@/utils/renderSinglePageContent';
+import CloseButton from '@/components/closeButton';
 
 const SinglePage = ({ page, setCurrentPage }) => {
   return (

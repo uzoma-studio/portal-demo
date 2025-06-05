@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import AuthModal from './AuthModal';
-import { useAuth } from '@/app/(frontend)/context/AuthProvider';
+import { useAuth } from '@/context/AuthProvider';
 import styled from 'styled-components';
 import UserProfile from './UserProfile'
 

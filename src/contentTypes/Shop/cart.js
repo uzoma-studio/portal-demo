@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import CloseButton from '../../components/closeButton'
+import CloseButton from '@/components/closeButton'
 import Image from 'next/image'
 import styled from 'styled-components'
 

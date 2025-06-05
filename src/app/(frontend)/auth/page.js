@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import LoginForm from '../widgets/Authentication/LoginForm'
-import SignupForm from '../widgets/Authentication/SignupForm'
+import LoginForm from '../../../widgets/Authentication/LoginForm'
+import SignupForm from '../../../widgets/Authentication/SignupForm'
 import Image from 'next/image'
 
 const StyledAuthPage = styled.div`

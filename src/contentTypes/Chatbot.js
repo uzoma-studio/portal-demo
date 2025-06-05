@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useContext } from 'react'
 import Link from 'next/link'
 import styled from 'styled-components'
 import Image from 'next/image';
-import { SpaceContext } from '@/app/(frontend)/context/SpaceProvider'
+import { SpaceContext } from '@/context/SpaceProvider'
 
 const ChatWrapper = styled.div`
     margin: 2rem ${props => props.$sideMargins ? props.$sideMargins : 'auto'};

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import Single from './single'
 import Image from 'next/image'
-import { parseDate } from 'utils/utils'
+import { parseDate } from '@/utils/helpers'
 
 const StyledBlogPostsList = styled.ul`
     li {

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useAuth } from '@/app/(frontend)/context/AuthProvider'
+import { useAuth } from '@/context/AuthProvider'
 
 const StyledSidebar = styled.div`
     position: fixed;

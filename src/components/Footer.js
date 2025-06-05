@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import styled from 'styled-components'
-import { SpaceContext } from '@/app/(frontend)/context/SpaceProvider'
+import { SpaceContext } from '@/context/SpaceProvider'
 import Navbar from './Navbar'
 import NewsTicker from './NewsTicker'
 

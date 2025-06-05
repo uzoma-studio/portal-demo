@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { isUserSpaceMember, joinSpace } from '@/app/(frontend)/utils/spaces'
-import { useAuth } from '@/app/(frontend)/context/AuthProvider'
+import { isUserSpaceMember, joinSpace } from '@/utils/spaces'
+import { useAuth } from '@/context/AuthProvider'
 
 const StyledButton = styled.button`
     background: ${props => props.$theme?.style?.primaryColor || '#ecf0f1'};

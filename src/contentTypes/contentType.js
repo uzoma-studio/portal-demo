@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { getContent, getPostsByUpdate } from 'data/fetchContent.server'
-import { SpaceContext } from '@/app/(frontend)/context/SpaceProvider'
+import { SpaceContext } from '@/context/SpaceProvider'
 
 import Blog from './Blog'
 import Archive from './Archive'

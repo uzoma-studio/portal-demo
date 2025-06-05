@@ -4,7 +4,7 @@ import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
 import styled from 'styled-components';
 import CloseButton from '../../components/closeButton';
-import { SpaceContext } from '@/app/(frontend)/context/SpaceProvider'
+import { SpaceContext } from '@/context/SpaceProvider'
 
 const ModalOverlay = styled.div`
     position: fixed;

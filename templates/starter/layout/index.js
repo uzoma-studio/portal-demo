@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import RenderPages from '@/app/(frontend)/utils/renderPages';
+import RenderPages from '@/utils/renderPages';
 
 const Index = ({ pages, setCurrentPage }) => {
   return (

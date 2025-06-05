@@ -2,9 +2,9 @@
 
 import { useState, useRef, useEffect, useContext } from 'react';
 import styled from 'styled-components'
-import { SpaceContext } from '@/app/(frontend)/context/SpaceProvider'
+import { SpaceContext } from '@/context/SpaceProvider'
 
-import AuthButton from '@/app/(frontend)/widgets/Authentication/AuthButton'
+import AuthButton from '@/widgets/Authentication/AuthButton'
 import { useAuth } from '../context/AuthProvider';
 import UserProfile from '../widgets/Authentication/UserProfile';
 

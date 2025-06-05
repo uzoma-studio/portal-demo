@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { useAuth } from '@/app/(frontend)/context/AuthProvider';
+import { useAuth } from '@/context/AuthProvider';
 import styled from 'styled-components';
-import { logoutUser } from '@/app/(frontend)/utils/auth';
+import { logoutUser } from '@/utils/auth';
 
 const StyledProfile = styled.div`
     position: relative;

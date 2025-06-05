@@ -1,14 +1,14 @@
 import React, { useContext } from 'react'
-import { SpaceContext } from '@/app/(frontend)/context/SpaceProvider'
+import { SpaceContext } from '@/context/SpaceProvider'
 import Image from 'next/image'
 
 import { StyledBackgroundContainer } from '../styles'
 
-import RenderPages from '@/app/(frontend)/utils/renderPages';
+import RenderPages from '@/utils/renderPages';
 import SinglePage from './single'
 
-import Header from '@/app/(frontend)/components/Header'
-import Footer from '@/app/(frontend)/components/Footer'
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
 import Environment from './environment'
 
 const Index = ({ pages }) => {

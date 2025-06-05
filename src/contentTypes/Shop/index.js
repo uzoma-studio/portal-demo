@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import Image from 'next/image'
 import SingleProduct from './single'
 import Cart from './cart'
-import { getImageUrl } from '../../../../../utils/utils'
+import { getImageUrl } from '../../utils/helpers'
 
 const StyledProductList = styled.ul`
     display: flex;

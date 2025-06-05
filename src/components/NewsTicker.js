@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import styled, { keyframes } from 'styled-components';
 import Link from 'next/link';
-import { SpaceContext } from '@/app/(frontend)/context/SpaceProvider'
+import { SpaceContext } from '@/context/SpaceProvider'
 import { getContent } from 'data/fetchContent.server';
 
 const tickerAnimation = keyframes`

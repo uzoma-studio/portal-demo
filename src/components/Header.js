@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react'
 import styled from 'styled-components'
-import { SpaceContext } from '@/app/(frontend)/context/SpaceProvider'
+import { SpaceContext } from '@/context/SpaceProvider'
 import AuthButton from '../widgets/Authentication/AuthButton'
 import UserProfile from '../widgets/Authentication/UserProfile'
-import { useAuth } from '@/app/(frontend)/context/AuthProvider'
+import { useAuth } from '@/context/AuthProvider'
 import JoinSpaceButton from '../widgets/Spaces/JoinSpaceButton'
 import Image from 'next/image'
 import NewsTicker from './NewsTicker'
@@ -18,7 +18,7 @@ const StyledHamburger = styled.button`
     flex-direction: column;
     justify-content: space-between;
     width: 2rem;
-    height: 1.5rem;
+    height: 1.75rem;
     z-index: 10;
 
     span {

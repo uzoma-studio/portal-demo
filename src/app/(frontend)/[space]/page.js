@@ -2,8 +2,8 @@
 
 import React, { useEffect, useState } from 'react'
 import { getCurrentSpace, fetchPages } from '../../../../data/fetchContent.server'
-import { SpaceContext } from '../context/SpaceProvider'
-import ActiveTemplate from '../activeTemplate'
+import { SpaceContext } from '../../../context/SpaceProvider'
+import ActiveTemplate from '../../../../templates/activeTemplate'
 
 const SpacePage = () => {
 
