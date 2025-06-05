@@ -2,20 +2,15 @@ import React, { useContext } from 'react'
 import styled from 'styled-components'
 import { SpaceContext } from '@/app/(frontend)/context/SpaceProvider'
 import Navbar from './Navbar'
+import NewsTicker from './NewsTicker'
 
 const StyledFooter = styled.div`
-    background: ${props => props.$image ? props.$image : ( props.$color ? props.$color : '#ecf0f1' )};
-    // height: ${props => props.$height ? props.$height : '3.5rem'};
-
-    display: flex;
-    flex-direction: column;
-    padding: 0 2.5rem;
-    justify-content: center;
-    align-items: center;
-    font-family: monospace;
-    position: absolute;
+    background: ${props => props.$theme?.style?.menu?.backgroundColor || '#ccc'};
+    height: ${props => props.$height ? props.$height : '3.5rem'};
+    position: fixed;
     bottom: 0;
     width: 100%;
+    overflow: hidden;
 `
 
 /**
@@ -32,8 +27,7 @@ const StyledFooter = styled.div`
 // TODO: make the site softcodeable, meaning all content, styles and settings for root components like Footer, Header, Navbar, etc should be set on the CMS
 const Footer = ({ background, height, pages, showPagesNav, children }) => {
     const context = useContext(SpaceContext)
-    const siteSettings = context.site
-    const { siteTitle } = siteSettings
+    const theme = context.theme
     
     return (
     <StyledFooter
@@ -41,9 +35,7 @@ const Footer = ({ background, height, pages, showPagesNav, children }) => {
         $height={height}
         $showPagesNav={showPagesNav}
     >
-        <h3>{ siteTitle }</h3>
-        {children}
-        { showPagesNav && <Navbar pages={pages} />}
+        { theme?.style?.menu?.showNewsTicker && <NewsTicker /> }
     </StyledFooter>
     )
 }

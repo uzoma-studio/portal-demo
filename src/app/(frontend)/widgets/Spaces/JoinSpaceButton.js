@@ -4,8 +4,8 @@ import { isUserSpaceMember, joinSpace } from '@/app/(frontend)/utils/spaces'
 import { useAuth } from '@/app/(frontend)/context/AuthProvider'
 
 const StyledButton = styled.button`
-    background: ${props => props.$theme?.style?.accentColor || '#007bff'};
-    color: ${props => props.$theme?.style?.primaryColor || 'white'};
+    background: ${props => props.$theme?.style?.primaryColor || '#ecf0f1'};
+    color: ${props => props.$theme?.style?.bodyTextColor || 'inherit'};
     border: none;
     padding: 0.5rem 1rem;
     border-radius: 4px;

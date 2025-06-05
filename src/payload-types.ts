@@ -433,6 +433,10 @@ export interface NewsTicker {
         blockType: 'tickerItem';
       }[]
     | null;
+  /**
+   * Select the space this news ticker belongs to
+   */
+  space: number | Space;
   updatedAt: string;
   createdAt: string;
 }
@@ -737,6 +741,7 @@ export interface NewsTickerSelect<T extends boolean = true> {
               blockName?: T;
             };
       };
+  space?: T;
   updatedAt?: T;
   createdAt?: T;
 }

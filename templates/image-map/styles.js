@@ -27,6 +27,7 @@ export const StyledBackgroundContainer = styled.div`
         display: flex;
         flex-direction: column;
         align-items: center;
+        z-index: 1;
         
         .hotspot-icon {
             background: ${props => props.$settings?.style?.hotspotColor};

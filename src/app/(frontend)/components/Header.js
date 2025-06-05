@@ -5,14 +5,40 @@ import AuthButton from '../widgets/Authentication/AuthButton'
 import UserProfile from '../widgets/Authentication/UserProfile'
 import { useAuth } from '@/app/(frontend)/context/AuthProvider'
 import JoinSpaceButton from '../widgets/Spaces/JoinSpaceButton'
-import SpacesSidebar from '../widgets/Spaces/SpacesSidebar'
 import Image from 'next/image'
+import NewsTicker from './NewsTicker'
+import PagesSidebar from './PagesSidebar'
+
+const StyledHamburger = styled.button`
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 2rem;
+    height: 1.5rem;
+    z-index: 10;
+
+    span {
+        display: block;
+        width: 100%;
+        height: 2px;
+        background-color: ${props => props.$theme?.style?.bodyTextColor || '#222'};
+        transition: all 0.3s ease-in-out;
+    }
+
+    &:hover span {
+        background-color: ${props => props.$theme?.style?.menu?.hoverColor || '#666'};
+    }
+`
 
 const StyledHeader = styled.div`
-    background: ${props => props.$theme?.style?.menu?.backgroundColor || 'inherit'};
+    background: ${props => props.$theme?.style?.menu?.backgroundColor || '#ccc'};
     height: ${props => props.$theme?.style?.menu?.defaultHeight || 'inherit'};
     font-family: ${props => props.$theme?.style?.headerFont || 'inherit'};
-    color: ${props => props.$theme?.style?.headerFontColor || 'inherit'};
+    color: ${props => props.$theme?.style?.bodyTextColor || 'inherit'};
 
     display: flex;
     padding: 0 2.5rem;
@@ -49,23 +75,27 @@ const Header = ({ background, height, pages, showPagesNav }) => {
                 $showPagesNav={showPagesNav}
                 $theme={theme}
             >
-                {/* <Image 
-                    src="/logo.png" 
-                    alt="Logo" 
-                    fill
-                    style={{ objectFit: 'contain' }}
-                    priority
+                <StyledHamburger 
                     onClick={() => setIsSidebarOpen(true)}
-                /> */}
-                <h1 className='site-title'>{siteTitle}</h1>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                    $theme={theme}
+                >
+                    <span />
+                    <span />
+                    <span />
+                </StyledHamburger>
+                <p style={{textTransform: 'uppercase', fontSize: '1.75rem', color: '#222'}}>
+                    {siteTitle}
+                </p>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', zIndex: 10 }}>
                     {user ? <UserProfile /> : <AuthButton />}
                     <JoinSpaceButton spaceId={context.spaceId} theme={theme} />
                 </div>
             </StyledHeader>
-            <SpacesSidebar 
-                isOpen={isSidebarOpen} 
-                onClose={() => setIsSidebarOpen(false)} 
+            <PagesSidebar 
+                isOpen={isSidebarOpen}
+                onClose={() => setIsSidebarOpen(false)}
+                pages={pages}
+                theme={theme}
             />
         </>
     )

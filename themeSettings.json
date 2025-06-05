@@ -2,10 +2,11 @@
   "style": {
     "menu": {
       "defaultHeight": "3.5rem",
-      "backgroundColor": "#ecf0f1"
+      "backgroundColor": "#ccc",
+      "showNewsTicker": true
     },
     "bodyFont": "Courier New",
-    "headerFont": "Helvetica",
+    "headerFont": "Courier New",
     "pageStyles": {
       "width": "50%",
       "height": "70vh",
@@ -24,6 +25,8 @@
     "secondaryColor": "#c084fc",
     "backgroundColor": "#fff",
     "headerFontColor": "#222",
-    "contentTextColor": "#222"
+    "contentTextColor": "#222",
+    "backgroundImageRenderMode": "center",
+    "environment": "park"
   }
 }

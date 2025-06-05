@@ -36,5 +36,16 @@ export const NewsTicker: CollectionConfig = {
           },
         ],
       },
+      {
+        name: 'space',
+        type: 'relationship',
+        relationTo: 'spaces',
+        required: true,
+        hasMany: false,
+        index: true,
+        admin: {
+          description: 'Select the space this news ticker belongs to',
+        },
+      },
   ],
 }

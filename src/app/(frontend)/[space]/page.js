@@ -43,7 +43,11 @@ const SpacePage = () => {
 
     if (isLoading) {
         return (
-            <p>Loading...</p>
+            <div className="fixed inset-0 flex items-center justify-center">
+                <p className="text-2xl font-display animate-pulse">
+                    Loading Space...
+                </p>
+            </div>
         )
     }
 

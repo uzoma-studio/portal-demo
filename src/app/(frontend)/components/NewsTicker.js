@@ -17,15 +17,15 @@ const tickerAnimation = keyframes`
 `;
 
 const StyledTicker = styled.div`
-  position: fixed;
-  top: 0;
+  position: absolute;
+  bottom: 0;
   left: 0;
   width: 100%;
   overflow: hidden;
   height: 3rem;
   padding-left: 100%;
   box-sizing: content-box;
-  background-color: ${props => props.$backgroundColor || props.$theme?.style?.primaryColor || '#ccc'};
+  background-color: transparent;
 
     div.content {
         display: inline-block;
@@ -43,7 +43,7 @@ const TickerItem = styled(Link)`
   padding: 0 ${props => props.$itemSpacing || '3rem'};
   font-size: 1.25rem;
   text-transform: uppercase;
-  color: ${props => props.$theme?.style?.accentColor || '#000'} !important;
+  color: ${props => props.$theme?.style?.bodyTextColor || '#000'} !important;
   text-decoration: none;
   font-family: ${props => props.$theme?.style?.bodyFont}
 `;
@@ -54,7 +54,7 @@ const NewsTicker = ({ backgroundColor, scrollSpeed, itemSpacing }) => {
 
     useEffect(() => {
         async function fetchData() {
-            const data = await getContent('newsTicker');
+            const data = await getContent('newsTicker', settings.spaceId);
             setTickerItems(data.docs[0].tickerItems)
         }
 

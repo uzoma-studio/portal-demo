@@ -121,19 +121,19 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   
   ALTER TABLE "products" DROP CONSTRAINT "products_product_image_id_media_id_fk";
   
-  DROP INDEX IF EXISTS "pages_cover_image_idx";
+   DROP INDEX IF EXISTS "pages_cover_image_idx";
   DROP INDEX IF EXISTS "products_product_image_idx";
   DROP INDEX IF EXISTS "payload_locked_documents_rels_theme_settings_id_idx";
   ALTER TABLE "pages" ALTER COLUMN "title" SET NOT NULL;
   ALTER TABLE "pages" ALTER COLUMN "slug" SET NOT NULL;
-  ALTER TABLE "pages" ADD COLUMN "space_id" integer;
-  ALTER TABLE "pages" ADD COLUMN "theme_config_position_x" numeric;
-  ALTER TABLE "pages" ADD COLUMN "theme_config_position_y" numeric;
+  ALTER TABLE "pages" ADD COLUMN "space_id" integer NOT NULL;
+  ALTER TABLE "pages" ADD COLUMN "theme_config_position_x" numeric NOT NULL;
+  ALTER TABLE "pages" ADD COLUMN "theme_config_position_y" numeric NOT NULL;
   ALTER TABLE "pages" ADD COLUMN "theme_config_icon_id" integer;
   ALTER TABLE "pages" ADD COLUMN "theme_config_hotspot_name" varchar;
-  ALTER TABLE "posts" ADD COLUMN "update_id" integer;
+  ALTER TABLE "posts" ADD COLUMN "update_id" integer NOT NULL;
   ALTER TABLE "chatbot" ADD COLUMN "space_id" varchar NOT NULL;
-  ALTER TABLE "chat_messages" ADD COLUMN "space_id" integer;
+  ALTER TABLE "chat_messages" ADD COLUMN "space_id" integer NOT NULL;
   ALTER TABLE "products" ADD COLUMN "space_id" integer NOT NULL;
   ALTER TABLE "subscriptions" ADD COLUMN "space_id" varchar NOT NULL;
   ALTER TABLE "users" ADD COLUMN "avatar_id" integer;

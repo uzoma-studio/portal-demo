@@ -16,3 +16,6 @@ export default function RootLayout({ children }) {
     </div>
   );
 }
+
+//TODO: General todo: only valid routes should be in app/(frontend) folder so as not to confuse
+//Move routes like 'contentTypes' and 'components' to src folder
