@@ -143,9 +143,18 @@ export const StyledPage = styled.div`
     border-color: ${props => props.$settings?.style?.pageStyles?.borderColor};
     border-width: ${props => props.$settings?.style?.pageStyles?.borderWidth};
     padding: 20px;
-    border-radius: 10px;
     box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.5);
     overflow: scroll;
     transform: ${props => `${props.$settings?.style?.pageStyles?.displayStyle === 'center-modal' ? `translate(-50%, -50%)` : ``}`};
     z-index: 99;
+
+     ${props => props.$settings?.style?.backgroundImageRenderMode === 'center' && `
+        width: unset;
+        height: unset;
+        margin: 2rem;
+        padding: 1.5rem;
+        border-width: 5px;
+        max-height: 500px;
+        max-width: 500px;
+    `}
 `

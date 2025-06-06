@@ -9,6 +9,8 @@ import { useAuth } from '../src/context/AuthProvider'
 import ImageMap from './image-map/layout/index' //TODO: No need for `page` for the other imports, delete that file so it's one less file and just use `layout/index` instead, it's doing pretty much the same thing anyways
 import Starter from './starter/page'
 
+import { StyledRoot } from '@/styles/rootStyles'
+
 /**
  * ActiveTemplate component
  * 
@@ -21,7 +23,7 @@ import Starter from './starter/page'
  * 
  * @returns {JSX.Element} The currently active template component
  */
-const ActiveTemplate = ({ pages, currentSpace }) => {
+const ActiveTemplate = ({ pages, currentSpace, theme }) => {
 
   // Index templates
   // The same `pages` data is used across all templates in the project
@@ -116,9 +118,9 @@ const ActiveTemplate = ({ pages, currentSpace }) => {
   }, [currentSpace, user]) // Add user to dependencies
 
   return (
-    <>
+    <StyledRoot $theme={theme}>
       {activeTemplate}
-    </>
+    </StyledRoot>
   );
 }
 

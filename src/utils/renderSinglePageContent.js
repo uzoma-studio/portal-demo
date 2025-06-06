@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import ContentType from '../contentTypes/contentType'
+import ContentType from '@/contentTypes/contentType'
 import RichText from './richTextRenderer'
 import CloseButton from '../components/closeButton'
 
@@ -26,7 +26,7 @@ const RenderSinglePageContent = ({ children, pageData, setCurrentPage }) => {
 
   return (
     <div>
-        {title && isPageIndex && <h1>{pageData.title}</h1> }
+        {title && isPageIndex && <h4>{pageData.title}</h4> }
         {/* Display a close button if a close function has been provided */}
         { setCurrentPage && <CloseButton closeFn={() => setCurrentPage(null)} position={{x: 95, y: 5}} /> }
         

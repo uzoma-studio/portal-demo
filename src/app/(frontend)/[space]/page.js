@@ -65,7 +65,11 @@ const SpacePage = () => {
     
     return (
         <SpaceContext.Provider value={settings}>
-            <ActiveTemplate pages={data.docs} currentSpace={settings.space.domain} />
+            <ActiveTemplate 
+                pages={data.docs} 
+                currentSpace={settings.space.domain} 
+                theme={settings.theme}
+            />
         </SpaceContext.Provider>
     )
 }

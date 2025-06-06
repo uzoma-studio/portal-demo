@@ -29,6 +29,12 @@ const SinglePage = ({ pageData, pageConfig, pageDisplayStyle }) => {
         }
     }, [showPage])
 
+    const calculatePagePosition = (pagePosition) => {
+        const x = pagePosition.x
+        const y = pagePosition.y < 40 ? pagePosition.y + 10 : pagePosition.y - 10
+        return { x, y }
+    }
+
 
     const renderPageTrigger = () => {
         if (displayMode === 'icons') {
@@ -107,7 +113,7 @@ const SinglePage = ({ pageData, pageConfig, pageDisplayStyle }) => {
             {pagePosition && showPage ? (
                 <StyledPage 
                     ref={pageRef}
-                    $position={pagePosition} 
+                    $position={calculatePagePosition(pagePosition)} 
                     $pageDisplayStyle={pageDisplayStyle} 
                     $settings={settings.theme}
                 >

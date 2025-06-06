@@ -5,8 +5,6 @@ import AuthButton from '../widgets/Authentication/AuthButton'
 import UserProfile from '../widgets/Authentication/UserProfile'
 import { useAuth } from '@/context/AuthProvider'
 import JoinSpaceButton from '../widgets/Spaces/JoinSpaceButton'
-import Image from 'next/image'
-import NewsTicker from './NewsTicker'
 import PagesSidebar from './PagesSidebar'
 
 const StyledHamburger = styled.button`
@@ -48,6 +46,10 @@ const StyledHeader = styled.div`
     .site-title {
       margin-bottom: 0;
     }
+
+    position: fixed;
+    width: 100%;
+    z-index: 99;
 `
 
 /**
