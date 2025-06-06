@@ -9,7 +9,7 @@ import { useAuth } from '../src/context/AuthProvider'
 import ImageMap from './image-map/layout/index' //TODO: No need for `page` for the other imports, delete that file so it's one less file and just use `layout/index` instead, it's doing pretty much the same thing anyways
 import Starter from './starter/page'
 
-import { StyledRoot } from '@/styles/rootStyles'
+// import { StyledRoot } from '@/styles/rootStyles'
 
 /**
  * ActiveTemplate component
@@ -118,9 +118,12 @@ const ActiveTemplate = ({ pages, currentSpace, theme }) => {
   }, [currentSpace, user]) // Add user to dependencies
 
   return (
-    <StyledRoot $theme={theme}>
+    // <StyledRoot $theme={theme}>
+    //   {activeTemplate}
+    // </StyledRoot>
+    <>
       {activeTemplate}
-    </StyledRoot>
+    </>
   );
 }
 

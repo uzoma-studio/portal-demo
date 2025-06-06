@@ -28,6 +28,19 @@ const getCurrentSpace = async (spaceName) => {
     }
 }
 
+const getSpaces = async () => {
+    try {
+        const spaces = await payload.find({
+            collection: 'spaces',
+            sort: '-createdAt'
+        })
+        return spaces
+    } catch (error) {
+        console.error('Error fetching spaces:', error)
+        return { docs: [] }
+    }
+}
+
 const fetchPages = async (spaceId) => {
     const result = await payload.find({
         collection: 'pages',
@@ -76,4 +89,4 @@ const getPostsByUpdate = async(updateId) => {
     return results;
 }
 
-export { getCurrentSpace, fetchPages, getContent, getSiteSettings, getPostsByUpdate }
+export { getCurrentSpace, fetchPages, getContent, getSiteSettings, getPostsByUpdate, getSpaces }
