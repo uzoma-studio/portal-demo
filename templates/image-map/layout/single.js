@@ -32,7 +32,7 @@ const SinglePage = ({ pageData, pageConfig, pageDisplayStyle }) => {
     const calculatePagePosition = (pagePosition) => {
         const x = pagePosition.x
         const y = pagePosition.y < 40 ? pagePosition.y + 10 : pagePosition.y - 10
-        return { x, y }
+        return { x, y}
     }
 
 

@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { SpaceContext } from '@/context/SpaceProvider'
 import Image from 'next/image'
 
-import { StyledBackgroundContainer } from '../styles'
+import { StyledBackgroundContainer, StyledDisplayModeLayout } from '../styles'
 
 import RenderPages from '@/utils/renderPages';
 import SinglePage from './single'
@@ -11,12 +11,24 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import Environment from './environment'
 
+import Icon from '../../displayModes/icon'
+
 const Index = ({ pages }) => {
     const settings = useContext(SpaceContext)
     const config = settings.theme
     const backgroundImage = settings.site.backgroundImage
     const imageRenderMode = config.style?.backgroundImageRenderMode || 'center'
     const environment = config.style?.environment || 'park'
+    const displayMode = config.style?.displayMode || 'hotspots'
+
+    const getDisplayMode = (pageData) => {
+
+        const displayModes = {
+            icons: <Icon page={pageData} pageConfig={pageData.themeConfig} />
+        }
+
+        return displayModes[displayMode]
+    }
     
     return (
         <>
@@ -54,18 +66,21 @@ const Index = ({ pages }) => {
                     :
                     <div className='background' />
                 }
-                {
-                    config && pages.map((pageData) =>
-                        <RenderPages key={pageData.id}>
-                            <SinglePage
-                                key={pageData.id}
-                                pageData={pageData}
-                                pageConfig={pageData.themeConfig}
-                                pageDisplayStyle='center-modal'
-                            />
-                        </RenderPages>
-                    )
-                }
+                <StyledDisplayModeLayout $displayMode={displayMode}>
+                    {
+                        config && pages.map((pageData) =>
+                                getDisplayMode(pageData)
+                            // <RenderPages key={pageData.id}>
+                            //     <SinglePage
+                            //         key={pageData.id}
+                            //         pageData={pageData}
+                            //         pageConfig={pageData.themeConfig}
+                            //         pageDisplayStyle='center-modal'
+                            //     />
+                            // </RenderPages>
+                        )
+                    }
+                </StyledDisplayModeLayout>
                 <Footer />
             </StyledBackgroundContainer>
         </>

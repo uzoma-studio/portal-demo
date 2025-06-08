@@ -74,13 +74,6 @@ export const StyledBackgroundContainer = styled.div`
     }
 
     .page-icon {
-        position: relative;
-        transition: transform 0.2s ease;
-        box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
-
-        &:hover {
-            transform: translate(-50%, -50%) scale(1.1);
-        }
 
         .icon-tooltip {
             position: absolute;
@@ -157,4 +150,28 @@ export const StyledPage = styled.div`
         max-height: 500px;
         max-width: 500px;
     `}
+`
+
+export const StyledDisplayModeLayout = styled.div`
+    ${props => {
+        switch(props.$displayMode) {
+            case 'icons':
+                return `
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 4rem;
+                    align-items: center;
+                `
+            case 'list':
+                return `
+                    display: flex;
+                    flex-direction: column;
+                    gap: 1rem;
+                `
+            default:
+                return `
+                    display: block;
+                `
+        }
+    }}
 `
