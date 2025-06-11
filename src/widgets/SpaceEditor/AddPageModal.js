@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { createPage } from '../../../data/createContent.server'
 import { SpaceContext } from '@/context/SpaceProvider';
 import { generateSlug } from '@/utils/helpers';
+import { SimpleEditor } from '@/tiptap/components/tiptap-templates/simple/simple-editor'
 
 const StyledForm = styled.form`
     display: flex;
@@ -75,7 +76,7 @@ const AddPage = ({ setIsModalOpen }) => {
     const [formData, setFormData] = useState({
         title: '',
         contentType: '',
-        body: '',
+        body: null,
         space,
         themeConfig: {
             position: {
@@ -93,6 +94,13 @@ const AddPage = ({ setIsModalOpen }) => {
         }));
     };
 
+    const handleEditorUpdate = (editor) => {
+        const content = editor.getJSON();
+        setFormData(prev => ({
+            ...prev,
+            body: content
+        }));
+    };
 
     const handleClose = () => {
         setIsModalOpen(false)
@@ -100,19 +108,20 @@ const AddPage = ({ setIsModalOpen }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            const slug = generateSlug(formData.title);
-            const pageData = {
-                ...formData,
-                slug
-            };
+        console.log(formData)
+        // try {
+        //     const slug = generateSlug(formData.title);
+        //     const pageData = {
+        //         ...formData,
+        //         slug
+        //     };
 
-            await createPage(pageData);
-            handleClose();
-        } catch (error) {
-            console.error('Error creating page:', error);
-            // TODO: Add error handling UI
-        }
+        //     await createPage(pageData);
+        //     handleClose();
+        // } catch (error) {
+        //     console.error('Error creating page:', error);
+        //     // TODO: Add error handling UI
+        // }
     };
 
     return (
@@ -158,13 +167,7 @@ const AddPage = ({ setIsModalOpen }) => {
                     <StyledLabel htmlFor="body" className="block mb-2">
                         Page Content
                     </StyledLabel>
-                    <StyledTextArea
-                        id="body"
-                        name="body"
-                        value={formData.body}
-                        onChange={handleInputChange}
-                        className="w-full px-3 py-2 rounded"
-                    />
+                    <SimpleEditor onUpdate={handleEditorUpdate} />
                 </div>
 
                 <StyledSubmitButton 
