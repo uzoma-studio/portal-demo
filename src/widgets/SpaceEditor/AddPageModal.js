@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
+import { createPage } from '../../../data/createContent.server'
+import { SpaceContext } from '@/context/SpaceProvider';
+import { generateSlug } from '@/utils/helpers';
 
 const StyledForm = styled.form`
     display: flex;
@@ -65,11 +68,21 @@ const StyledSubmitButton = styled.button`
     }
 `;
 
-const AddPage = () => {
+const AddPage = ({ setIsModalOpen }) => {
+    const context = useContext(SpaceContext)
+    const space = context.space
+
     const [formData, setFormData] = useState({
         title: '',
         contentType: '',
         body: '',
+        space,
+        themeConfig: {
+            position: {
+                x: 50,
+                y: 50
+            }
+        }
     });
 
     const handleInputChange = (e) => {
@@ -80,11 +93,26 @@ const AddPage = () => {
         }));
     };
 
+
+    const handleClose = () => {
+        setIsModalOpen(false)
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // TODO: Add API call to create page
-        console.log('Form submitted:', formData);
-        handleClose();
+        try {
+            const slug = generateSlug(formData.title);
+            const pageData = {
+                ...formData,
+                slug
+            };
+
+            await createPage(pageData);
+            handleClose();
+        } catch (error) {
+            console.error('Error creating page:', error);
+            // TODO: Add error handling UI
+        }
     };
 
     return (
@@ -117,6 +145,7 @@ const AddPage = () => {
                         className="w-full px-3 py-2 rounded"
                     >
                         <option value="">Select a content type</option>
+                        <option value="page">Page</option>
                         <option value="blog">Blog</option>
                         <option value="files">Files</option>
                         <option value="chatbot">Chatbot</option>

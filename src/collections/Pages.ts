@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload'
 import { lexicalEditor } from '@payloadcms/richtext-lexical';
+import { generateSlug } from '../utils/helpers';
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
@@ -27,6 +28,7 @@ export const Pages: CollectionConfig = {
         name: 'contentType',
         type: 'select',
         options: [
+            { label: 'Page', value: 'page' },
             { label: 'Blog', value: 'blog' },
             { label: 'Files', value: 'files' },
             { label: 'Chatbot', value: 'chatbot' },
@@ -119,17 +121,8 @@ export const Pages: CollectionConfig = {
       async ({ data, req, operation }) => {
         // Only generate slug if title exists and it's a create operation or title is being updated
         if (data.title && (operation === 'create' || (req.body && 'title' in req.body))) {
-          // Convert title to lowercase and replace spaces with hyphens
-          let slug = data.title.toLowerCase().replace(/\s+/g, '-');
-          
-          // Remove special characters
-          slug = slug.replace(/[^a-z0-9-]/g, '');
-          
-          // Remove consecutive hyphens
-          slug = slug.replace(/-+/g, '-');
-          
-          // Remove leading and trailing hyphens
-          slug = slug.replace(/^-+|-+$/g, '');
+          // Generate base slug from title
+          let slug = generateSlug(data.title);
           
           // If it's an update operation, check if the slug already exists
           if (operation === 'update') {

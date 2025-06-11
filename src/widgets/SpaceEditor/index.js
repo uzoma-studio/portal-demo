@@ -87,7 +87,7 @@ const BuildMode = ({ theme }) => {
                         </StyledTabButton>
                     </div>
 
-                    <AddPageModal />
+                    <AddPageModal setIsModalOpen={setIsModalOpen} />
 
                 </StyledModalContent>
             </StyledModalOverlay>

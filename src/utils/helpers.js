@@ -54,4 +54,27 @@ export const getImageUrl = (url, filename, imagesDir) => {
     return process.env.NODE_ENV === 'production' 
       ? url 
       : `/${imagesDir}/${filename}`;
-  }; 
+}
+
+/**
+ * Generates a URL-friendly slug from a title
+ * @param {string} title - The title to convert to a slug
+ * @returns {string} The generated slug
+ */
+export const generateSlug = (title) => {
+    if (!title) return '';
+
+    // Convert title to lowercase and replace spaces with hyphens
+    let slug = title.toLowerCase().replace(/\s+/g, '-');
+    
+    // Remove special characters
+    slug = slug.replace(/[^a-z0-9-]/g, '');
+    
+    // Remove consecutive hyphens
+    slug = slug.replace(/-+/g, '-');
+    
+    // Remove leading and trailing hyphens
+    slug = slug.replace(/^-+|-+$/g, '');
+    
+    return slug;
+}; 

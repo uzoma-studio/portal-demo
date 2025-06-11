@@ -184,7 +184,7 @@ export interface Page {
   /**
    * Leave blank for default Page content type
    */
-  contentType?: ('blog' | 'files' | 'chatbot' | 'chat-messages' | 'products') | null;
+  contentType?: ('page' | 'blog' | 'files' | 'chatbot' | 'chat-messages' | 'products') | null;
   chatbot?: (number | null) | Chatbot;
   /**
    * Updates for this blog page

@@ -14,6 +14,7 @@ const LoginForm = ({ onClose, setUser, isAuthPage }) => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
+          // TODO: User server function for auth instead https://payloadcms.com/docs/local-api/server-functions#login
           const res = await fetch('/api/auth/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
