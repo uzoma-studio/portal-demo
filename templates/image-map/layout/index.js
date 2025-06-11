@@ -13,7 +13,7 @@ import Environment from './environment'
 
 import Icon from '../../displayModes/icon'
 
-import AddPage from '@/components/AddPage'
+import BuildMode from '@/widgets/SpaceEditor'
 
 const Index = ({ pages }) => {
     const settings = useContext(SpaceContext)
@@ -26,7 +26,7 @@ const Index = ({ pages }) => {
     const getDisplayMode = (pageData) => {
 
         const displayModes = {
-            icons: <Icon page={pageData} pageConfig={pageData.themeConfig} />
+            icons: <Icon key={pageData.id} page={pageData} pageConfig={pageData.themeConfig} />
         }
 
         return displayModes[displayMode]
@@ -36,7 +36,7 @@ const Index = ({ pages }) => {
         <>
             <Environment environment={environment} />
             <Header />
-            <AddPage />
+            <BuildMode />
             <StyledBackgroundContainer $settings={config}>
                 { backgroundImage && config.style.backgroundMode === 'image' ?
                     imageRenderMode === 'background' ? (

@@ -1,5 +1,16 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import AddPageModal from './AddPageModal';
+import CloseButton from '../../components/closeButton';
+
+const StyledModalOverlay = styled.div`
+    background: rgba(0, 0, 0, 0.5);
+`
+
+const StyledModalContent = styled.div`
+    background: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+`
 
 const StyledAddButton = styled.button`
     background: #222;
@@ -9,16 +20,6 @@ const StyledAddButton = styled.button`
     &:hover {
         transform: scale(1.1);
     }
-`;
-
-const StyledModalOverlay = styled.div`
-    background: rgba(0, 0, 0, 0.5);
-    display: ${({ $isOpen }) => ($isOpen ? 'block' : 'none')};
-`;
-
-const StyledModalContent = styled.div`
-    background: white;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 `;
 
 const StyledTabButton = styled.button`
@@ -39,44 +40,35 @@ const StyledTabButton = styled.button`
     }
 `;
 
-const StyledCloseButton = styled.button`
-    color: var(--body-text-color);
-`;
-
-const AddPage = ({ theme }) => {
-    const [isOpen, setIsOpen] = useState(false);
+const BuildMode = ({ theme }) => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const [activeTab, setActiveTab] = useState('addPage');
 
     const handleClose = () => {
-        setIsOpen(false);
-    };
+        setIsModalOpen(false)
+    }
 
     return (
-        <>
-            <StyledAddButton 
-                onClick={() => setIsOpen(true)}
-                $theme={theme}
-                className="fixed bottom-8 right-8 w-[50px] h-[50px] rounded-full border-none cursor-pointer flex items-center justify-center text-3xl shadow-md z-10"
-            >
-                +
-            </StyledAddButton>
+        
+        !isModalOpen ?
 
-            <StyledModalOverlay 
-                $isOpen={isOpen} 
-                onClick={handleClose}
+            <StyledAddButton 
+                onClick={() => setIsModalOpen(true)}
+                className="fixed bottom-8 right-8 w-[50px] h-[50px] rounded-full border-none cursor-pointer flex items-center justify-center text-3xl shadow-md z-10"
+                >
+                    +
+            </StyledAddButton>
+                
+            :
+
+            <StyledModalOverlay
                 className="fixed inset-0 z-50"
             >
                 <StyledModalContent 
                     onClick={e => e.stopPropagation()}
                     className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-lg p-5 min-w-[300px] w-[35%] max-w-[500px] z-[51]"
                 >
-                    <StyledCloseButton 
-                        onClick={handleClose}
-                        $theme={theme}
-                        className="absolute top-4 right-4 bg-transparent border-none cursor-pointer text-2xl"
-                    >
-                        ×
-                    </StyledCloseButton>
+                    <CloseButton closeFn={handleClose} position={{x: '90', y: '10'}} />
 
                     <div className="flex justify-start mb-4 border-b border-gray-200">
                         <StyledTabButton
@@ -95,17 +87,11 @@ const AddPage = ({ theme }) => {
                         </StyledTabButton>
                     </div>
 
-                    <div className="mt-4">
-                        {activeTab === 'addPage' ? (
-                            <div>Add Page Form Content</div>
-                        ) : (
-                            <div>Edit Space Form Content</div>
-                        )}
-                    </div>
+                    <AddPageModal />
+
                 </StyledModalContent>
             </StyledModalOverlay>
-        </>
     );
 };
 
-export default AddPage; 
+export default BuildMode; 
