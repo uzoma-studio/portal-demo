@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { getLastVisitedSpace, setLastVisitedSpace } from '../src/utils/spaces'
 import { useAuth } from '../src/context/AuthProvider'
+import { GlobalStyle } from '../src/styles/rootStyles'
 
 // Import various templates
 import ImageMap from './image-map/layout/index' //TODO: No need for `page` for the other imports, delete that file so it's one less file and just use `layout/index` instead, it's doing pretty much the same thing anyways
@@ -29,11 +30,11 @@ const ActiveTemplate = ({ pages, currentSpace, theme }) => {
   // The same `pages` data is used across all templates in the project
   // TODO: use Context or sth instead of having to pass this prop over and over again
   const templates = {
-    imagemap: <ImageMap pages={pages} />,
+    imageMap: <ImageMap pages={pages} />,
     starter: <Starter pages={pages} />
   }
 
-  const defaultTemplateName = 'imagemap'
+  const defaultTemplateName = 'imageMap'
   const [activeTemplate, setActiveTemplate] = useState(templates[defaultTemplateName]);
   const router = useRouter()
   const { user, setUser } = useAuth()
@@ -118,10 +119,8 @@ const ActiveTemplate = ({ pages, currentSpace, theme }) => {
   }, [currentSpace, user]) // Add user to dependencies
 
   return (
-    // <StyledRoot $theme={theme}>
-    //   {activeTemplate}
-    // </StyledRoot>
     <>
+      <GlobalStyle $theme={theme} />
       {activeTemplate}
     </>
   );

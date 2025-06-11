@@ -8,48 +8,20 @@ import JoinSpaceButton from '../widgets/Spaces/JoinSpaceButton'
 import PagesSidebar from './PagesSidebar'
 
 const StyledHamburger = styled.button`
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0.5rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 2rem;
-    height: 1.75rem;
-    z-index: 10;
-
     span {
-        display: block;
-        width: 100%;
-        height: 2px;
-        background-color: ${props => props.$theme?.style?.bodyTextColor || '#222'};
+        background-color: var(--body-text-color);
         transition: all 0.3s ease-in-out;
     }
 
     &:hover span {
-        background-color: ${props => props.$theme?.style?.menu?.hoverColor || '#666'};
+        background-color: var(--menu-hover-color);
     }
 `
 
 const StyledHeader = styled.div`
-    background: ${props => props.$theme?.style?.menu?.backgroundColor || '#ccc'};
-    height: ${props => props.$theme?.style?.menu?.defaultHeight || 'inherit'};
-    font-family: ${props => props.$theme?.style?.headerFont || 'inherit'};
-    color: ${props => props.$theme?.style?.bodyTextColor || 'inherit'};
-
-    display: flex;
-    padding: 0 2.5rem;
-    justify-content: space-between;
-    align-items: center;
-
-    .site-title {
-      margin-bottom: 0;
-    }
-
-    // position: fixed;
-    width: 100%;
-    z-index: 99;
+    background: var(--menu-background);
+    color: var(--body-text-color);
+    font-family: var(--header-font);
 `
 
 /**
@@ -73,22 +45,23 @@ const Header = ({ background, height, pages, showPagesNav }) => {
         <>
             <StyledHeader
                 $background={background}
-                $height={height}
-                $showPagesNav={showPagesNav}
                 $theme={theme}
+                className="w-full z-50 flex items-center justify-between px-10 py-4"
+                style={{ height: theme?.style?.menu?.defaultHeight || '3.5rem' }}
             >
                 <StyledHamburger 
                     onClick={() => setIsSidebarOpen(true)}
                     $theme={theme}
+                    className="bg-transparent border-none cursor-pointer p-2 flex flex-col justify-between w-8 h-7 z-10"
                 >
-                    <span />
-                    <span />
-                    <span />
+                    <span className="block w-full h-0.5" />
+                    <span className="block w-full h-0.5" />
+                    <span className="block w-full h-0.5" />
                 </StyledHamburger>
-                <p style={{textTransform: 'uppercase', fontSize: '1.75rem', color: '#222'}}>
+                <p className="uppercase text-2xl m-0">
                     {siteTitle}
                 </p>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', zIndex: 10 }}>
+                <div className="flex items-center gap-4 z-10">
                     {user ? <UserProfile /> : <AuthButton />}
                     <JoinSpaceButton spaceId={context.spaceId} theme={theme} />
                 </div>
