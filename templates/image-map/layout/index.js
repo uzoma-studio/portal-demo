@@ -13,6 +13,8 @@ import Environment from './environment'
 
 import Icon from '../../displayModes/icon'
 
+import AddPage from '@/components/AddPage'
+
 const Index = ({ pages }) => {
     const settings = useContext(SpaceContext)
     const config = settings.theme
@@ -34,6 +36,7 @@ const Index = ({ pages }) => {
         <>
             <Environment environment={environment} />
             <Header />
+            <AddPage />
             <StyledBackgroundContainer $settings={config}>
                 { backgroundImage && config.style.backgroundMode === 'image' ?
                     imageRenderMode === 'background' ? (
