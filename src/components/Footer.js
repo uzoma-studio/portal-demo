@@ -4,14 +4,11 @@ import { SpaceContext } from '@/context/SpaceProvider'
 import Navbar from './Navbar'
 import NewsTicker from './NewsTicker'
 
-const StyledFooter = styled.div`
-    background: ${props => props.$theme?.style?.menu?.backgroundColor || '#ccc'};
-    height: ${props => props.$height ? props.$height : '3.5rem'};
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    overflow: hidden;
-`
+const StyledFooter = styled.footer`
+    background: var(--menu-background);
+    color: var(--body-text-color);
+    font-family: var(--body-font);
+`;
 
 /**
  * Footer component (very similar to Header, can they be squashed into one?)
@@ -30,14 +27,13 @@ const Footer = ({ background, height, pages, showPagesNav, children }) => {
     const theme = context.theme
     
     return (
-    <StyledFooter
-        $background={background}
-        $height={height}
-        $showPagesNav={showPagesNav}
-    >
-        { theme?.style?.menu?.showNewsTicker && <NewsTicker /> }
-    </StyledFooter>
-    )
-}
+        <StyledFooter 
+            className="fixed bottom-0 w-full overflow-hidden py-4 px-10 text-center"
+            style={{ height: theme?.style?.menuHeight || '3.5rem' }}
+        >
+            { theme?.style?.menu?.showNewsTicker && <NewsTicker /> }
+        </StyledFooter>
+    );
+};
 
-export default Footer
+export default Footer;

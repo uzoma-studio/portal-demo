@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const StyledAddButton = styled.button`
-    background: ${props => props.$theme?.style?.primaryColor || '#222'};
-    color: ${props => props.$theme?.style?.accentColor || '#fff'};
+    background: #222;
+    color: #fff;
     transition: transform 0.2s ease;
 
     &:hover {
@@ -22,10 +22,10 @@ const StyledModalContent = styled.div`
 `;
 
 const StyledTabButton = styled.button`
-    color: ${props => props.$theme?.style?.bodyTextColor || '#222'};
+    color: var(--body-text-color);
     
     &.active {
-        color: ${props => props.$theme?.style?.primaryColor || '#222'};
+        color: var(--primary-color);
         
         &:after {
             content: '';
@@ -34,13 +34,13 @@ const StyledTabButton = styled.button`
             left: 0;
             width: 100%;
             height: 2px;
-            background: ${props => props.$theme?.style?.primaryColor || '#222'};
+            background: var(--primary-color);
         }
     }
 `;
 
 const StyledCloseButton = styled.button`
-    color: ${props => props.$theme?.style?.bodyTextColor || '#222'};
+    color: var(--body-text-color);
 `;
 
 const AddPage = ({ theme }) => {
