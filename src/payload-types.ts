@@ -181,9 +181,6 @@ export interface Page {
     [k: string]: unknown;
   } | null;
   slug: string;
-  /**
-   * Leave blank for default Page content type
-   */
   contentType?: ('page' | 'blog' | 'files' | 'chatbot' | 'chat-messages' | 'products') | null;
   chatbot?: (number | null) | Chatbot;
   /**
@@ -205,6 +202,20 @@ export interface Page {
        */
       y: number;
     };
+    size: {
+      /**
+       * Page width in px
+       */
+      width: number;
+      /**
+       * Page height in px
+       */
+      height: number;
+    };
+    /**
+     * Choose how the page will show up in your space
+     */
+    displayMode?: ('icon' | 'hotspot' | 'list' | 'island' | 'windows') | null;
     /**
      * Optional icon image for the page
      */
@@ -213,6 +224,15 @@ export interface Page {
      * Optional name to display on the hotspot
      */
     hotspotName?: string | null;
+    style?:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
   };
   updatedAt: string;
   createdAt: string;
@@ -653,8 +673,16 @@ export interface PagesSelect<T extends boolean = true> {
               x?: T;
               y?: T;
             };
+        size?:
+          | T
+          | {
+              width?: T;
+              height?: T;
+            };
+        displayMode?: T;
         icon?: T;
         hotspotName?: T;
+        style?: T;
       };
   updatedAt?: T;
   createdAt?: T;

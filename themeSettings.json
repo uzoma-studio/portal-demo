@@ -7,16 +7,14 @@
     },
     "bodyFont": "Courier New",
     "headerFont": "Courier New",
-    "pageStyles": {
-      "width": "50%",
-      "height": "70vh",
+    "defaultPageStyles": {
       "borderColor": "purple",
       "borderWidth": "3px",
       "displayStyle": "center-modal",
       "backgroundColor": "#fff"
     },
     "accentColor": "purple",
-    "displayMode": "icons",
+    "defaultPageDisplayMode": "icon",
     "hotspotSize": "15",
     "hotspotColor": "purple",
     "primaryColor": "#9333ea",

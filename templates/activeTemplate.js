@@ -40,42 +40,42 @@ const ActiveTemplate = ({ pages, currentSpace, theme }) => {
   const { user, setUser } = useAuth()
 
   // Fetch user data by ID
-  const fetchUserData = async (userId) => {
-    try {
-      const response = await fetch(`/api/users/${userId}`)
-      if (!response.ok) throw new Error('Failed to fetch user')
-      const userData = await response.json()
-      return userData
-    } catch (error) {
-      console.error('Error fetching user:', error)
-      return null
-    }
-  }
+  // const fetchUserData = async (userId) => {
+  //   try {
+  //     const response = await fetch(`/api/users/${userId}`)
+  //     if (!response.ok) throw new Error('Failed to fetch user')
+  //     const userData = await response.json()
+  //     return userData
+  //   } catch (error) {
+  //     console.error('Error fetching user:', error)
+  //     return null
+  //   }
+  // }
 
   // Check for userId in query parameters and set user if present
-  useEffect(() => {
-    const handleUserId = async () => {
-      if (window && window.location.search) {
-        const url = new URL(window.location.href)
-        const userId = url.searchParams.get('userId')
+  // useEffect(() => {
+  //   const handleUserId = async () => {
+  //     if (window && window.location.search) {
+  //       const url = new URL(window.location.href)
+  //       const userId = url.searchParams.get('userId')
         
-        if (userId && !user) {
-          // Fetch complete user data
-          const userData = await fetchUserData(userId)
-          if (userData) {
-            // Set the complete user object
-            setUser(userData)
+  //       if (userId && !user) {
+  //         // Fetch complete user data
+  //         const userData = await fetchUserData(userId)
+  //         if (userData) {
+  //           // Set the complete user object
+  //           setUser(userData)
             
-            // Remove the userId from the URL without refreshing the page
-            url.searchParams.delete('userId')
-            window.history.replaceState({}, '', url)
-          }
-        }
-      }
-    }
+  //           // Remove the userId from the URL without refreshing the page
+  //           url.searchParams.delete('userId')
+  //           window.history.replaceState({}, '', url)
+  //         }
+  //       }
+  //     }
+  //   }
 
-    handleUserId()
-  }, [user, setUser])
+  //   handleUserId()
+  // }, [user, setUser])
 
   // Load the active template from localStorage if it exists
   useEffect(() => {
@@ -104,19 +104,19 @@ const ActiveTemplate = ({ pages, currentSpace, theme }) => {
     return () => {}
   }, [])
 
-  useEffect(() => {
-    const checkLastVisitedSpace = async () => {
-      // Only proceed if we have a user
-      if (!user) return
+  // useEffect(() => {
+  //   const checkLastVisitedSpace = async () => {
+  //     // Only proceed if we have a user
+  //     if (!user) return
       
-      const lastVisitedSpace = await getLastVisitedSpace(user.id)
-      if(lastVisitedSpace !== currentSpace){
-        await setLastVisitedSpace(user.id, currentSpace)
-      }
-    }
+  //     const lastVisitedSpace = await getLastVisitedSpace(user.id)
+  //     if(lastVisitedSpace !== currentSpace){
+  //       await setLastVisitedSpace(user.id, currentSpace)
+  //     }
+  //   }
     
-    checkLastVisitedSpace()
-  }, [currentSpace, user]) // Add user to dependencies
+  //   checkLastVisitedSpace()
+  // }, [currentSpace, user]) // Add user to dependencies
 
   return (
     <>

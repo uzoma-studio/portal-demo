@@ -128,17 +128,17 @@ export const StyledBackgroundContainer = styled.div`
 
 export const StyledPage = styled.div`
     position: absolute;
-    top: ${props => `${props.$settings?.style?.pageStyles?.displayStyle === 'center-modal' ? '50%' : `${props.$position.y}%`}`};
-    left: ${props => `${props.$settings?.style?.pageStyles?.displayStyle === 'center-modal' ? '50%' : `${props.$position.x}%`}`};
-    width: ${props => props.$settings?.style?.pageStyles?.width};
-    height: ${props => props.$settings?.style?.pageStyles?.height};
-    background-color: ${props => props.$settings?.style?.pageStyles?.backgroundColor};
-    border-color: ${props => props.$settings?.style?.pageStyles?.borderColor};
-    border-width: ${props => props.$settings?.style?.pageStyles?.borderWidth};
+    top: ${props => `${props.$settings?.style?.displayStyle === 'center-modal' ? '50%' : `${props.$settings?.position?.y}%`}`};
+    left: ${props => `${props.$settings?.style?.displayStyle === 'center-modal' ? '50%' : `${props.$settings?.position?.x}%`}`};
+    width: ${props => `${props.$settings?.size?.width}px`};
+    height: ${props => `${props.$settings?.size?.height}px`};
+    background-color: ${props => props.$settings?.style?.backgroundColor};
+    border-color: ${props => props.$settings?.style?.borderColor};
+    border-width: ${props => props.$settings?.style?.borderWidth};
     padding: 20px;
     box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.5);
     overflow: scroll;
-    transform: ${props => `${props.$settings?.style?.pageStyles?.displayStyle === 'center-modal' ? `translate(-50%, -50%)` : ``}`};
+    transform: ${props => `${props.$settings?.style?.displayStyle === 'center-modal' ? `translate(-50%, -50%)` : ``}`};
     z-index: 99;
 
      ${props => props.$settings?.style?.backgroundImageRenderMode === 'center' && `

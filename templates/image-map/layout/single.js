@@ -1,4 +1,4 @@
-import React, { useState, useContext, useRef, useEffect } from 'react'
+import React, { useRef, useEffect } from 'react'
 import { SpaceContext } from '@/context/SpaceProvider'
 import Image from 'next/image'
 
@@ -8,7 +8,6 @@ import { StyledPage } from '../styles'
 
 const SinglePage = ({ pageData, pageConfig, pageDisplayStyle, showPage, setShowPage }) => {
     const pagePosition = pageConfig?.position
-    const settings = useContext(SpaceContext)
     const pageRef = useRef(null)
 
     useEffect(() => {
@@ -37,9 +36,8 @@ const SinglePage = ({ pageData, pageConfig, pageDisplayStyle, showPage, setShowP
         <>
             <StyledPage 
                 ref={pageRef}
-                $position={calculatePagePosition(pagePosition)} 
                 $pageDisplayStyle={pageDisplayStyle} 
-                $settings={settings.theme}
+                $settings={pageConfig}
             >
                 <RenderSinglePageContent pageData={pageData} setCurrentPage={setShowPage} />
             </StyledPage>

@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 import { lexicalEditor } from '@payloadcms/richtext-lexical';
 import { generateSlug } from '../utils/helpers';
+import themeSettings from '../../themeSettings.json';
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
@@ -35,9 +36,6 @@ export const Pages: CollectionConfig = {
             { label: 'Chat', value: 'chat-messages' },
             { label: 'Shop', value: 'products' },
         ],
-        admin: {
-          description: 'Leave blank for default Page content type',
-        },
     },
     {
       name: 'chatbot',
@@ -77,30 +75,85 @@ export const Pages: CollectionConfig = {
           type: 'group',
           fields: [
             {
-              name: 'x',
-              type: 'number',
-              required: true,
-              min: 0,
-              max: 100,
-              admin: {
-                description: 'X coordinate (0-100)',
-              },
-            },
+              type: 'row',
+                fields: [
+                {
+                  name: 'x',
+                  type: 'number',
+                  required: true,
+                  min: 0,
+                  max: 100,
+                  defaultValue: 50,
+                  admin: {
+                    description: 'X coordinate (0-100)',
+                    width: '50%'
+                  },
+                },
+                {
+                  name: 'y',
+                  type: 'number',
+                  required: true,
+                  min: 0,
+                  max: 100,
+                  defaultValue: 50,
+                  admin: {
+                    description: 'Y coordinate (0-100)',
+                    width: '50%'
+                  },
+                },
+              ],
+            }
+          ]
+        },
+        {
+          name: 'size',
+          type: 'group',
+          fields: [
             {
-              name: 'y',
-              type: 'number',
-              required: true,
-              min: 0,
-              max: 100,
-              admin: {
-                description: 'Y coordinate (0-100)',
-              },
-            },
+              type: 'row',
+                fields: [
+                  {
+                    name: 'width',
+                    type: 'number',
+                    required: true,
+                    defaultValue: 600,
+                    admin: {
+                      description: 'Page width in px',
+                      width: '50%'
+                    },
+                  },
+                  {
+                    name: 'height',
+                    type: 'number',
+                    required: true,
+                    defaultValue: 500,
+                    admin: {
+                      description: 'Page height in px',
+                      width: '50%'
+                    },
+                  },
+                ],
+              }
+            ]
+        },
+        {
+          name: 'displayMode',
+          type: 'select',
+          options: [
+            { label: 'Icon', value: 'icon' },
+            { label: 'Hotspot', value: 'hotspot' },
+            { label: 'List', value: 'list' },
+            { label: 'Island', value: 'island' },
+            { label: 'Window', value: 'windows' },
           ],
+          admin: {
+            description: 'Choose how the page will show up in your space',
+          },
+          defaultValue: themeSettings.style.defaultPageDisplayMode
         },
         {
           name: 'icon',
-        type: 'upload',
+          type: 'upload',
           relationTo: 'icons',
           admin: {
             description: 'Optional icon image for the page',
@@ -113,6 +166,14 @@ export const Pages: CollectionConfig = {
             description: 'Optional name to display on the hotspot',
           },
         },
+        {
+          name: 'style',
+          type: 'json',
+          defaultValue: {
+            ...themeSettings.style.defaultPageStyles,
+            "backgroundImage": null,
+          }
+        }
   ],
     },
   ],
