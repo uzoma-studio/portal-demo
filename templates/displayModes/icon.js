@@ -2,15 +2,6 @@ import React from 'react'
 import Image from 'next/image'
 import styled from 'styled-components'
 
-const StyledIconWrapper = styled.div`
-    cursor: pointer;
-    transition: transform 0.2s ease;
-
-    &:hover {
-        transform: translateY(-5px);
-    }
-`
-
 const StyledIcon = styled.div`
     background-color: rgba(221, 221, 221, 0.7);
     border-radius: 8px;
@@ -47,7 +38,7 @@ const StyledIconText = styled.p`
 
 const Icon = ({ page, pageConfig }) => {
   return (
-    <StyledIconWrapper>
+    <>
         <StyledIcon>
             <Image 
                 src={process.env.NODE_ENV === 'production' 
@@ -67,7 +58,7 @@ const Icon = ({ page, pageConfig }) => {
         <StyledIconText>
             {pageConfig.hotspotName || page.title}
         </StyledIconText>
-    </StyledIconWrapper>
+    </>
   )
 }
 

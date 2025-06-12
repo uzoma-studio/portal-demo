@@ -1,8 +1,8 @@
-import React, { useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import { SpaceContext } from '@/context/SpaceProvider'
 import Image from 'next/image'
 
-import { StyledBackgroundContainer, StyledDisplayModeLayout } from '../styles'
+import { StyledBackgroundContainer, StyledDisplayModeLayout, StyledDisplayModeWrapper } from '../styles'
 
 import RenderPages from '@/utils/renderPages';
 import SinglePage from './single'
@@ -23,10 +23,12 @@ const Index = ({ pages }) => {
     const environment = config.style?.environment || 'park'
     const displayMode = config.style?.displayMode || 'hotspots'
 
+    const [ currentPage, setCurrentPage ] = useState(null)
+
     const getDisplayMode = (pageData) => {
 
         const displayModes = {
-            icons: <Icon key={pageData.id} page={pageData} pageConfig={pageData.themeConfig} />
+            icons: <Icon page={pageData} pageConfig={pageData.themeConfig} />
         }
 
         return displayModes[displayMode]
@@ -72,16 +74,22 @@ const Index = ({ pages }) => {
                 <StyledDisplayModeLayout $displayMode={displayMode}>
                     {
                         config && pages.map((pageData) =>
-                                getDisplayMode(pageData)
-                            // <RenderPages key={pageData.id}>
-                            //     <SinglePage
-                            //         key={pageData.id}
-                            //         pageData={pageData}
-                            //         pageConfig={pageData.themeConfig}
-                            //         pageDisplayStyle='center-modal'
-                            //     />
-                            // </RenderPages>
+                                <StyledDisplayModeWrapper key={pageData.id} onClick={() => setCurrentPage(pageData)}>
+                                    { getDisplayMode(pageData) }
+                                </StyledDisplayModeWrapper>
                         )
+                    }
+                    {
+                        currentPage && 
+                            <RenderPages>
+                                <SinglePage
+                                    pageData={currentPage}
+                                    pageConfig={currentPage.themeConfig}
+                                    pageDisplayStyle='center-modal'
+                                    showPage={currentPage}
+                                    setShowPage={setCurrentPage}
+                                />
+                            </RenderPages>
                     }
                 </StyledDisplayModeLayout>
                 <Footer />

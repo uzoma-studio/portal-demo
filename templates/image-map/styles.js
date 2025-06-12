@@ -175,3 +175,12 @@ export const StyledDisplayModeLayout = styled.div`
         }
     }}
 `
+
+export const StyledDisplayModeWrapper = styled.div`
+    cursor: pointer;
+    transition: transform 0.2s ease;
+
+    &:hover {
+        transform: translateY(-5px);
+    }
+`

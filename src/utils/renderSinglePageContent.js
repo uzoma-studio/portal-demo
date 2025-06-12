@@ -26,9 +26,9 @@ const RenderSinglePageContent = ({ children, pageData, setCurrentPage }) => {
 
   return (
     <div>
-        {title && isPageIndex && <h4>{pageData.title}</h4> }
+        {title && isPageIndex && <h4 className='mb-8'>{pageData.title}</h4> }
         {/* Display a close button if a close function has been provided */}
-        { setCurrentPage && <CloseButton closeFn={() => setCurrentPage(null)} position={{x: 95, y: 5}} /> }
+        { setCurrentPage && <CloseButton closeFn={() => setCurrentPage(null)} position={{x: 95, y: 0}} /> }
         
         {isPageIndex && (
           <>
@@ -39,7 +39,7 @@ const RenderSinglePageContent = ({ children, pageData, setCurrentPage }) => {
           </>
         )}
         
-        { contentType && <ContentType pageData={pageData} setIsPageIndex={setIsPageIndex} />}
+        { contentType && contentType !== 'page' && <ContentType pageData={pageData} setIsPageIndex={setIsPageIndex} />}
     </div>
   )
 }
