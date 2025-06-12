@@ -21,17 +21,17 @@ const Index = ({ pages }) => {
     const backgroundImage = settings.site.backgroundImage
     const imageRenderMode = config.style?.backgroundImageRenderMode || 'center'
     const environment = config.style?.environment || 'park'
-    const displayMode = config.style?.displayMode || 'hotspots'
 
     const [ currentPage, setCurrentPage ] = useState(null)
 
     const getDisplayMode = (pageData) => {
 
         const displayModes = {
-            icons: <Icon page={pageData} pageConfig={pageData.themeConfig} />
+            icon: <Icon page={pageData} pageConfig={pageData.themeConfig} />
         }
 
-        return displayModes[displayMode]
+        //use the display mode set in the page config
+        return displayModes[pageData.themeConfig.displayMode]
     }
     
     return (
@@ -71,27 +71,25 @@ const Index = ({ pages }) => {
                     :
                     <div className='background' />
                 }
-                <StyledDisplayModeLayout $displayMode={displayMode}>
-                    {
-                        config && pages.map((pageData) =>
-                                <StyledDisplayModeWrapper key={pageData.id} onClick={() => setCurrentPage(pageData)}>
-                                    { getDisplayMode(pageData) }
-                                </StyledDisplayModeWrapper>
-                        )
-                    }
-                    {
-                        currentPage && 
-                            <RenderPages>
-                                <SinglePage
-                                    pageData={currentPage}
-                                    pageConfig={currentPage.themeConfig}
-                                    pageDisplayStyle='center-modal'
-                                    showPage={currentPage}
-                                    setShowPage={setCurrentPage}
-                                />
-                            </RenderPages>
-                    }
-                </StyledDisplayModeLayout>
+                {
+                    config && pages.map((pageData) =>
+                            <StyledDisplayModeWrapper key={pageData.id} onClick={() => setCurrentPage(pageData)}>
+                                {   getDisplayMode(pageData)    }
+                            </StyledDisplayModeWrapper>
+                    )
+                }
+                {
+                    currentPage && 
+                        <RenderPages>
+                            <SinglePage
+                                pageData={currentPage}
+                                pageConfig={currentPage.themeConfig}
+                                pageDisplayStyle='center-modal'
+                                showPage={currentPage}
+                                setShowPage={setCurrentPage}
+                            />
+                        </RenderPages>
+                }
                 <Footer />
             </StyledBackgroundContainer>
         </>
