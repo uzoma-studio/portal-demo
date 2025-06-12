@@ -133,6 +133,7 @@ export const StyledPage = styled.div`
     width: ${props => `${props.$settings?.size?.width}px`};
     height: ${props => `${props.$settings?.size?.height}px`};
     background-color: ${props => props.$settings?.style?.backgroundColor};
+    color: ${props => props.$settings?.style?.textColor};
     border-color: ${props => props.$settings?.style?.borderColor};
     border-width: ${props => props.$settings?.style?.borderWidth};
     padding: 20px;

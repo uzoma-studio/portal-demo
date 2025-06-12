@@ -11,6 +11,7 @@ export const createPage = async (pageData) => {
             collection: 'pages', // required
             data: pageData, 
         }) 
+        return page
     } catch (error) {
         console.error('Error creating page:', error)
         return null

@@ -11,7 +11,9 @@
       "borderColor": "purple",
       "borderWidth": "3px",
       "displayStyle": "center-modal",
-      "backgroundColor": "#fff"
+      "backgroundColor": "#fff",
+      "textColor": "#222",
+      "font": "Courier New"
     },
     "accentColor": "purple",
     "defaultPageDisplayMode": "icon",

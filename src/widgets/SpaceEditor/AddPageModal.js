@@ -5,6 +5,7 @@ import { SpaceContext } from '@/context/SpaceProvider';
 import { generateSlug } from '@/utils/helpers';
 import RichTextEditor from './RichTextEditor'
 import themeSettings from '../../../themeSettings.json';
+import { StyledMessage } from '@/styles/rootStyles';
 
 const StyledForm = styled.form`
     display: flex;
@@ -65,8 +66,13 @@ const StyledSubmitButton = styled.button`
     font-weight: 500;
     transition: opacity 0.2s ease;
     
-    &:hover {
+    &:hover:not(:disabled) {
         opacity: 0.9;
+    }
+    
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
     }
 `;
 
@@ -96,11 +102,50 @@ const StyledSettingsSection = styled.div`
     border-radius: 0.25rem;
 `;
 
+const StyledColorInput = styled.input`
+    padding: 0.25rem;
+    border: 1px solid #ddd;
+    border-radius: 0.25rem;
+    font-family: var(--body-font);
+    width: 100%;
+    height: 2.5rem;
+    
+    &::-webkit-color-swatch-wrapper {
+        padding: 0;
+    }
+    
+    &::-webkit-color-swatch {
+        border: none;
+        border-radius: 0.25rem;
+    }
+    
+    &:focus {
+        outline: none;
+        border-color: var(--primary-color);
+    }
+`;
+
+const StyledColorLabel = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+`;
+
+const StyledColorPreview = styled.div`
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 0.25rem;
+    border: 1px solid #ddd;
+`;
+
 const AddPage = ({ setIsModalOpen }) => {
     const context = useContext(SpaceContext)
     const space = context.space
 
     const [pageBodyField, setPageBodyField] = useState(null)
+    const [isSubmitting, setIsSubmitting] = useState(false)
+    const [message, setMessage] = useState({ type: '', text: '' })
 
     const [formData, setFormData] = useState({
         title: '',
@@ -160,18 +205,40 @@ const AddPage = ({ setIsModalOpen }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {            
+        setIsSubmitting(true);
+        setMessage({ type: '', text: '' });
+        
+        try {
             const slug = generateSlug(formData.title);
             const pageData = {
                 ...formData,
                 slug
             };
 
-            await createPage(pageData);
-            handleClose();
+            const res = await createPage(pageData);
+            
+            if (res?.id) {
+                setMessage({ 
+                    type: 'success', 
+                    text: 'Page created successfully!' 
+                });
+                setTimeout(() => {
+                    handleClose();
+                }, 1500); // Give user time to see success message
+            } else {
+                setMessage({ 
+                    type: 'error', 
+                    text: 'Failed to create page. Please try again.' 
+                });
+            }
         } catch (error) {
             console.error('Error creating page:', error);
-            // TODO: Add error handling UI
+            setMessage({ 
+                type: 'error', 
+                text: error.message || 'An error occurred while creating the page.' 
+            });
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -305,6 +372,40 @@ const AddPage = ({ setIsModalOpen }) => {
                         </StyledSettingsGrid>
                     </div>
 
+                    <div className="mb-4">
+                        <StyledLabel className="block mb-2">
+                            Colors
+                        </StyledLabel>
+                        <StyledSettingsGrid>
+                            <div>
+                                <StyledColorLabel>
+                                    <StyledColorPreview style={{ backgroundColor: formData.themeConfig.style.backgroundColor }} />
+                                    <StyledLabel className="block text-sm">
+                                        Background Color
+                                    </StyledLabel>
+                                </StyledColorLabel>
+                                <StyledColorInput
+                                    type="color"
+                                    value={formData.themeConfig.style.backgroundColor}
+                                    onChange={(e) => handleThemeConfigChange('style', 'backgroundColor', e.target.value)}
+                                />
+                            </div>
+                            <div>
+                                <StyledColorLabel>
+                                    <StyledColorPreview style={{ backgroundColor: formData.themeConfig.style.textColor }} />
+                                    <StyledLabel className="block text-sm">
+                                        Text Color
+                                    </StyledLabel>
+                                </StyledColorLabel>
+                                <StyledColorInput
+                                    type="color"
+                                    value={formData.themeConfig.style.textColor}
+                                    onChange={(e) => handleThemeConfigChange('style', 'textColor', e.target.value)}
+                                />
+                            </div>
+                        </StyledSettingsGrid>
+                    </div>
+
                     {formData.themeConfig.displayMode === 'hotspot' && (
                         <div className="mb-4">
                             <StyledLabel className="block mb-2">
@@ -321,11 +422,18 @@ const AddPage = ({ setIsModalOpen }) => {
                     )}
                 </StyledSettingsSection>
 
+                {message.text && (
+                    <StyledMessage className={message.type}>
+                        {message.text}
+                    </StyledMessage>
+                )}
+
                 <StyledSubmitButton 
                     type="submit" 
                     className="mt-4 px-6 py-3 rounded font-medium"
+                    disabled={isSubmitting}
                 >
-                    Create Page
+                    {isSubmitting ? 'Creating...' : 'Create Page'}
                 </StyledSubmitButton>
             </StyledForm>
         </div>

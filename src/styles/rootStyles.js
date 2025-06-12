@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components'
+import styled from 'styled-components'
 
 export const GlobalStyle = createGlobalStyle`
     :root {
@@ -98,3 +99,34 @@ export const GlobalStyle = createGlobalStyle`
         background: var(--menu-hover-color);
     }
 `
+
+export const StyledMessage = styled.div`
+    padding: 0.75rem;
+    border-radius: 0.25rem;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+    
+    &.success {
+        background-color: #dcfce7;
+        color: #166534;
+        border: 1px solid #86efac;
+    }
+    
+    &.error {
+        background-color: #fee2e2;
+        color: #991b1b;
+        border: 1px solid #fca5a5;
+    }
+
+    &.warning {
+        background-color: #fef3c7;
+        color: #92400e;
+        border: 1px solid #fcd34d;
+    }
+
+    &.info {
+        background-color: #dbeafe;
+        color: #1e40af;
+        border: 1px solid #93c5fd;
+    }
+`;
