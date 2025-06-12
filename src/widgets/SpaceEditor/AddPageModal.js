@@ -1,9 +1,9 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { createPage } from '../../../data/createContent.server'
 import { SpaceContext } from '@/context/SpaceProvider';
 import { generateSlug } from '@/utils/helpers';
-import { SimpleEditor } from '@/tiptap/components/tiptap-templates/simple/simple-editor'
+import RichTextEditor from './RichTextEditor'
 
 const StyledForm = styled.form`
     display: flex;
@@ -73,6 +73,8 @@ const AddPage = ({ setIsModalOpen }) => {
     const context = useContext(SpaceContext)
     const space = context.space
 
+    const [pageBodyField, setPageBodyField] = useState(null)
+
     const [formData, setFormData] = useState({
         title: '',
         contentType: '',
@@ -86,19 +88,18 @@ const AddPage = ({ setIsModalOpen }) => {
         }
     });
 
+    useEffect(() => {
+        setFormData(prev => ({
+            ...prev,
+            body: pageBodyField
+        }));
+    }, [pageBodyField]);
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({
             ...prev,
             [name]: value
-        }));
-    };
-
-    const handleEditorUpdate = (editor) => {
-        const content = editor.getJSON();
-        setFormData(prev => ({
-            ...prev,
-            body: content
         }));
     };
 
@@ -108,20 +109,19 @@ const AddPage = ({ setIsModalOpen }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(formData)
-        // try {
-        //     const slug = generateSlug(formData.title);
-        //     const pageData = {
-        //         ...formData,
-        //         slug
-        //     };
+        try {
+            const slug = generateSlug(formData.title);
+            const pageData = {
+                ...formData,
+                slug
+            };
 
-        //     await createPage(pageData);
-        //     handleClose();
-        // } catch (error) {
-        //     console.error('Error creating page:', error);
-        //     // TODO: Add error handling UI
-        // }
+            await createPage(pageData);
+            handleClose();
+        } catch (error) {
+            console.error('Error creating page:', error);
+            // TODO: Add error handling UI
+        }
     };
 
     return (
@@ -167,7 +167,7 @@ const AddPage = ({ setIsModalOpen }) => {
                     <StyledLabel htmlFor="body" className="block mb-2">
                         Page Content
                     </StyledLabel>
-                    <SimpleEditor onUpdate={handleEditorUpdate} />
+                    <RichTextEditor setPageBodyField={setPageBodyField} />
                 </div>
 
                 <StyledSubmitButton 
