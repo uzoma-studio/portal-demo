@@ -25,9 +25,9 @@ const StyledModalContent = styled.div`
     border-radius: 0.5rem;
     padding: 1.25rem;
     min-width: 300px;
-    width: 35%;
+    width: 60%;
     height: 80vh;
-    max-width: 500px;
+    max-width: 800px;
     z-index: 51;
     overflow-y: auto;
     background-color: white;
