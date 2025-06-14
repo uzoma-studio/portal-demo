@@ -354,7 +354,7 @@ const AddPage = ({ setIsModalOpen, isCreatePageMode, pageData, setIsEditMode }) 
                     />
                 )}
 
-                { formData.contentType === 'page' && (
+                { formData.contentType === 'page' || formData.contentType === 'chat-messages' && (
                     <>
                         <CreateStaticPageSection
                             formData={formData}

@@ -46,6 +46,14 @@ export const Pages: CollectionConfig = {
       },
     },
     {
+      name: 'messages',
+      type: 'relationship',
+      relationTo: 'chat-messages',
+      admin: {
+        condition: (_, { contentType }) => contentType === 'chat-messages',
+      },
+    },
+    {
       name: 'updates',
       type: 'relationship',
       relationTo: 'updates',

@@ -183,6 +183,7 @@ export interface Page {
   slug: string;
   contentType?: ('page' | 'blog' | 'files' | 'chatbot' | 'chat-messages' | 'products') | null;
   chatbot?: (number | null) | Chatbot;
+  messages?: (number | null) | ChatMessage;
   /**
    * Updates for this blog page
    */
@@ -260,6 +261,44 @@ export interface Chatbot {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "chat-messages".
+ */
+export interface ChatMessage {
+  id: number;
+  user: string;
+  message: string;
+  timestamp?: string | null;
+  space: number | Space;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "spaces".
+ */
+export interface Space {
+  id: number;
+  name: string;
+  domain: string;
+  settings?: {
+    siteTitle?: string | null;
+    siteDescription?: string | null;
+    backgroundImage?: (number | null) | Media;
+    theme?:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "updates".
  */
 export interface Update {
@@ -308,31 +347,6 @@ export interface Post {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "spaces".
- */
-export interface Space {
-  id: number;
-  name: string;
-  domain: string;
-  settings?: {
-    siteTitle?: string | null;
-    siteDescription?: string | null;
-    backgroundImage?: (number | null) | Media;
-    theme?:
-      | {
-          [k: string]: unknown;
-        }
-      | unknown[]
-      | string
-      | number
-      | boolean
-      | null;
-  };
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "icons".
  */
 export interface Icon {
@@ -375,19 +389,6 @@ export interface Icon {
       filename?: string | null;
     };
   };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "chat-messages".
- */
-export interface ChatMessage {
-  id: number;
-  user: string;
-  message: string;
-  timestamp?: string | null;
-  space: number | Space;
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -662,6 +663,7 @@ export interface PagesSelect<T extends boolean = true> {
   slug?: T;
   contentType?: T;
   chatbot?: T;
+  messages?: T;
   updates?: T;
   space?: T;
   themeConfig?:

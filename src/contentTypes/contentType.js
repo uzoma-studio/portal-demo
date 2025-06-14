@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react'
-import { getContent, getPostsByUpdate } from 'data/fetchContent.server'
+import React, { useState, useEffect } from 'react'
+import { getContent, getPostsByUpdate, getMessagesInSpace } from 'data/fetchContent.server'
 import { useSpace } from '@/context/SpaceProvider'
 
 import Blog from './Blog'
@@ -49,7 +49,7 @@ const ContentType = ({ pageData, contentTypeId, setIsPageIndex }) => {
             case chatbot:
                 return getContent('chatbot', contentTypeId)
             case chat:
-                return getContent('chat-messages', spaceId, 'date', 50)
+                return getMessagesInSpace(spaceId, 'date', 50)
             case product:
                 return getContent('products', spaceId)
             default:
@@ -67,6 +67,8 @@ const ContentType = ({ pageData, contentTypeId, setIsPageIndex }) => {
         const fetchData = async () => {
             const res = await fetchContentByType()
             const data = res.docs || []
+            console.log(res, data);
+            
             try {
                 const passDataToTheRightComponent = () => {
                     switch (type) {
