@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import Image from 'next/image'
 
 import { StyledBackgroundContainer, StyledDisplayModeLayout, StyledDisplayModeWrapper } from '../styles'
@@ -12,12 +12,13 @@ import Footer from '@/components/Footer'
 import Environment from './environment'
 
 import Icon from '../../displayModes/icon'
+import DragIconToPosition from '@/widgets/SpaceEditor/components/DragIconToPosition'
 
 import BuildMode from '@/widgets/SpaceEditor'
 
 const Index = () => {
-
     const { pages, settings } = useSpace()
+    const containerRef = useRef(null)
     
     const config = settings.theme
     const backgroundImage = settings.backgroundImage
@@ -25,12 +26,16 @@ const Index = () => {
     const environment = config.style?.environment || 'park'
 
     const [currentPageId, setCurrentPageId] = useState(null)
+    const [isPositioning, setIsPositioning] = useState(false)
+    const [dragPosition, setDragPosition] = useState({ x: 0, y: 0 })
     const currentPage = pages.find(p => p.id === currentPageId)
 
     const getDisplayMode = (pageData) => {
-
         const displayModes = {
-            icon: <Icon page={pageData} pageConfig={pageData.themeConfig} />
+            icon: <Icon page={pageData} pageConfig={{
+                ...pageData.themeConfig,
+                position: isPositioning ? dragPosition : pageData.themeConfig.position
+            }}/>
         }
 
         //use the display mode set in the page config
@@ -42,7 +47,7 @@ const Index = () => {
             <Environment environment={environment} />
             <Header />
             <BuildMode isCreatePageMode={true} />
-            <StyledBackgroundContainer $settings={config}>
+            <StyledBackgroundContainer $settings={config} ref={containerRef}>
                 { backgroundImage && config.style.backgroundMode === 'image' ?
                     imageRenderMode === 'background' ? (
                         <Image 
@@ -76,8 +81,31 @@ const Index = () => {
                 }
                 {
                     config && pages.map((pageData) =>
-                        <StyledDisplayModeWrapper key={pageData.id} onClick={() => setCurrentPageId(pageData.id)}>
-                            {   getDisplayMode(pageData)    }
+                        <StyledDisplayModeWrapper 
+                            key={pageData.id} 
+                            // onClick={() => {
+                            //     if (!isPositioning) {
+                            //         setCurrentPageId(pageData.id);
+                            //     }
+                            // }}
+                            onClick={() => {
+                                setIsPositioning(true);
+                            }}
+                        >
+                            { isPositioning ? 
+                                <DragIconToPosition
+                                    containerRef={containerRef}
+                                    showGrid={true}
+                                    pageData={pageData}
+                                    setIsPositioning={setIsPositioning}
+                                    dragPosition={dragPosition}
+                                    setDragPosition={setDragPosition}
+                                >
+                                    {getDisplayMode(pageData)}
+                                </DragIconToPosition>
+                                :
+                                getDisplayMode(pageData)
+                            }
                         </StyledDisplayModeWrapper>
                     )
                 }

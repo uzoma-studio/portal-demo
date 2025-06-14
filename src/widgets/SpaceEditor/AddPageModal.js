@@ -533,4 +533,4 @@ const AddPage = ({ setIsModalOpen, isCreatePageMode, pageData, setIsEditMode }) 
     );
 };
 
-export default AddPage; 
+export default AddPage;
