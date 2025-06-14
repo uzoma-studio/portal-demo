@@ -24,7 +24,7 @@ import Starter from './starter/page'
  * 
  * @returns {JSX.Element} The currently active template component
  */
-const ActiveTemplate = ({ pages, currentSpace, theme }) => {
+const ActiveTemplate = ({ space, pages }) => {
 
   // Index templates
   // The same `pages` data is used across all templates in the project

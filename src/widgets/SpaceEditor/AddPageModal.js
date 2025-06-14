@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { createPage, updatePage } from '../../../data/createContent.server'
-import { SpaceContext } from '@/context/SpaceProvider';
+import { useSpace } from '@/context/SpaceProvider';
 import { generateSlug } from '@/utils/helpers';
 import RichTextEditor from './RichTextEditor'
 import themeSettings from '../../../themeSettings.json';
@@ -140,8 +140,7 @@ const StyledColorPreview = styled.div`
 `;
 
 const AddPage = ({ setIsModalOpen, isCreatePageMode, pageData, setIsEditMode }) => {
-    const context = useContext(SpaceContext)
-    const space = context.space
+    const { space, setPages } = useSpace()
 
     const [pageBodyField, setPageBodyField] = useState(null)
     const [isSubmitting, setIsSubmitting] = useState(false)
@@ -246,11 +245,15 @@ const AddPage = ({ setIsModalOpen, isCreatePageMode, pageData, setIsEditMode }) 
             } 
         } else {
             try {
-                const res = await updatePage(pageData.id, formData);
-
-                console.log(res);
+                const updatedPage = await updatePage(pageData.id, formData);
                 
-                if (res?.id) {
+                if (updatedPage?.id) {
+                    setPages(prevPages => 
+                        prevPages.map(page => 
+                          page.id === updatedPage.id ? updatedPage : page
+                        )
+                    );
+
                     setMessage({ 
                         type: 'success', 
                         text: 'Page edited successfully!' 

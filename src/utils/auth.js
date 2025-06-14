@@ -1,3 +1,5 @@
+// TODO: Move this to a server function and update AuthProvider
+
 export async function getCurrentUser() {
     try {
       const res = await fetch('/api/auth/me', {

@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import styled from 'styled-components'
-import { SpaceContext } from '@/context/SpaceProvider'
+import { useSpace } from '@/context/SpaceProvider'
 import AuthButton from '../widgets/Authentication/AuthButton'
 import UserProfile from '../widgets/Authentication/UserProfile'
 import { useAuth } from '@/context/AuthProvider'
@@ -34,10 +34,8 @@ const StyledHeader = styled.div`
  * @returns {JSX.Element} Header component
  */
 const Header = ({ background, height, pages, showPagesNav }) => {
-    const context = useContext(SpaceContext)
-    const siteSettings = context.site
-    const theme = context.theme
-    const { siteTitle } = siteSettings
+    const { space, settings } = useSpace()
+    const { siteTitle, theme } = settings
     const { user } = useAuth()
     const [isSidebarOpen, setIsSidebarOpen] = useState(false)
     
@@ -63,7 +61,7 @@ const Header = ({ background, height, pages, showPagesNav }) => {
                 </p>
                 <div className="flex items-center gap-4 z-10">
                     {user ? <UserProfile /> : <AuthButton />}
-                    <JoinSpaceButton spaceId={context.spaceId} theme={theme} />
+                    <JoinSpaceButton spaceId={space.id} theme={theme} />
                 </div>
             </StyledHeader>
             <PagesSidebar 

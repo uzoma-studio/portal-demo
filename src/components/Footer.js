@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import styled from 'styled-components'
-import { SpaceContext } from '@/context/SpaceProvider'
+import { useSpace } from '@/context/SpaceProvider'
 import Navbar from './Navbar'
 import NewsTicker from './NewsTicker'
 
@@ -23,8 +23,8 @@ const StyledFooter = styled.footer`
 // TODO: change folder structure of the project: folders = root-components (Footer, Header, Navbar, etc), site-widgets (NewsTicker, AuthButton), page-content-types (Blog, Shop)
 // TODO: make the site softcodeable, meaning all content, styles and settings for root components like Footer, Header, Navbar, etc should be set on the CMS
 const Footer = ({ background, height, pages, showPagesNav, children }) => {
-    const context = useContext(SpaceContext)
-    const theme = context.theme
+    const { settings } = useSpace()
+    const { theme } = settings
     
     return (
         <StyledFooter 

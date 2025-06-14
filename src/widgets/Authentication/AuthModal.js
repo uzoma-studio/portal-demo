@@ -4,7 +4,7 @@ import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
 import styled from 'styled-components';
 import CloseButton from '../../components/closeButton';
-import { SpaceContext } from '@/context/SpaceProvider'
+import { useSpace } from '@/context/SpaceProvider';
 
 const ModalOverlay = styled.div`
     position: fixed;
@@ -87,7 +87,7 @@ const ModalOverlay = styled.div`
 
 const AuthModal = ({ isOpen, onClose, setUser }) => {
     const [formType, setFormType] = useState('login');
-    const settings = useContext(SpaceContext);
+    const { settings } = useSpace()
 
     if (!isOpen) return null;
 

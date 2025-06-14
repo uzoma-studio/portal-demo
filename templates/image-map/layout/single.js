@@ -7,7 +7,6 @@ import RenderSinglePageContent from '@/utils/renderSinglePageContent'
 import { StyledPage } from '../styles'
 
 const SinglePage = ({ pageData, pageConfig, pageDisplayStyle, showPage, setShowPage }) => {
-    const pagePosition = pageConfig?.position
     const pageRef = useRef(null)
 
     useEffect(() => {

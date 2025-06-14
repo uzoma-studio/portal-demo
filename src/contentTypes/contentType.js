@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { getContent, getPostsByUpdate } from 'data/fetchContent.server'
-import { SpaceContext } from '@/context/SpaceProvider'
+import { useSpace } from '@/context/SpaceProvider'
 
 import Blog from './Blog'
 import Archive from './Archive'
@@ -22,8 +22,8 @@ import Shop from './Shop'
  */
 
 const ContentType = ({ pageData, setIsPageIndex }) => {
-    const context = useContext(SpaceContext)
-    const spaceId = context.space?.id
+    const { space } = useSpace()
+    const spaceId = space?.id
 
     /**
      * Determines the API endpoint based on the content type

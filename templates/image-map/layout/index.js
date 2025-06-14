@@ -1,11 +1,11 @@
-import React, { useState, useContext } from 'react'
-import { SpaceContext } from '@/context/SpaceProvider'
+import React, { useState } from 'react'
 import Image from 'next/image'
 
 import { StyledBackgroundContainer, StyledDisplayModeLayout, StyledDisplayModeWrapper } from '../styles'
 
 import RenderPages from '@/utils/renderPages';
 import SinglePage from './single'
+import { useSpace } from '@/context/SpaceProvider';
 
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
@@ -15,14 +15,17 @@ import Icon from '../../displayModes/icon'
 
 import BuildMode from '@/widgets/SpaceEditor'
 
-const Index = ({ pages }) => {
-    const settings = useContext(SpaceContext)
+const Index = () => {
+
+    const { pages, settings } = useSpace()
+    
     const config = settings.theme
-    const backgroundImage = settings.site.backgroundImage
+    const backgroundImage = settings.backgroundImage
     const imageRenderMode = config.style?.backgroundImageRenderMode || 'center'
     const environment = config.style?.environment || 'park'
 
-    const [ currentPage, setCurrentPage ] = useState(null)
+    const [currentPageId, setCurrentPageId] = useState(null)
+    const currentPage = pages.find(p => p.id === currentPageId)
 
     const getDisplayMode = (pageData) => {
 
@@ -33,7 +36,7 @@ const Index = ({ pages }) => {
         //use the display mode set in the page config
         return displayModes[pageData.themeConfig.displayMode]
     }
-    
+
     return (
         <>
             <Environment environment={environment} />
@@ -43,16 +46,16 @@ const Index = ({ pages }) => {
                 { backgroundImage && config.style.backgroundMode === 'image' ?
                     imageRenderMode === 'background' ? (
                         <Image 
-                            src={settings.site.backgroundImage.url}
+                            src={settings.backgroundImage.url}
                             layout="fill"
                             objectFit="cover"
                             quality={100}
-                            alt={settings.site.backgroundImage?.alt}
+                            alt={settings.backgroundImage?.alt}
                         />
                     ) : (
                         <div className="fixed inset-0 flex items-center justify-center">
                             <Image 
-                                src={settings.site.backgroundImage.url}
+                                src={settings.backgroundImage.url}
                                 width={1200}
                                 height={800}
                                 style={{
@@ -64,7 +67,7 @@ const Index = ({ pages }) => {
                                 }}
                                 className="md:w-[70%] lg:w-[60%] xl:w-[50%]"
                                 quality={100}
-                                alt={settings.site.backgroundImage?.alt}
+                                alt={settings.backgroundImage?.alt}
                             />
                         </div>
                     )
@@ -73,9 +76,9 @@ const Index = ({ pages }) => {
                 }
                 {
                     config && pages.map((pageData) =>
-                            <StyledDisplayModeWrapper key={pageData.id} onClick={() => setCurrentPage(pageData)}>
-                                {   getDisplayMode(pageData)    }
-                            </StyledDisplayModeWrapper>
+                        <StyledDisplayModeWrapper key={pageData.id} onClick={() => setCurrentPageId(pageData.id)}>
+                            {   getDisplayMode(pageData)    }
+                        </StyledDisplayModeWrapper>
                     )
                 }
                 {
@@ -86,7 +89,7 @@ const Index = ({ pages }) => {
                                 pageConfig={currentPage.themeConfig}
                                 pageDisplayStyle='center-modal'
                                 showPage={currentPage}
-                                setShowPage={setCurrentPage}
+                                setShowPage={setCurrentPageId}
                             />
                         </RenderPages>
                 }
