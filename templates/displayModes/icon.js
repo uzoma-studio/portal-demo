@@ -46,7 +46,6 @@ const StyledIconText = styled.p`
 `
 
 const Icon = ({ page, pageConfig }) => {
-    console.log(pageConfig);
     
   return (
     <StyledIconWrapper $config={pageConfig}>

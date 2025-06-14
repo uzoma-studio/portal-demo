@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import ContentType from '@/contentTypes/contentType'
 import RichText from './richTextRenderer'
 import CloseButton from '../components/closeButton'
+import BuildMode from '@/widgets/SpaceEditor'
 
 /**
  * RenderSinglePageContent component
@@ -24,11 +25,26 @@ const RenderSinglePageContent = ({ children, pageData, setCurrentPage }) => {
   // Used to track whether a page is an index page or a sub-page
   const [ isPageIndex, setIsPageIndex ] = useState(true)
 
+  const [ isEditMode, setIsEditMode ] = useState(false)
+
   return (
     <div>
         {title && isPageIndex && <h4 className='mb-8'>{pageData.title}</h4> }
-        {/* Display a close button if a close function has been provided */}
-        { setCurrentPage && <CloseButton closeFn={() => setCurrentPage(null)} position={{x: 95, y: 0}} /> }
+
+        <div>
+          {/* Button positioned to the left of close button */}
+          {/* TODO: Button should only show if current user is space owner */}
+          <button 
+            className='text-button' style={{position: 'absolute', top: '2%', left: '85%'}}
+            onClick={() => setIsEditMode(true)}
+          >
+            Edit
+          </button>
+          {/* Display a close button if a close function has been provided */}
+          { setCurrentPage && <CloseButton closeFn={() => setCurrentPage(null)} position={{x: 95, y: 0}} /> }
+        </div>
+
+        { isEditMode && <BuildMode modalOpenState={true} isCreatePageMode={!isEditMode} setIsEditMode={setIsEditMode} pageData={pageData} /> }
         
         {isPageIndex && (
           <>

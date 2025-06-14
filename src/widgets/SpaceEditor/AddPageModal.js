@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { createPage } from '../../../data/createContent.server'
+import { createPage, updatePage } from '../../../data/createContent.server'
 import { SpaceContext } from '@/context/SpaceProvider';
 import { generateSlug } from '@/utils/helpers';
 import RichTextEditor from './RichTextEditor'
@@ -139,7 +139,7 @@ const StyledColorPreview = styled.div`
     border: 1px solid #ddd;
 `;
 
-const AddPage = ({ setIsModalOpen }) => {
+const AddPage = ({ setIsModalOpen, isCreatePageMode, pageData, setIsEditMode }) => {
     const context = useContext(SpaceContext)
     const space = context.space
 
@@ -147,25 +147,28 @@ const AddPage = ({ setIsModalOpen }) => {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [message, setMessage] = useState({ type: '', text: '' })
 
+    const buttonText = isCreatePageMode ? { default: 'Create', active: 'Creating'} : { default: 'Edit', active: 'Editing'}
+
     const [formData, setFormData] = useState({
-        title: '',
-        contentType: '',
-        body: null,
+        title: pageData?.title || '',
+        contentType: pageData?.contentType || '',
+        body: pageData?.body || null,
         space,
         themeConfig: {
-            position: {
+            position: pageData?.themeConfig?.position || {
                 x: 50,
                 y: 50
             },
-            size: {
+            size: pageData?.themeConfig?.size || {
                 width: 600,
                 height: 500
             },
-            displayMode: themeSettings.style.defaultPageDisplayMode,
-            hotspotName: '',
+            displayMode: pageData?.themeConfig?.displayMode || themeSettings.style.defaultPageDisplayMode,
+            hotspotName: pageData?.themeConfig?.hotspotName || '',
             style: {
                 ...themeSettings.style.defaultPageStyles,
-                backgroundImage: null
+                ...pageData?.themeConfig?.style,
+                backgroundImage: pageData?.themeConfig?.style?.backgroundImage || null
             }
         }
     });
@@ -201,6 +204,8 @@ const AddPage = ({ setIsModalOpen }) => {
 
     const handleClose = () => {
         setIsModalOpen(false)
+        // Prevents the modal button from still showing up after edits have been made (set in @renderSinglePageContent)
+        !isCreatePageMode && setIsEditMode(false)
     }
 
     const handleSubmit = async (e) => {
@@ -208,40 +213,69 @@ const AddPage = ({ setIsModalOpen }) => {
         setIsSubmitting(true);
         setMessage({ type: '', text: '' });
         
-        try {
-            const slug = generateSlug(formData.title);
-            const pageData = {
-                ...formData,
-                slug
-            };
+        if(isCreatePageMode){
+            try {
+                const slug = generateSlug(formData.title);
+                const pageData = {
+                    ...formData,
+                    slug
+                };
 
-            const res = await createPage(pageData);
-            
-            if (res?.id) {
-                setMessage({ 
-                    type: 'success', 
-                    text: 'Page created successfully!' 
-                });
-                setTimeout(() => {
-                    handleClose();
-                }, 1500); // Give user time to see success message
-            } else {
+                const res = await createPage(pageData);
+                
+                if (res?.id) {
+                    setMessage({ 
+                        type: 'success', 
+                        text: 'Page created successfully!' 
+                    });
+                    setTimeout(() => {
+                        handleClose();
+                    }, 1500); // Give user time to see success message
+                } else {
+                    setMessage({ 
+                        type: 'error', 
+                        text: 'Failed to create page. Please try again.' 
+                    });
+                }
+            } catch (error) {
+                console.error('Error creating page:', error);
                 setMessage({ 
                     type: 'error', 
-                    text: 'Failed to create page. Please try again.' 
+                    text: error.message || 'An error occurred while creating the page.' 
                 });
-            }
-        } catch (error) {
-            console.error('Error creating page:', error);
-            setMessage({ 
-                type: 'error', 
-                text: error.message || 'An error occurred while creating the page.' 
-            });
-        } finally {
-            setIsSubmitting(false);
-        }
-    };
+            } 
+        } else {
+            try {
+                const res = await updatePage(pageData.id, formData);
 
+                console.log(res);
+                
+                if (res?.id) {
+                    setMessage({ 
+                        type: 'success', 
+                        text: 'Page edited successfully!' 
+                    });
+                    setTimeout(() => {
+                        handleClose();
+                    }, 1500); // Give user time to see success message
+                } else {
+                    setMessage({ 
+                        type: 'error', 
+                        text: 'Failed to edit page. Please try again.' 
+                    });
+                }
+            } catch (error) {
+                console.error('Error editing page:', error);
+                setMessage({ 
+                    type: 'error', 
+                    text: error.message || 'An error occurred while editing the page.' 
+                });
+            } 
+        }
+        
+        setIsSubmitting(false);
+    };
+    
     return (
        <div className="mt-4">
             <StyledForm onSubmit={handleSubmit}>
@@ -285,7 +319,11 @@ const AddPage = ({ setIsModalOpen }) => {
                     <StyledLabel htmlFor="body" className="block mb-2">
                         Page Content
                     </StyledLabel>
-                    <RichTextEditor name="body" setPageBodyField={setPageBodyField} />
+                    <RichTextEditor 
+                        name="body" 
+                        setPageBodyField={setPageBodyField} 
+                        initialContent={pageData?.body}
+                    />
                 </div>
 
                 <StyledSettingsSection>
@@ -433,7 +471,7 @@ const AddPage = ({ setIsModalOpen }) => {
                     className="mt-4 px-6 py-3 rounded font-medium"
                     disabled={isSubmitting}
                 >
-                    {isSubmitting ? 'Creating...' : 'Create Page'}
+                    {isSubmitting ? `${buttonText.active}...` : `${buttonText.default} Page`}
                 </StyledSubmitButton>
             </StyledForm>
         </div>

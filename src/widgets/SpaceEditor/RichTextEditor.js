@@ -17,26 +17,26 @@ const editorConfig = {
     onError
 }
 
-const RichTextEditor = ({ setPageBodyField }) => {
+const RichTextEditor = ({ setPageBodyField, initialContent }) => {
     
     function onChange(editorState) {
         setPageBodyField(editorState);
     }
 
     return (
-        <LexicalComposer initialConfig={editorConfig}>
-        <RichTextPlugin
-            contentEditable={
-            <ContentEditable
-                aria-placeholder={'Enter some text...'}
-                placeholder={<div>Enter some text...</div>}
+        <LexicalComposer initialConfig={{...editorConfig, editorState: JSON.stringify(initialContent)}}>
+            <RichTextPlugin
+                contentEditable={
+                <ContentEditable
+                    aria-placeholder={'Enter some text...'}
+                    placeholder={<div>Enter some text...</div>}
+                />
+                }
+                ErrorBoundary={LexicalErrorBoundary}
             />
-            }
-            ErrorBoundary={LexicalErrorBoundary}
-        />
-        <HistoryPlugin />
-        <AutoFocusPlugin />
-        <OnChangePlugin onChange={onChange} />
+            <HistoryPlugin />
+            <AutoFocusPlugin />
+            <OnChangePlugin onChange={onChange} />
         </LexicalComposer>
     )
 }

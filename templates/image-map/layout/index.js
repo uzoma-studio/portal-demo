@@ -38,7 +38,7 @@ const Index = ({ pages }) => {
         <>
             <Environment environment={environment} />
             <Header />
-            <BuildMode />
+            <BuildMode isCreatePageMode={true} />
             <StyledBackgroundContainer $settings={config}>
                 { backgroundImage && config.style.backgroundMode === 'image' ?
                     imageRenderMode === 'background' ? (

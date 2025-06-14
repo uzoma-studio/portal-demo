@@ -107,3 +107,18 @@ button.default-button:hover {
     font-size: 0.875rem;
   }
 }
+
+.text-button {
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    font-size: 0.875rem;
+    padding: 0.25rem 0.5rem;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+    text-decoration: underline;
+}
+
+.text-button:hover {
+    opacity: 0.8;
+}

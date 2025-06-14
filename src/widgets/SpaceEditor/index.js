@@ -19,17 +19,19 @@ const StyledModalContent = styled.div`
     background: white;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    ${props => props.$isCreatePageMode && `
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    `}; //In create page mode the modal should be centred on the screen
     border-radius: 0.5rem;
     padding: 1.25rem;
     min-width: 300px;
-    width: 60%;
-    height: 80vh;
+    width: ${props => !props.$isCreatePageMode ? '100%' : '60%'};
+    height: ${props => !props.$isCreatePageMode ? 'unset' : '80vh'};
     max-width: 800px;
     z-index: 51;
-    overflow-y: auto;
+    overflow-y: ${props => props.$isCreatePageMode && 'auto'};
     background-color: white;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
                 0 4px 6px -4px rgba(0, 0, 0, 0.1);
@@ -78,12 +80,13 @@ const StyledTabButton = styled.button`
     }
 `;
 
-const BuildMode = ({ theme }) => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+const BuildMode = ({ theme, modalOpenState, isCreatePageMode, setIsEditMode, pageData }) => {
+    const [isModalOpen, setIsModalOpen] = useState(modalOpenState);
     const [activeTab, setActiveTab] = useState('addPage');
 
     const handleClose = () => {
         setIsModalOpen(false)
+        !isCreatePageMode && setIsEditMode(false)
     }
 
     return (
@@ -96,6 +99,7 @@ const BuildMode = ({ theme }) => {
             :
             <StyledModalOverlay onClick={handleClose}>
                 <StyledModalContent 
+                    $isCreatePageMode={isCreatePageMode}
                     onClick={e => e.stopPropagation()}
                 >
                     <CloseButton closeFn={handleClose} position={{x: '95', y: '0'}} />
@@ -106,18 +110,21 @@ const BuildMode = ({ theme }) => {
                             className={`relative mr-4 py-2 px-4 bg-transparent border-none cursor-pointer ${activeTab === 'addPage' ? 'active' : ''}`}
                             $theme={theme}
                         >
-                            Add Page
+                            { isCreatePageMode ? 'Add Page' : 'Edit Page' }
                         </StyledTabButton>
-                        <StyledTabButton
-                            onClick={() => setActiveTab('editSpace')}
-                            className={`relative mr-4 py-2 px-4 bg-transparent border-none cursor-pointer ${activeTab === 'editSpace' ? 'active' : ''}`}
-                            $theme={theme}
-                        >
-                            Edit Space
-                        </StyledTabButton>
+                        {
+                            isCreatePageMode &&
+                                <StyledTabButton
+                                    onClick={() => setActiveTab('editSpace')}
+                                    className={`relative mr-4 py-2 px-4 bg-transparent border-none cursor-pointer ${activeTab === 'editSpace' ? 'active' : ''}`}
+                                    $theme={theme}
+                                >
+                                    Edit Space
+                                </StyledTabButton>
+                        }
                     </div>
 
-                    <AddPageModal setIsModalOpen={setIsModalOpen} />
+                    <AddPageModal setIsModalOpen={setIsModalOpen} isCreatePageMode={isCreatePageMode} pageData={pageData} setIsEditMode={setIsEditMode} />
                 </StyledModalContent>
             </StyledModalOverlay>
     );
