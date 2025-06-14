@@ -7,13 +7,13 @@ const payload = await getPayload({ config })
 
 // TODO:  Set authorisation so that only space owner can use these functions
 
-export const createPage = async (pageData) => {
+export const createEntry = async (pageType, data) => {
     try {
-        const page = await payload.create({
-            collection: 'pages', // required
-            data: pageData, 
+        const entry = await payload.create({
+            collection: pageType, // required
+            data, 
         }) 
-        return page
+        return entry
     } catch (error) {
         console.error('Error creating page:', error)
         return null

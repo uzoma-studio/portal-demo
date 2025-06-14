@@ -55,7 +55,7 @@ const RenderSinglePageContent = ({ children, pageData, setCurrentPage }) => {
           </>
         )}
         
-        { contentType && contentType !== 'page' && <ContentType pageData={pageData} setIsPageIndex={setIsPageIndex} />}
+        { contentType && contentType !== 'page' && <ContentType pageData={pageData} contentTypeId={pageData[contentType]?.id} setIsPageIndex={setIsPageIndex} />}
     </div>
   )
 }

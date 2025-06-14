@@ -9,6 +9,8 @@ import { StyledPage } from '../styles'
 const SinglePage = ({ pageData, pageConfig, pageDisplayStyle, showPage, setShowPage }) => {
     const pageRef = useRef(null)
 
+    // TODO: If this is a blog page (Updates), show description
+
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (pageRef.current && !pageRef.current.contains(event.target)) {

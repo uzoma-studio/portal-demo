@@ -21,7 +21,7 @@ import Shop from './Shop'
  * @returns {JSX.Element} The rendered content component based on the type prop
  */
 
-const ContentType = ({ pageData, setIsPageIndex }) => {
+const ContentType = ({ pageData, contentTypeId, setIsPageIndex }) => {
     const { space } = useSpace()
     const spaceId = space?.id
 
@@ -43,11 +43,11 @@ const ContentType = ({ pageData, setIsPageIndex }) => {
 
         switch (type) {
             case blog:
-                return getPostsByUpdate(pageData.updates[0].id)
+                return getPostsByUpdate(pageData?.updates[0]?.id || 0 ) //TODO: This is a workaround bc no update is likely to have an id of 0. Confirm this but also find a better way
             case files:
                 return getContent('files', spaceId)
             case chatbot:
-                return getContent('chatbot', spaceId)
+                return getContent('chatbot', contentTypeId)
             case chat:
                 return getContent('chat-messages', spaceId, 'date', 50)
             case product:

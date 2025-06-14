@@ -1,11 +1,16 @@
 import React, { useContext, useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { createPage, updatePage } from '../../../data/createContent.server'
+import { createEntry, updatePage } from '../../../data/createContent.server'
 import { useSpace } from '@/context/SpaceProvider';
 import { generateSlug } from '@/utils/helpers';
 import RichTextEditor from './RichTextEditor'
 import themeSettings from '../../../themeSettings.json';
 import { StyledMessage } from '@/styles/rootStyles';
+
+import CreateBlogSection from './components/CreateBlogSection';
+import CreateStaticPageSection from './components/CreateStaticPageSection'
+import CreateChatbotSection from './components/CreateChatbotSection'
+import defaultBotNodes from './components/defaultBotNodes.json';
 
 const StyledForm = styled.form`
     display: flex;
@@ -13,12 +18,12 @@ const StyledForm = styled.form`
     gap: 1rem;
 `;
 
-const StyledLabel = styled.label`
+export const StyledLabel = styled.label`
     color: var(--body-text-color);
     font-weight: 500;
 `;
 
-const StyledInput = styled.input`
+export const StyledInput = styled.input`
     padding: 0.5rem;
     border: 1px solid #ddd;
     border-radius: 0.25rem;
@@ -42,7 +47,7 @@ const StyledSelect = styled.select`
     }
 `;
 
-const StyledTextArea = styled.textarea`
+export const StyledTextArea = styled.textarea`
     padding: 0.5rem;
     border: 1px solid #ddd;
     border-radius: 0.25rem;
@@ -145,6 +150,7 @@ const AddPage = ({ setIsModalOpen, isCreatePageMode, pageData, setIsEditMode }) 
     const [pageBodyField, setPageBodyField] = useState(null)
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [message, setMessage] = useState({ type: '', text: '' })
+    const [contentType, setContentType] = useState(null)
 
     const buttonText = isCreatePageMode ? { default: 'Create', active: 'Creating'} : { default: 'Edit', active: 'Editing'}
 
@@ -153,6 +159,12 @@ const AddPage = ({ setIsModalOpen, isCreatePageMode, pageData, setIsEditMode }) 
         contentType: pageData?.contentType || '',
         body: pageData?.body || null,
         space,
+        update: pageData?.update || null,
+        blogTitle: pageData?.title || '',
+        blogDescription: pageData?.update?.description || '',
+        chatbot: pageData?.chatbot || null,
+        botNodes: pageData?.chatbot?.nodes || JSON.stringify(defaultBotNodes, null, 2),
+        // avatar: pageData?.chatbot?.avatar || null,
         themeConfig: {
             position: pageData?.themeConfig?.position || {
                 x: 50,
@@ -185,6 +197,7 @@ const AddPage = ({ setIsModalOpen, isCreatePageMode, pageData, setIsEditMode }) 
             ...prev,
             [name]: value
         }));
+        setContentType(value)
     };
 
     const handleThemeConfigChange = (section, field, value) => {
@@ -215,12 +228,40 @@ const AddPage = ({ setIsModalOpen, isCreatePageMode, pageData, setIsEditMode }) 
         if(isCreatePageMode){
             try {
                 const slug = generateSlug(formData.title);
-                const pageData = {
+                let pageData = {
                     ...formData,
                     slug
                 };
 
-                const res = await createPage(pageData);
+                // If content type is blog, create an update first
+                if (formData.contentType === 'blog') {
+                    const update = await createEntry('updates', {
+                        title: formData.title,
+                        description: formData.blogDescription,
+                    });
+
+                    if (!update) {
+                        throw new Error('Failed to create blog');
+                    }
+
+                    // Link the page to the update
+                    pageData.update = update.id;
+                } else if (formData.contentType === 'chatbot') {
+                    const chatbot = await createEntry('chatbot', {
+                        spaceId: String(formData.space.id),
+                        name: formData.title,
+                        nodes: formData.botNodes,
+                        // avatar: formData.avatar
+                    })
+
+                    if (!chatbot) {
+                        throw new Error('Failed to create chatbot');
+                    }
+
+                    pageData.chatbot = chatbot.id
+                }
+
+                const res = await createEntry('pages', pageData);
                 
                 if (res?.id) {
                     setMessage({ 
@@ -229,7 +270,7 @@ const AddPage = ({ setIsModalOpen, isCreatePageMode, pageData, setIsEditMode }) 
                     });
                     setTimeout(() => {
                         handleClose();
-                    }, 1500); // Give user time to see success message
+                    }, 1500);
                 } else {
                     setMessage({ 
                         type: 'error', 
@@ -260,7 +301,7 @@ const AddPage = ({ setIsModalOpen, isCreatePageMode, pageData, setIsEditMode }) 
                     });
                     setTimeout(() => {
                         handleClose();
-                    }, 1500); // Give user time to see success message
+                    }, 1500);
                 } else {
                     setMessage({ 
                         type: 'error', 
@@ -281,53 +322,64 @@ const AddPage = ({ setIsModalOpen, isCreatePageMode, pageData, setIsEditMode }) 
     
     return (
        <div className="mt-4">
-            <StyledForm onSubmit={handleSubmit}>
-                <div>
-                    <StyledLabel htmlFor="title" className="block mb-2">
-                        Page Title
-                    </StyledLabel>
-                    <StyledInput
-                        type="text"
-                        id="title"
-                        name="title"
-                        value={formData.title}
-                        onChange={handleInputChange}
-                        required
-                        className="w-full px-3 py-2 rounded"
-                    />
-                </div>
+            <StyledForm onSubmit={handleSubmit}>         
 
-                <div>
-                    <StyledLabel htmlFor="contentType" className="block mb-2">
-                        Content Type
-                    </StyledLabel>
-                    <StyledSelect
-                        id="contentType"
-                        name="contentType"
-                        value={formData.contentType}
-                        onChange={handleInputChange}
-                        className="w-full px-3 py-2 rounded"
-                    >
-                        <option value="">Select a content type</option>
-                        <option value="page">Page</option>
-                        <option value="blog">Blog</option>
-                        <option value="files">Files</option>
-                        <option value="chatbot">Chatbot</option>
-                        <option value="chat-messages">Chat</option>
-                        <option value="products">Shop</option>
-                    </StyledSelect>
-                </div>
+                { isCreatePageMode && (
+                    <div>
+                        <StyledLabel htmlFor="contentType" className="block mb-2">
+                            Content Type
+                        </StyledLabel>
+                        <StyledSelect
+                            id="contentType"
+                            name="contentType"
+                            value={formData.contentType}
+                            onChange={handleInputChange}
+                            className="w-full px-3 py-2 rounded"
+                        >
+                            <option value="">Select a content type</option>
+                            <option value="page">Page</option>
+                            <option value="blog">Blog</option>
+                            <option value="files">Files</option>
+                            <option value="chatbot">Chatbot</option>
+                            <option value="chat-messages">Chat</option>
+                            <option value="products">Shop</option>
+                        </StyledSelect>
+                    </div>
+                )}
 
-                <div>
-                    <StyledLabel htmlFor="body" className="block mb-2">
-                        Page Content
-                    </StyledLabel>
-                    <RichTextEditor 
-                        name="body" 
-                        setPageBodyField={setPageBodyField} 
-                        initialContent={pageData?.body}
+                { formData.contentType === 'blog' && (
+                    <CreateBlogSection
+                        formData={formData}
+                        onFormChange={handleInputChange}
                     />
-                </div>
+                )}
+
+                { formData.contentType === 'page' && (
+                    <>
+                        <CreateStaticPageSection
+                            formData={formData}
+                            onFormChange={handleInputChange}
+                        />
+
+                    <div>
+                        <StyledLabel htmlFor="body" className="block mb-2">
+                            Page Content
+                        </StyledLabel>
+                        <RichTextEditor 
+                            name="body" 
+                            setPageBodyField={setPageBodyField} 
+                            initialContent={pageData?.body}
+                        />
+                    </div>
+                    </>
+                )}
+
+                { formData.contentType === 'chatbot' && (
+                    <CreateChatbotSection
+                        formData={formData}
+                        onFormChange={handleInputChange}
+                    />
+                )}
 
                 <StyledSettingsSection>
                     <StyledLabel className="block mb-4">
@@ -364,8 +416,8 @@ const AddPage = ({ setIsModalOpen, isCreatePageMode, pageData, setIsEditMode }) 
                                     type="number"
                                     min="0"
                                     max="100"
-                                    value={formData.themeConfig.position.x}
-                                    onChange={(e) => handleThemeConfigChange('position', 'x', parseInt(e.target.value))}
+                                    value={formData.themeConfig.position.x || 0}
+                                    onChange={(e) => handleThemeConfigChange('position', 'x', parseInt(e.target.value) || 0)}
                                 />
                             </div>
                             <div>
@@ -376,8 +428,8 @@ const AddPage = ({ setIsModalOpen, isCreatePageMode, pageData, setIsEditMode }) 
                                     type="number"
                                     min="0"
                                     max="100"
-                                    value={formData.themeConfig.position.y}
-                                    onChange={(e) => handleThemeConfigChange('position', 'y', parseInt(e.target.value))}
+                                    value={formData.themeConfig.position.y || 0}
+                                    onChange={(e) => handleThemeConfigChange('position', 'y', parseInt(e.target.value) || 0)}
                                 />
                             </div>
                         </StyledSettingsGrid>
@@ -395,8 +447,8 @@ const AddPage = ({ setIsModalOpen, isCreatePageMode, pageData, setIsEditMode }) 
                                 <StyledNumberInput
                                     type="number"
                                     min="100"
-                                    value={formData.themeConfig.size.width}
-                                    onChange={(e) => handleThemeConfigChange('size', 'width', parseInt(e.target.value))}
+                                    value={formData.themeConfig.size.width || 600}
+                                    onChange={(e) => handleThemeConfigChange('size', 'width', parseInt(e.target.value) || 600)}
                                 />
                             </div>
                             <div>
@@ -406,8 +458,8 @@ const AddPage = ({ setIsModalOpen, isCreatePageMode, pageData, setIsEditMode }) 
                                 <StyledNumberInput
                                     type="number"
                                     min="100"
-                                    value={formData.themeConfig.size.height}
-                                    onChange={(e) => handleThemeConfigChange('size', 'height', parseInt(e.target.value))}
+                                    value={formData.themeConfig.size.height || 500}
+                                    onChange={(e) => handleThemeConfigChange('size', 'height', parseInt(e.target.value) || 500)}
                                 />
                             </div>
                         </StyledSettingsGrid>

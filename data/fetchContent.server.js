@@ -53,14 +53,14 @@ const fetchPages = async (spaceId) => {
     return result
 }
 
-const getContent = async (type, spaceId, sortFn='-createdAt', limit=10) => {
+const getContent = async (type, contentTypeId, sortFn='-createdAt', limit=10) => {
     const result = await payload.find({
         collection: type,
         sort: sortFn,
         limit,
         where: {
-            space: {
-                equals: spaceId
+            id: {
+                equals: contentTypeId
             }
         }
     })
