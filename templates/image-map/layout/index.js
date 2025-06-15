@@ -26,7 +26,7 @@ const Index = () => {
     const environment = config.style?.environment || 'park'
 
     const [currentPageId, setCurrentPageId] = useState(null)
-    const [isPositioning, setIsPositioning] = useState(true)
+    const [isPositioning, setIsPositioning] = useState(false)
     const [dragPosition, setDragPosition] = useState({ x: 0, y: 0 })
     const [draggedIconPageId, setDraggedIconPageId] = useState(null)
     const currentPage = pages.find(p => p.id === currentPageId)

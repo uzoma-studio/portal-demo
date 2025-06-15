@@ -71,6 +71,7 @@ const DragIconToPosition = ({
     };
 
     const handleSave = async () => {
+        // TODO Optimisation: If multiple icons are dragged and positioned at once then can we look into using an updateMany here instead
         // Update local state immediately
         setPages(prevPages => 
             prevPages.map(page => 
