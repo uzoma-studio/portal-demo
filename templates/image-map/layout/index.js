@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react'
 import Image from 'next/image'
 
-import { StyledBackgroundContainer, StyledDisplayModeLayout, StyledDisplayModeWrapper } from '../styles'
+import { StyledBackgroundContainer, StyledGrid, StyledDisplayModeWrapper } from '../styles'
 
 import RenderPages from '@/utils/renderPages';
 import SinglePage from './single'
@@ -26,15 +26,16 @@ const Index = () => {
     const environment = config.style?.environment || 'park'
 
     const [currentPageId, setCurrentPageId] = useState(null)
-    const [isPositioning, setIsPositioning] = useState(false)
+    const [isPositioning, setIsPositioning] = useState(true)
     const [dragPosition, setDragPosition] = useState({ x: 0, y: 0 })
+    const [draggedIconPageId, setDraggedIconPageId] = useState(null)
     const currentPage = pages.find(p => p.id === currentPageId)
 
     const getDisplayMode = (pageData) => {
         const displayModes = {
             icon: <Icon page={pageData} pageConfig={{
                 ...pageData.themeConfig,
-                position: isPositioning ? dragPosition : pageData.themeConfig.position
+                position: isPositioning && draggedIconPageId === pageData.id ? dragPosition : pageData.themeConfig.position
             }}/>
         }
 
@@ -83,16 +84,17 @@ const Index = () => {
                     config && pages.map((pageData) =>
                         <StyledDisplayModeWrapper 
                             key={pageData.id} 
-                            // onClick={() => {
-                            //     if (!isPositioning) {
-                            //         setCurrentPageId(pageData.id);
-                            //     }
-                            // }}
                             onClick={() => {
-                                setIsPositioning(true);
+                                if (!isPositioning) {
+                                    setCurrentPageId(pageData.id);
+                                } else {
+                                    setDraggedIconPageId(pageData.id)
+                                    setDragPosition(pageData.themeConfig.position || { x: 0, y: 0 });
+                                    setIsPositioning(true);
+                                }
                             }}
                         >
-                            { isPositioning ? 
+                            { isPositioning && draggedIconPageId === pageData.id ? 
                                 <DragIconToPosition
                                     containerRef={containerRef}
                                     showGrid={true}
@@ -100,6 +102,7 @@ const Index = () => {
                                     setIsPositioning={setIsPositioning}
                                     dragPosition={dragPosition}
                                     setDragPosition={setDragPosition}
+                                    setDraggedIconPageId={setDraggedIconPageId}
                                 >
                                     {getDisplayMode(pageData)}
                                 </DragIconToPosition>
@@ -121,6 +124,7 @@ const Index = () => {
                             />
                         </RenderPages>
                 }
+                {isPositioning && <StyledGrid />}
                 <Footer />
             </StyledBackgroundContainer>
         </>

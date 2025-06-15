@@ -67,7 +67,6 @@ const ContentType = ({ pageData, contentTypeId, setIsPageIndex }) => {
         const fetchData = async () => {
             const res = await fetchContentByType()
             const data = res.docs || []
-            console.log(res, data);
             
             try {
                 const passDataToTheRightComponent = () => {

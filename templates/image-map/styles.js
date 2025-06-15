@@ -185,3 +185,17 @@ export const StyledDisplayModeWrapper = styled.div`
     //     transform: translateY(-5px);
     // }
 `
+
+export const StyledGrid = styled.div`
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+    pointer-events: none;
+    z-index: 999;
+`;

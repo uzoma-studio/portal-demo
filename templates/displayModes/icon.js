@@ -45,10 +45,10 @@ const StyledIconText = styled.p`
     transition: color 0.2s ease;
 `
 
-const Icon = ({ page, pageConfig, position }) => {
+const Icon = ({ page, pageConfig }) => {    
     
   return (
-    <StyledIconWrapper $config={pageConfig} $position={position}>
+    <StyledIconWrapper $config={pageConfig}>
         <StyledIcon>
             <Image 
                 src={process.env.NODE_ENV === 'production' 
