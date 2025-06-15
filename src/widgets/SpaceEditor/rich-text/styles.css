@@ -43,6 +43,35 @@
     font-size: 24px;
     color: #333;
   }
+
+  h2 {
+    font-size: 20px;
+    color: #333;
+  }
+
+  h3 {
+    font-size: 18px;
+    color: #333;
+  }
+
+  h4 {
+    font-size: 16px;
+    color: #333;
+  }
+
+  h5 {
+    font-size: 14px;
+    color: #333;
+  }
+
+  h6 {
+    font-size: 12px;
+    color: #333;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    text-transform: none !important;
+  }
   
   .ltr {
     text-align: left;
@@ -259,12 +288,14 @@
     padding: 0;
     margin: 0;
     margin-left: 16px;
+    list-style-type: auto;
   }
   
   .editor-list-ul {
     padding: 0;
     margin: 0;
     margin-left: 16px;
+    list-style-type: disc;
   }
   
   .editor-listitem {

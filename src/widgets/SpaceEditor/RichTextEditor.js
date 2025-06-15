@@ -5,6 +5,7 @@ import { ContentEditable } from '@lexical/react/LexicalContentEditable'
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin'
 import { LexicalErrorBoundary } from '@lexical/react/LexicalErrorBoundary'
 import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin'
+import { ListPlugin } from '@lexical/react/LexicalListPlugin'
 
 import { HeadingNode, QuoteNode } from '@lexical/rich-text'
 import { ListItemNode, ListNode } from '@lexical/list'
@@ -81,6 +82,7 @@ const RichTextEditor = ({ setPageBodyField, initialContent }) => {
             </StyledEditorContainer>
             <HistoryPlugin />
             <AutoFocusPlugin />
+            <ListPlugin />
             <OnChangePlugin onChange={onChange} />
         </LexicalComposer>
     )
