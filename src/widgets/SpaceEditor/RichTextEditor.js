@@ -1,12 +1,34 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { LexicalComposer } from '@lexical/react/LexicalComposer'
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin'
 import { ContentEditable } from '@lexical/react/LexicalContentEditable'
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin'
-import {LexicalErrorBoundary} from '@lexical/react/LexicalErrorBoundary';
-import {AutoFocusPlugin} from '@lexical/react/LexicalAutoFocusPlugin';
+import { LexicalErrorBoundary } from '@lexical/react/LexicalErrorBoundary'
+import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin'
+
+import { HeadingNode, QuoteNode } from '@lexical/rich-text'
+import { ListItemNode, ListNode } from '@lexical/list'
+import { CodeNode } from '@lexical/code'
+import { LinkNode } from '@lexical/link'
+
 import OnChangePlugin from './components/LexicalOnChangePlugin'
-import styled from 'styled-components';
+import ToolbarPlugin from './rich-text/ToolbarPlugin'
+import theme from './rich-text/Theme'
+import './rich-text/styles.css'
+import styled from 'styled-components'
+
+const StyledEditorContainer = styled.div`
+    margin: 20px auto 20px auto;
+    border-radius: 2px;
+    max-width: 600px;
+    color: #000;
+    position: relative;
+    line-height: 20px;
+    font-weight: 400;
+    text-align: left;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+`;
 
 const StyledContentEditable = styled(ContentEditable)`
     min-height: 300px;
@@ -27,26 +49,36 @@ function onError(error) {
 
 const editorConfig = {
     namespace: 'PortalEditor',
-    theme: {},
-    onError
+    theme,
+    onError,
+    nodes: [
+        HeadingNode,
+        QuoteNode,
+        ListItemNode,
+        ListNode,
+        CodeNode,
+        LinkNode
+    ]
 }
 
 const RichTextEditor = ({ setPageBodyField, initialContent }) => {
-    
     function onChange(editorState) {
         setPageBodyField(editorState);
     }
 
     return (
         <LexicalComposer initialConfig={{...editorConfig, editorState: JSON.stringify(initialContent)}}>
-            <RichTextPlugin
-                contentEditable={
-                <StyledContentEditable
-                    aria-placeholder={'Enter some text...'}
+            <StyledEditorContainer>
+                <ToolbarPlugin />
+                <RichTextPlugin
+                    contentEditable={
+                    <StyledContentEditable
+                        aria-placeholder={'Enter some text...'}
+                    />
+                    }
+                    ErrorBoundary={LexicalErrorBoundary}
                 />
-                }
-                ErrorBoundary={LexicalErrorBoundary}
-            />
+            </StyledEditorContainer>
             <HistoryPlugin />
             <AutoFocusPlugin />
             <OnChangePlugin onChange={onChange} />
