@@ -6,6 +6,20 @@ import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin'
 import {LexicalErrorBoundary} from '@lexical/react/LexicalErrorBoundary';
 import {AutoFocusPlugin} from '@lexical/react/LexicalAutoFocusPlugin';
 import OnChangePlugin from './components/LexicalOnChangePlugin'
+import styled from 'styled-components';
+
+const StyledContentEditable = styled(ContentEditable)`
+    min-height: 300px;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 0.25rem;
+    font-family: var(--body-font);
+    
+    &:focus {
+        outline: none;
+        border-color: var(--primary-color);
+    }
+`;
 
 function onError(error) {
     console.error(error);
@@ -27,9 +41,8 @@ const RichTextEditor = ({ setPageBodyField, initialContent }) => {
         <LexicalComposer initialConfig={{...editorConfig, editorState: JSON.stringify(initialContent)}}>
             <RichTextPlugin
                 contentEditable={
-                <ContentEditable
+                <StyledContentEditable
                     aria-placeholder={'Enter some text...'}
-                    placeholder={<div>Enter some text...</div>}
                 />
                 }
                 ErrorBoundary={LexicalErrorBoundary}

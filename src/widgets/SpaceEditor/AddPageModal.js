@@ -319,7 +319,7 @@ const AddPage = ({ setIsModalOpen, isCreatePageMode, pageData, setIsEditMode }) 
         
         setIsSubmitting(false);
     };
-    
+
     return (
        <div className="mt-4">
             <StyledForm onSubmit={handleSubmit}>         
@@ -354,7 +354,7 @@ const AddPage = ({ setIsModalOpen, isCreatePageMode, pageData, setIsEditMode }) 
                     />
                 )}
 
-                { formData.contentType === 'page' || formData.contentType === 'chat-messages' && (
+                { (formData.contentType === 'page' || formData.contentType === 'chat-messages') &&
                     <>
                         <CreateStaticPageSection
                             formData={formData}
@@ -372,7 +372,7 @@ const AddPage = ({ setIsModalOpen, isCreatePageMode, pageData, setIsEditMode }) 
                         />
                     </div>
                     </>
-                )}
+                }
 
                 { formData.contentType === 'chatbot' && (
                     <CreateChatbotSection
